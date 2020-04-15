@@ -1,0 +1,40 @@
+.logo {
+  height: 60px;
+  width: 60px;
+  pointer-events: none;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.header {
+  background-color: rgba(255, 255, 255, 0.877);
+  font-size: calc(10px + 2vmin);
+  color: black;
+  border-bottom: 1px solid grey;
+}
+
+.header .title {
+    left: 45%;
+    position: absolute;
+    margin-top: 15px;
+    font-size: 32px;
+}
+
+strong {
+    position: relative;
+}
+
+#menu-toggle {
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+    top: 30px;
+    cursor: pointer;
+}
+
+.hamburger {
+    width: 40px;
+    background-color: #21a1af;
+    height: 4px;
+    margin-bottom: 6px;
+}
