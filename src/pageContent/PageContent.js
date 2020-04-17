@@ -1,33 +1,46 @@
 import React from 'react';
-import './PageContent.css'
+import './PageContent.css';
+import AppleBadge from '../App_Store_Badge.svg';
+import { Link } from 'react-router-dom';
 
 function PageContent() {
   return (
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#">Discover</a>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Research
+    <div className="pageContent container">
+        <div class="row">
+            <div className="col-4 text">
+                <h1>
+                    Meg: The Next Generation Weight Loss App Is Here
+                </h1>
+                <a className= "col-2" id="apple" href="apple.com">
+                    <img src={AppleBadge}/>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            </ul>
+            </div>
+            <div class="col-8">
+                <img id="ask" src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568420562/emokuhietha0cpmkpsb2.jpg"/>
+            </div>
         </div>
-    </nav>
+        <hr></hr>
+        <div class="gif row">
+            <div className="col-8">
+                <img src="https://crowdlly.com/video.gif"></img>
+            </div>
+            <div className="col-4 text">
+                <p>
+                    <strong>Meg Is A Next Generation Of Dietitian In Your Pocket.</strong><br/>
+                    A first-of-its-kind solution, Meg combines the latest proven science, 
+                    expert coaching and artificial intelligence to your make weight loss success achievable. 
+                    Meg is a next generation of dietitian. An expert in your pocket and fully voice-enabled. 
+                    Just talk to Meg, 24/7.
+                </p>
+            </div>
+        </div>
+        <hr></hr>
+        <div id="learn-more">
+            <Link to='/howitworks'>
+                <button className="btn btn-primary col-4">Learn More</button>
+            </Link>
+        </div>
+    </div>
   );
 }
 

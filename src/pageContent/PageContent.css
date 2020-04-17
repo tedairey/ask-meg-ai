@@ -1,3 +1,50 @@
-nav {
-    background-color: #efefef;
+.pageContent {
+    padding-top: 137px;
+    margin: 20px auto 0px auto;
+    color: white;
+}
+
+.text {
+    margin: auto;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 20px;
+}
+
+#ask {
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-top: 10px;
+}
+
+img {
+    width: inherit;
+}
+
+#apple {
+    position: absolute;
+    width: auto;
+    margin-top: 10px;
+}
+
+.gif {
+    margin: 20px auto 0px auto;
+}
+
+.gif img {
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+#learn-more {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 20px;
 }
