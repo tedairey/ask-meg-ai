@@ -2,3 +2,28 @@
     padding-top: 137px;
     color: white;
 }
+
+.FAQs-header {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.tab {
+    color: white;
+    font-size: 20px;
+}
+
+.tabset {
+    margin-bottom: 20px;
+    justify-content: center;
+    list-style: none;
+    display: flex;
+}
+
+.FAQ-nav {
+    background-color: rgb(70, 64, 64);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid white;
+    margin: 5px;
+}

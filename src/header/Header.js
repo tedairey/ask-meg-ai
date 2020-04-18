@@ -34,6 +34,11 @@ function Header() {
                 </Link>
                 </li>
                 <li class="nav-item">
+                <Link to='/about'>
+                    <a class="nav-link" href="#">About</a>
+                </Link>
+                </li>
+                <li class="nav-item">
                 <Link to ='/FAQ'>
                     <a class="nav-link" href="#">FAQs</a>
                 </Link>

@@ -16,13 +16,13 @@ function PageContent() {
                 </a>
             </div>
             <div class="col-8">
-                <img id="ask" src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568420562/emokuhietha0cpmkpsb2.jpg"/>
+                <img id="ask" src="https://crowdlly.com/video.gif"/>
             </div>
         </div>
         <hr></hr>
         <div class="gif row">
             <div className="col-8">
-                <img src="https://crowdlly.com/video.gif"></img>
+                <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568420562/emokuhietha0cpmkpsb2.jpg"></img>
             </div>
             <div className="col-4 text">
                 <p>
