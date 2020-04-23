@@ -54,6 +54,12 @@ function About() {
                 We believe programs should be affordable and not break the bank. That’s why we are offering 
                 Meg for the price of a cup of coffee each week.
             </p>
+            <div className="our-team">
+                <h1>
+                    Our Team
+                </h1>
+                <img id="our-team-photo" src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542503/dfvab3s9ujgwuknmarzv.png"/>
+            </div>
         </div>
     );
 }

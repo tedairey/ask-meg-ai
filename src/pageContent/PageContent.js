@@ -35,10 +35,15 @@ function PageContent() {
             </div>
         </div>
         <hr></hr>
-        <div id="learn-more">
-            <Link to='/howitworks'>
-                <button className="btn btn-primary col-4">Learn More</button>
-            </Link>
+        <div className="buttons">
+            <div id="learn-more" className="col-5">
+                <Link to='/how-it-works'>
+                    <button className="btn back">Learn More</button>
+                </Link>
+            </div>
+            <div id="get-the-app" className="col-5">
+                <button className="btn submit">Get The App</button>
+            </div>
         </div>
     </div>
   );

@@ -38,6 +38,12 @@ strong {
     cursor: pointer;
 }
 
+.log-in-menu {
+    position: absolute;
+    right: 65px;
+    top: 28px;
+}
+
 .hamburger {
     width: 40px;
     background-color: #21a1af;
@@ -45,8 +51,20 @@ strong {
     margin-bottom: 6px;
 }
 
-nav {
-    background-color: #eee;
-    font-size: 16px;
-    border-bottom: 1px solid grey;
+.modal-body {
+    text-align: center;
+    justify-content: center;
+}
+
+.modal-body input {
+    border: 0;
+    margin: 5px;
+    width: 200px;
+}
+
+.account-input {
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 3px;
 }

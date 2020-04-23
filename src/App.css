@@ -2,3 +2,7 @@ body {
     background-image: url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c4.jpg);
     background-attachment: fixed;
 }
+
+input:focus {
+    outline: none;
+}

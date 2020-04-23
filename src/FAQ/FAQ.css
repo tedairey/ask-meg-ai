@@ -13,6 +13,10 @@
     font-size: 20px;
 }
 
+.tab:hover{
+    color: white;
+}
+
 .tabset {
     margin-bottom: 20px;
     justify-content: center;

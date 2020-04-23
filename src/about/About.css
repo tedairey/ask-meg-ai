@@ -3,7 +3,25 @@
     padding-top: 137px;
 }
 
+.about p {
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgb(48, 45, 45);
+}
+
 .about-header {
     margin-top: 20px;
     text-align: center;
+}
+
+.our-team h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#our-team-photo {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }

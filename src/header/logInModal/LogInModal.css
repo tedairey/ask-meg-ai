@@ -1,0 +1,10 @@
+#log-in {
+    display: inline;
+    padding-left: 5px;
+    color: #21a1af;
+    font-weight: bold;
+}
+
+.modal-footer a {
+    margin-left: 5px;
+}
