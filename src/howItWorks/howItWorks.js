@@ -1,6 +1,7 @@
 import React from 'react';
 import './howItWorks.css';
 import { Link } from 'react-router-dom';
+import { scrollTop } from '../Helpers';
 
 function HowItWorks() {
     return (
@@ -57,7 +58,7 @@ function HowItWorks() {
             <div className="buttons">
                 <div id="learn-more" className="col-5">
                     <Link to='/FAQ/tips-and-hints'>
-                        <button className="btn back">FAQs</button>
+                        <button className="btn back" onClick={scrollTop}>FAQs</button>
                     </Link>
                 </div>
                 <div id="get-the-app" className="col-5">

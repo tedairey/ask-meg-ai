@@ -2,6 +2,7 @@ import React from 'react';
 import './PageContent.css';
 import AppleBadge from '../App_Store_Badge.svg';
 import { Link } from 'react-router-dom';
+import { scrollTop } from '../Helpers';
 
 function PageContent() {
   return (
@@ -38,7 +39,7 @@ function PageContent() {
         <div className="buttons">
             <div id="learn-more" className="col-5">
                 <Link to='/how-it-works'>
-                    <button className="btn back">Learn More</button>
+                    <button className="btn back" onClick={scrollTop}>Learn More</button>
                 </Link>
             </div>
             <div id="get-the-app" className="col-5">

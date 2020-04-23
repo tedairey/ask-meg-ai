@@ -1,29 +1,30 @@
 import React from 'react';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
+import { scrollTop } from '../../Helpers';
 
 function Navbar() {
   return (
     <div>
         <nav class="navbar navbar-expand-lg navbar-light">
             <Link to='/'>
-                <a class="navbar-brand" href="#">Home</a>
+                <a class="navbar-brand" href="#" onClick={scrollTop}>Home</a>
             </Link>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                 <Link to='/how-it-works'>
-                    <a class="nav-link" href="#">How It Works</a>
+                    <a class="nav-link" href="#" onClick={scrollTop}>How It Works</a>
                 </Link>
                 </li>
                 <li class="nav-item">
                 <Link to='/about'>
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="#" onClick={scrollTop}>About</a>
                 </Link>
                 </li>
                 <li class="nav-item">
                 <Link to ='/FAQ/tips-and-hints'>
-                    <a class="nav-link" href="#">FAQs</a>
+                    <a class="nav-link" href="#" onClick={scrollTop}>FAQs</a>
                 </Link>
                 </li>
                 <li class="nav-item dropdown">

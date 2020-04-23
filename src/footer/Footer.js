@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
+import { scrollTop } from '../Helpers.js';
 
 function Footer() {
   return (
@@ -8,18 +10,20 @@ function Footer() {
         <nav>
             <div className="menu-footer-menu-container">
                 <ul id="menu-footer-menu" className="menu">
-                    <li id="menu-item-48" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-48">
-                        <a href="https://askmeg.ai/?page_id=5">About Us</a>
+                    <li>
+                        <Link to="/about">
+                            <a href="#" onClick={scrollTop}>About Us</a>
+                        </Link>
                     </li>
-                    <li id="menu-item-51" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-51">
+                    <li>
                         <a href="https://askmeg.ai/?page_id=7">Copyright Statement</a>
                     </li>
-                    <li id="menu-item-49" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-49">
+                    <li>
                         <a href="https://askmeg.ai/?page_id=9">Disclaimer</a>
                     </li>
-                    <li id="menu-item-50" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-50">
+                    <li>
                         <a href="https://askmeg.ai/?page_id=3">Privacy Policy</a></li>
-                    <li id="menu-item-65" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-65">
+                    <li>
                         <a href="https://askmeg.ai/?page_id=63">Terms of Service</a>
                     </li>
                 </ul>

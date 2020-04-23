@@ -4,3 +4,10 @@
     color: #21a1af;
     font-weight: bold;
 }
+
+.error-msg {
+    display: none;
+    font-size: 12px;
+    color: red;
+    font-weight: 500;
+}

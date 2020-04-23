@@ -11,13 +11,28 @@ class LogInModal extends Component {
         }
     }
 
+    validateLogin = () => {
+        const email=this.refs.email.value;
+        if (!email) {
+            this.refs.mismatcherr.style.display = 'block';
+            this.refs.emailbox.style.borderColor = 'red';
+            this.refs.passwordbox.style.borderColor = 'red';
+        }
+        else {
+            return true;
+        }
+    }
+
+    clearErrors = () => {
+        this.refs.mismatcherr.style.display = 'none';
+        this.refs.emailbox.style.borderColor = 'grey';
+        this.refs.passwordbox.style.borderColor = 'grey';
+    }
+
     handleLogin = (event) => {
         const email = this.refs.email.value,
             password = this.refs.password.value;
-        if (!email || !password) {
-            alert("please enter all fields");
-        }
-        else {
+        if(this.validateLogin()) {
             this.props.closeLogin();
             alert("logged in");
         }
@@ -35,12 +50,16 @@ class LogInModal extends Component {
                     <Modal.Title>Log In</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <span className='account-input'>
-                            <input ref='email' placeholder="Email"/>
+                        <span className='error-msg' ref='mismatcherr'>
+                            Username or Password is not correct
+                        </span>
+                        <span ref='emailbox' className='account-input'>
+                            <input ref='email' placeholder="Email" onFocus={this.clearErrors}/>
                         </span>
                         <br/>
-                        <span className='account-input'>
-                            <input ref='password' placeholder="Password" type="password"/>
+                        <span ref='passwordbox' className='account-input'>
+                            <input ref='password' placeholder="Password" type="password" 
+                                onFocus={this.clearErrors}/>
                         </span>
                     </Modal.Body>
                     <Modal.Footer>
