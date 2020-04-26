@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './LogInModal.css';
@@ -7,35 +7,46 @@ class LogInModal extends Component {
     constructor(props){
         super(props) 
         this.state = {
-
+            email: "",
+            password: ""
         }
     }
 
+    onEmailChange = (event) => {
+        this.setState({email: event.target.value})
+    }
+
+    onPasswordChange = (event) => {
+        this.setState({password: event.target.value})
+    }
+
     validateLogin = () => {
-        const email=this.refs.email.value;
-        if (!email) {
-            this.refs.mismatcherr.style.display = 'block';
-            this.refs.emailbox.style.borderColor = 'red';
-            this.refs.passwordbox.style.borderColor = 'red';
-        }
-        else {
-            return true;
-        }
+        fetch("http://localhost:8088/" + this.state.email)
+            .then(res => res.json())
+            .then(user => {
+                if (!user || !this.state.email || user.password != this.state.password) {
+                    this.refs.mismatcherr.style.display = 'block';
+                    this.refs.emailbox.style.borderColor = 'red';
+                    this.refs.passwordbox.style.borderColor = 'red';
+                    return false;
+                }
+                else {
+                    this.props.closeLogin();
+                    this.props.setLogin(user.username);
+                }
+            })
+            .catch(err => {
+                this.refs.mismatcherr.style.display = 'block';
+                this.refs.emailbox.style.borderColor = 'red';
+                this.refs.passwordbox.style.borderColor = 'red';
+                return false;
+            });
     }
 
     clearErrors = () => {
         this.refs.mismatcherr.style.display = 'none';
         this.refs.emailbox.style.borderColor = 'grey';
         this.refs.passwordbox.style.borderColor = 'grey';
-    }
-
-    handleLogin = (event) => {
-        const email = this.refs.email.value,
-            password = this.refs.password.value;
-        if(this.validateLogin()) {
-            this.props.closeLogin();
-            alert("logged in");
-        }
     }
 
     render() {
@@ -54,12 +65,13 @@ class LogInModal extends Component {
                             Username or Password is not correct
                         </span>
                         <span ref='emailbox' className='account-input'>
-                            <input ref='email' placeholder="Email" onFocus={this.clearErrors}/>
+                            <input value={this.state.email} placeholder="Email" onChange={this.onEmailChange}
+                                onFocus={this.clearErrors}/>
                         </span>
                         <br/>
                         <span ref='passwordbox' className='account-input'>
-                            <input ref='password' placeholder="Password" type="password" 
-                                onFocus={this.clearErrors}/>
+                            <input value={this.state.password} placeholder="Password" type="password" 
+                                onChange={this.onPasswordChange} onFocus={this.clearErrors}/>
                         </span>
                     </Modal.Body>
                     <Modal.Footer>
@@ -68,7 +80,7 @@ class LogInModal extends Component {
                         Register
                     </a>
                     <br/>
-                    <Button variant="primary" onClick={this.handleLogin}>
+                    <Button variant="primary" onClick={this.validateLogin}>
                         Log In
                     </Button>
                     </Modal.Footer>

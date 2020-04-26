@@ -15,3 +15,8 @@
     padding: 3px;
     margin: 3px;
 }
+
+.greeting {
+    font-weight: 500;
+    color: #21a1af;
+}

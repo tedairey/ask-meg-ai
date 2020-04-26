@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import './AccountModals.css';
 import LogInModal from './logInModal/LogInModal.js';
 import RegisterModal from './registerModal/RegisterModal.js';
@@ -8,7 +8,8 @@ class AccountModals extends Component {
         super(props) 
         this.state = {
             loginModal: false,
-            registerModal: false
+            registerModal: false,
+            loggedIn: false
         }
 
         this.showLogin=this.showLogin.bind(this);
@@ -38,24 +39,39 @@ class AccountModals extends Component {
     closeRegister(event) {
         this.setState({registerModal: false});
     }
+    
+    setLogin = (username) => {
+        this.setState({loggedIn: true, username: username});
+    }
 
     render() {
-        return (
-            <span className="account-modals">
-                <RegisterModal
-                    registerModal={this.state.registerModal}
-                    showRegister={this.showRegister}
-                    closeRegister={this.closeRegister}
-                />
-                |
-                <LogInModal
-                    loginModal={this.state.loginModal}
-                    showLogin={this.showLogin}
-                    closeLogin={this.closeLogin}
-                    handleRegister={this.handleRegister}
-                />
-            </span>
-        );
+        if (this.state.loggedIn) {
+            return (
+                <span className='greeting'>
+                    Hello, {this.state.username}
+                </span>
+            )
+        }
+        else {
+            return (
+                <span className="account-modals">
+                    <RegisterModal
+                        registerModal={this.state.registerModal}
+                        showRegister={this.showRegister}
+                        closeRegister={this.closeRegister}
+                        setLogin={this.setLogin}
+                    />
+                    |
+                    <LogInModal
+                        loginModal={this.state.loginModal}
+                        showLogin={this.showLogin}
+                        handleRegister={this.handleRegister}
+                        closeLogin={this.closeLogin}
+                        setLogin={this.setLogin}
+                    />
+                </span>
+            );
+        }
     }
 
 }

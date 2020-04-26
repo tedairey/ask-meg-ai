@@ -19,7 +19,7 @@ class Header extends Component {
                 <a href="https://askmeg.ai">
                     <img src={logo} className="logo" alt="logo" />
                 </a>
-                <strong>
+                <strong id="website-title">
                     askmeg.ai
                 </strong>
                 <span className="title">
@@ -28,10 +28,10 @@ class Header extends Component {
                 <span className='log-in-menu'>
                     <AccountModals />
                 </span>
-                <div class="menu-toggle" id="menu-toggle" role="button" tabindex="0">
-                    <div class="hamburger"></div>
-                    <div class="hamburger"></div>
-                    <div class="hamburger"></div>
+                <div className="menu-toggle" id="menu-toggle" role="button" tabindex="0">
+                    <div className="hamburger"></div>
+                    <div className="hamburger"></div>
+                    <div className="hamburger"></div>
                 </div>
             </div>
             <Navbar />

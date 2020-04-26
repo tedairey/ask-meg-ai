@@ -20,7 +20,7 @@ function FAQ() {
                     </p>
                 </div>
                 <ul className="tabset">
-                    <li class="FAQ-nav">
+                    <li className="FAQ-nav">
                         <Link to='/FAQ/tips-and-hints'>
                             <a className="tab" href="#" aria-controls="tips-and-hints">
                                 Tips and Hints
