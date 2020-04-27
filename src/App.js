@@ -7,19 +7,23 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import HowItWorks from './howItWorks/howItWorks.js';
 import About from './about/About.js';
 import Footer from './footer/Footer.js';
+import BlogPosts from './blogPosts/BlogPosts.js';
 
 function App() {
   return (
     <div className="page">
       <Router>
       <Header/>
-        <Switch>
-          <Route path="/" exact component={PageContent}/>
-          <Route path="/FAQ" component={FAQ}/>
-          <Route path="/how-it-works" component={HowItWorks}/>
-          <Route path="/about" component={About}/>
-        </Switch>
-        <Footer/>
+        <div className='page-content'>
+          <Switch>
+            <Route path="/" exact component={PageContent}/>
+            <Route path="/FAQ" component={FAQ}/>
+            <Route path="/how-it-works" component={HowItWorks}/>
+            <Route path="/about" component={About}/>
+            <Route path="/blog-posts" component={BlogPosts}/>
+          </Switch>
+          <Footer/>
+        </div>
       </Router>
     </div>
   );

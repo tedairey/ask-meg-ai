@@ -42,6 +42,7 @@ class AccountModals extends Component {
     
     setLogin = (username) => {
         this.setState({loggedIn: true, username: username});
+        this.props.setLogin(username);
     }
 
     render() {

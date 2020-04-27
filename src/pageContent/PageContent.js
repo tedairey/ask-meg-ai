@@ -12,7 +12,7 @@ function PageContent() {
                 <h1>
                     Meg: The Next Generation Weight Loss App Is Here
                 </h1>
-                <a className= "col-2" id="apple" href="apple.com">
+                <a className= "col-2" id="apple" href="https://www.apple.com/ios/app-store/">
                     <img src={AppleBadge}/>
                 </a>
             </div>
@@ -43,7 +43,7 @@ function PageContent() {
                 </Link>
             </div>
             <div id="get-the-app" className="col-5">
-                <button className="btn submit">Get The App</button>
+                <button className="btn submit" formAction="https://www.apple.com/ios/app-store/">Get The App</button>
             </div>
         </div>
     </div>

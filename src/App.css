@@ -3,6 +3,10 @@ body {
     background-attachment: fixed;
 }
 
+.page-content {
+    padding-top: 137px;
+}
+
 input:focus {
     outline: none;
 }

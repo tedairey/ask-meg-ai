@@ -1,0 +1,29 @@
+.post {
+    list-style: none;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.post-date {
+    float: right;
+}
+
+.box {
+    background: rgba(13, 161, 175, 0.3);
+    padding: 10px 15px 5px 15px;
+    z-index: -1;
+}
+
+.box p {
+    color: white;
+}
+
+.comment-icon {
+    height: 28px;
+    width: 28px;
+    margin-right: 5px;
+}
+
+.post-footer a {
+    color: white;
+}

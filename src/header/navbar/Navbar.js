@@ -32,10 +32,16 @@ function Navbar() {
                         Blog Posts
                     </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a className="dropdown-item" href="#">Meg</a>
-                        <a className="dropdown-item" href="#">Another action</a>
+                        <Link to ='/blog-posts/all'>
+                            <a className="dropdown-item" href="#">All Posts</a>
+                        </Link>
+                        <Link to ='/blog-posts/my'>
+                            <a className="dropdown-item" href="#">My Posts</a>
+                        </Link>
                     <div className="dropdown-divider"></div>
-                        <a className="dropdown-item" href="#">Something else here</a>
+                        <Link to ='/blog-posts/new'>
+                            <a className="dropdown-item" href="#">New Blog Post</a>
+                        </Link>
                     </div>
                 </li>
                 </ul>
