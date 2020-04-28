@@ -7,6 +7,6 @@ body {
     padding-top: 137px;
 }
 
-input:focus {
+input:focus, textarea:focus {
     outline: none;
 }

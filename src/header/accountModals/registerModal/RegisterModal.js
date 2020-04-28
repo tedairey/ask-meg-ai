@@ -2,127 +2,135 @@ import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './RegisterModal.css';
+import RegisterField from './registerField/RegisterField';
 
 class RegisterModal extends Component {
     constructor(props){
         super(props) 
         this.state = {
-            email: "",
-            username: "",
-            password: "",
-            confirm: ""
+            
+        }
+        this.profile = {};
+    }
+
+    validateField = (field, err, box) => {
+        if (!field) {
+            err.style.display = 'block';
+            box.style.borderColor = 'red';
+            return false;
+        }
+        return true;
+    }
+
+    validateFirstName = (name, err, box) => {
+        if (this.validateField(name, err, box)) {
+            this.profile.firstname = name;
         }
     }
 
-    clearEmailErr = () => {
-        this.refs.emailerr.style.display = 'none';
-        this.refs.emailbox.style.borderColor = 'grey';
+    validateLastName = (name, err, box) => {
+        if (this.validateField(name, err, box)) {
+            this.profile.lastname = name;
+        }
     }
 
-    clearUsernameErr = () => {
-        this.refs.usernameerr.style.display = 'none';
-        this.refs.usernamebox.style.borderColor = 'grey';
-    }
-
-    clearPasswordErr = () => {
-        this.refs.passworderr.style.display = 'none';
-        this.refs.passwordbox.style.borderColor = 'grey';
-        this.refs.confirmbox.style.borderColor = 'grey';
-    }
-
-    onEmailChange = (event) => {
-        this.setState({email: event.target.value})
-    }
-
-    onUsernameChange = (event) => {
-        this.setState({username: event.target.value})
-    }
-
-    onPasswordChange = (event) => {
-        this.setState({password: event.target.value})
-    }
-
-    onConfirmChange = (event) => {
-        this.setState({confirm: event.target.value})
-    }
-
-    validateEmail = (event) => {
-        if (!this.state.email) {
-            this.refs.emailerr.style.display = 'block';
-            this.refs.emailbox.style.borderColor = 'red';
+    validateEmail = (email, err, box) => {
+        if (!this.validateField(email, err, box)) {
+            this.setState({emailerr: 'Email is a required field'});
         }
         else {
-            fetch("http://localhost:8088/email/" + this.state.email)
+            fetch("http://localhost:8088/email/" + email)
             .then(res => res.json())
             .then(user => {
                 if (user) {
-                    this.refs.emailerr.style.display = 'block';
-                    this.refs.emailbox.style.borderColor = 'red';
+                    this.setState({emailerr: 'Email must be unique'})
+                    err.style.display = 'block';
+                    box.style.borderColor = 'red';
                     return false;
                 }
                 else {
-                    //ADD USER;
+                    this.profile.email = email;
                 }
             })
             .catch(err => {
-                this.refs.emailerr.style.display = 'block';
-                this.refs.emailbox.style.borderColor = 'purple';
+                err.style.display = 'block';
+                box.style.borderColor = 'purple';
                 return false;
             });
         }
         return true;
     }
 
-    validateUsername = (event) => {
-        if (!this.state.username) {
-            this.refs.usernameerr.style.display = 'block';
-            this.refs.usernamebox.style.borderColor = 'red';
+    validateUsername = (username, err, box) => {
+        if (!this.validateField(username, err, box)) {
+            this.setState({usernameerr: 'Username is a required field'});
         }
         else {
-            fetch("http://localhost:8088/user/" + this.state.username)
+            fetch("http://localhost:8088/user/" + username)
             .then(res => res.json())
             .then(user => {
                 if (user) {
-                    this.refs.usernameerr.style.display = 'block';
-                    this.refs.usernamebox.style.borderColor = 'red';
+                    this.setState({usernameerr: 'Username must be unique'});
+                    err.style.display = 'block';
+                    box.style.borderColor = 'red';
                     return false;
                 }
                 else {
-                    //ADD USER;
+                    this.profile.username = username;
                 }
             })
             .catch(err => {
-                this.refs.usernameerr.style.display = 'block';
-                this.refs.usernamebox.style.borderColor = 'green';
+                err.style.display = 'block';
+                box.style.borderColor = 'green';
                 return false;
             });
         }
         return true;
     }
 
-    validatePasswords = () => {
-        const password=this.state.password,
-            confirm=this.state.confirm;
+    validatePassword = (password, err, box) => {
+        if (!this.validateField(password, err, box)) {
+            this.setState({passworderr: 'Password is a required field'});
+        }
+        else {
+            this.setState({passwordref: err, passwordbox: box});
+            this.profile.password = password;
+        }
+    }
+
+    confirmPasswords = (confirm, err, box) => {
+        const password=this.profile.password,
+            passwordref=this.state.passwordref,
+            passwordbox=this.state.passwordbox;
 
         if (!password) {
-            this.refs.passworderr.style.display = 'block';
-            this.refs.passwordbox.style.borderColor = 'red';
+            this.setState({passworderr: 'Password is a required field'})
+            passwordref.style.display = 'block';
+            passwordbox.style.borderColor = 'red';
         }
         if (!password || password !== confirm) {
-            this.refs.passworderr.style.display = 'block';
-            this.refs.passwordbox.style.borderColor = 'red';
-            this.refs.confirmbox.style.borderColor = 'red';
+            this.setState({passworderr: 'Passwords do not match'})
+            passwordref.style.display = 'block';
+            passwordbox.style.borderColor = 'red';
+            box.style.borderColor = 'red';
         }
         else {
             return true;
         }
     }
 
+    isEnabled = () => {
+        return Object.keys(this.profile).length === 5 ? true : false
+    }
+
     handleCreate = () => {
+        if (this.isEnabled()) {
             const newUser = {
-                email: this.state.email,
-                username: this.state.username,
-                password: this.state.password,
+                email: this.profile.email,
+                username: this.profile.username,
+                firstName: this.profile.firstname,
+                lastName: this.profile.lastname,
+                password: this.profile.password,
                 isAdmin: false
             }
             const requestOptions = {
@@ -133,11 +141,12 @@ class RegisterModal extends Component {
             fetch('http://localhost:8088/newUser', requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                    this.setState({ postId: data.id });
+                    console.log(this.profile);
                     this.props.closeRegister();
-                    this.props.setLogin(this.state.username);
+                    this.props.setLogin(newUser);
                 })
                 .catch(console.log('error'));
+        }
     }
 
     render() {
@@ -152,35 +161,30 @@ class RegisterModal extends Component {
                     <Modal.Title>Create an Account</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <span className='error-msg' ref='emailerr'>
-                            Email must be unique
-                        </span>
-                        <span ref='emailbox' className='account-input'>
-                            <input value={this.state.email} placeholder="Email" onBlur={this.validateEmail} 
-                                onChange={this.onEmailChange} onFocus={this.clearEmailErr} />
-                        </span>
-                        <br/>
-                        <span className='error-msg' ref='usernameerr'>
-                            Username must be unique
-                        </span>
-                        <span ref='usernamebox' className='account-input'>
-                            <input value={this.state.username} placeholder="Username" onBlur={this.validateUsername} 
-                                onChange={this.onUsernameChange} onFocus={this.clearUsernameErr} />
-                        </span>
-                        <br/>
-                        <span className='error-msg' ref='passworderr'>
-                            Passwords must match
-                        </span>
-                        <span ref='passwordbox' className='account-input'>
-                            <input value={this.state.password} placeholder="Password" type="password"
-                                onChange={this.onPasswordChange} onFocus={this.clearPasswordErr}/>
-                        </span>
-                        <br/>
-                        <span ref='confirmbox' className='account-input'>
-                            <input value={this.state.confirm} placeholder="Confirm Password" type="password" 
-                                onChange={this.onConfirmChange} onFocus={this.clearPasswordErr} 
-                                onBlur={this.validatePasswords}/>
-                        </span>
+                        <RegisterField
+                            placeholder="Email" errormsg={this.state.emailerr}
+                            validateField={this.validateEmail}
+                        />
+                        <RegisterField
+                            placeholder="First Name" errormsg="First Name is required"
+                            validateField={this.validateFirstName}
+                        />
+                        <RegisterField
+                            placeholder="Last Name" errormsg="Last Name is required"
+                            validateField={this.validateLastName}
+                        />
+                        <RegisterField
+                            placeholder="Username" errormsg={this.state.usernameerr}
+                            validateField={this.validateUsername}
+                        />
+                        <RegisterField
+                            placeholder="Password" errormsg={this.state.passworderr}
+                            validateField={this.validatePassword} isPassword='password'
+                        />
+                        <RegisterField
+                            placeholder="Confirm Password" errormsg=""
+                            validateField={this.confirmPasswords} isPassword='password'
+                        />
                     </Modal.Body>
                     <Modal.Footer>
                     <Button variant="secondary" onClick={this.props.closeRegister}>

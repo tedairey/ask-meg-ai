@@ -7,21 +7,24 @@ class MyPosts extends Component {
     constructor(props){
         super(props) 
         this.state = {
-          username: 'tairey'
+          
         }
     }
 
     componentDidMount () {
-      fetch('http://localhost:8088/posts/' + this.state.username)
+      this.setState({loggedIn: this.props.loggedIn});
+      this.setState({username: this.props.username});
+      fetch('http://localhost:8088/posts/' + this.props.username)
         .then(res => res.json())
         .then(res => {
           const posts = [];
-          if (res.length == 0) {
+          if (res.length === 0) {
             posts.push(<h4 className='blog-posts-header'>No User Posts</h4>);
           }
           else {
-            for (const post of res) {
-              posts.push(<ul className='posts-list'><Post post={post}/></ul>);
+            for (const [index, post] of res.entries()) {
+              post.username = '';
+              posts.push(<li key={index}><Post post={post}/></li>);
             }
           }
           this.setState({posts: posts});
@@ -29,18 +32,28 @@ class MyPosts extends Component {
         .catch(err => {
           console.log(err);
         });
+      
     }
 
     render(){
-      return (
-        <div className="my-posts container">
-          <h1 className="blog-posts-header">
-            Your Posts
-          </h1>
-          <div>
-            {this.state.posts}
+      if (this.state.loggedIn) {
+        return (
+          <div className="my-posts container">
+            <h1 className="blog-posts-header">
+              Your Posts
+            </h1>
+            <ul className='posts-list'>
+              {this.state.posts}
+            </ul>
+            <NewPost loggedIn={this.props.loggedIn} name={this.props.name} username={this.props.username}/>
           </div>
-          <NewPost/>
+        );
+      }
+      return (
+        <div className='my-posts container'>
+          <h1 className='blog-posts-header'>
+            You are not logged in
+          </h1>
         </div>
       );
     }

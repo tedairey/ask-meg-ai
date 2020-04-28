@@ -1,3 +1,35 @@
+.new-post-container {
+    border: 1px solid black;
+    border-radius: 7px;
+    background: rgba(13, 167, 175, 0.3);
+    margin-top: 20px;
+    padding: 30px 30px;
+}
+
 .new-post input {
     margin: 20px;
+}
+
+.new-post textarea {
+    padding: 3px 5px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.blog-title {
+    padding: 3px 5px;
+    font-size: 20px;
+    width: 80%;
+    resize: none;
+    height: 38px;
+    margin-bottom: 20px;
+}
+
+.blog-body {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.submit-post {
+    width: 250px;
 }

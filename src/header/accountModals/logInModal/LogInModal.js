@@ -32,7 +32,7 @@ class LogInModal extends Component {
                 }
                 else {
                     this.props.closeLogin();
-                    this.props.setLogin(user.username);
+                    this.props.setLogin(user);
                 }
             })
             .catch(err => {

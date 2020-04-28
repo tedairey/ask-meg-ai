@@ -8,13 +8,8 @@ class Header extends Component {
     constructor(props){
         super(props) 
         this.state = {
-            username: "",
-            loggedIn: false
+            username: ""
         }
-    }
-
-    setLogin = (username) => {
-        this.setState({username: username, loggedIn: true});
     }
 
     render(){
@@ -31,8 +26,7 @@ class Header extends Component {
                     Team Meg
                 </span>
                 <span className='log-in-menu'>
-                    <AccountModals 
-                    setLogin={this.setLogin}/>
+                    <AccountModals/>
                 </span>
                 <div className="menu-toggle" id="menu-toggle" role="button" tabindex="0">
                     <div className="hamburger"></div>

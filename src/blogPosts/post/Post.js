@@ -13,7 +13,7 @@ class Post extends Component {
     componentDidMount () {
         this.formatDate(this.props.post.submitted);
     }
-
+    
     formatDate = (submitted) => {
         let year = submitted.substring(2,4),
             month = submitted.substring(5,7),
@@ -30,20 +30,21 @@ class Post extends Component {
     render(){
         const post = this.props.post;
         return (
-            <li className="post">
-                <div className='box'>
+            <div className='post box'>
+                <div className='post-header'>
                     <h4><strong>{post.title}</strong></h4>
-                    <br/>
-                    <p>
-                        {post.body}
-                    </p>
-                    <br/>
-                    <div className='post-footer'>
-                        <a href='#'><img className='comment-icon' src={commenticon}/>Comments</a>
-                        <span className='post-date'>{this.state.date}</span>
-                    </div>
+                    <span className='author'>{post.name}</span>
                 </div>
-            </li>
+                <br/>
+                <p>
+                    {post.body}
+                </p>
+                <br/>
+                <div className='post-footer'>
+                    <a href='#'><img className='comment-icon' src={commenticon}/>Comments</a>
+                    <span className='post-date'>{this.state.date}</span>
+                </div>
+            </div>
         );
       }
   }

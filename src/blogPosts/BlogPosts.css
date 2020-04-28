@@ -6,3 +6,9 @@
     text-align: center;
     margin: 20px 0px;
 }
+
+.posts-list {
+    list-style: none;
+    margin: 20px;
+    padding-inline-start: 0px;
+}

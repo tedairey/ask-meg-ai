@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './NewPost.css';
+import { useHistory } from 'react-router-dom';
 
 class NewPost extends Component {
     constructor(props){
@@ -9,9 +10,19 @@ class NewPost extends Component {
         }
     }
 
+    goToMyPosts = () => {
+        const history = useHistory();
+        history.push('/blog-posts/my');
+    }
+
+    componentDidMount () {
+        this.setState({loggedIn: this.props.loggedIn});
+    }
+
     submitPost = () => {
         const newPost = {
-            username: 'tairey',
+            username: this.props.username,
+            name: this.props.name,
             title: this.state.title,
             body: this.state.body
         }
@@ -22,7 +33,7 @@ class NewPost extends Component {
         };
         fetch('http://localhost:8088/newPost', requestOptions)
             .then(res => {
-                console.log(res);
+                this.goToMyPosts();
             })
             .catch(err => {
                 console.log(err);
@@ -38,17 +49,35 @@ class NewPost extends Component {
     }
 
     render(){
-        return (
-            <div className='new-post container'>
-                <h4 className="blog-posts-header">
-                    New Post
-                </h4>
-                <input value={this.state.title} onChange={this.onTitleChange} placeholder="Title"/>
-                <input value={this.state.body} onChange={this.onBodyChange} placeholder="Begin typing here"/>
-                <button class="btn submit" onClick={this.submitPost}>Submit</button>
-                <br/>
-            </div>
-        );
+        if (this.state.loggedIn) {
+            return (
+                <div className='new-post container'>
+                    <h4 className="blog-posts-header">
+                        New Post
+                    </h4>
+                    <div className='new-post-container'>
+                        <span className='title-box'>
+                            <textarea className='blog-title' value={this.state.title} onChange={this.onTitleChange} 
+                                placeholder="Title"/>
+                        </span>
+                        <span className='body-box'>
+                            <textarea className='blog-body' rows='7' value={this.state.body} onChange={this.onBodyChange} 
+                                placeholder="Begin typing here"/>
+                        </span>
+                        <button className="btn submit submit-post" onClick={this.submitPost}>Submit</button>
+                        <br/>
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div className='my-posts container'>
+                    <h1 className='blog-posts-header'>
+                        You are not logged in
+                    </h1>
+                </div>
+            );
+        }
       }
   }
   

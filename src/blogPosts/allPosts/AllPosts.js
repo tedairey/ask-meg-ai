@@ -6,7 +6,7 @@ class AllPosts extends Component {
     constructor(props){
       super(props) 
       this.state = {
-        username: 'pairey'
+        
       }
 
     }
@@ -16,9 +16,13 @@ class AllPosts extends Component {
         .then(res => res.json())
         .then(res => {
           const posts = [];
-          console.log(res);
-          for (const post of res) {
-            posts.push(<ul className='posts-list'><Post post={post}/></ul>);
+          if (res.length == 0) {
+            posts.push(<h4 className='blog-posts-header'>No Recent Posts</h4>);
+          }
+          else {
+            for (const [index, post] of res.entries()) {
+              posts.push(<li key={index}><Post post={post}/></li>);
+            }
           }
           this.setState({posts: posts});
         })
@@ -33,7 +37,9 @@ class AllPosts extends Component {
           <h1 className="blog-posts-header">
             Recent Posts
           </h1>
-          {this.state.posts}
+          <ul className='posts-list'>
+            {this.state.posts}
+          </ul>
         </div>
       );
     }

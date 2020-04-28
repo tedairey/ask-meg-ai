@@ -11,45 +11,50 @@ class AccountModals extends Component {
             registerModal: false,
             loggedIn: false
         }
-
-        this.showLogin=this.showLogin.bind(this);
-        this.showRegister=this.showRegister.bind(this);
-        this.closeLogin=this.closeLogin.bind(this);
-        this.closeRegister=this.closeRegister.bind(this);
-        this.handleRegister=this.handleRegister.bind(this);
     }
 
-    showLogin(event) {
+    componentWillMount () {
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        if (user) {
+            this.setState({loggedIn: true});
+            this.setState({username: user.username});
+            this.setState({firstname: user.firstName});
+            this.setState({name: user.firstName + " " + user.lastName});
+        }
+    }
+
+    showLogin = (event) => {
         this.setState({loginModal: true});
     }
 
-    showRegister(event) {
+    showRegister = (event) => {
         this.setState({registerModal: true});
     }
 
-    handleRegister(event) {
+    handleRegister = (event) => {
         this.setState({loginModal: false});
         this.setState({registerModal: true});
     }
 
-    closeLogin(event) {
+    closeLogin = (event) => {
         this.setState({loginModal: false});
     }
 
-    closeRegister(event) {
+    closeRegister = (event) => {
         this.setState({registerModal: false});
     }
     
-    setLogin = (username) => {
-        this.setState({loggedIn: true, username: username});
-        this.props.setLogin(username);
+    setLogin = (user) => {
+        console.log(user);
+        this.setState({loggedIn: true, firstname: user.firstName});
+        sessionStorage.setItem('user', JSON.stringify(user));
     }
 
     render() {
         if (this.state.loggedIn) {
             return (
                 <span className='greeting'>
-                    Hello, {this.state.username}
+                    Hello, {this.state.firstname}
                 </span>
             )
         }

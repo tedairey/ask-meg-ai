@@ -13,16 +13,32 @@ class BlogPosts extends Component {
         }
     }
 
+    componentWillMount() {
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      if (user) {
+          this.setState({loggedIn: true});
+          this.setState({username: user.username});
+          this.setState({name: user.firstName + " " + user.lastName});
+      }
+    }
+
     render(){
       return (
         <div className="blog-posts">
-            <Router>
-                <Switch>
-                    <Route path="/blog-posts/all" component={AllPosts}/>
-                    <Route path="/blog-posts/my" component={MyPosts}/>
-                    <Route path="/blog-posts/new" component={NewPost}/>
-                </Switch>
-            </Router>
+            <Switch>
+                <Route path="/blog-posts/all" 
+                  render={(props) => <AllPosts {...props} loggedIn={this.state.loggedIn}
+                          name={this.state.name} username={this.state.username}/> }
+                />
+                <Route path="/blog-posts/my" 
+                  render={(props) => <MyPosts {...props} loggedIn={this.state.loggedIn}
+                          name={this.state.name} username={this.state.username}/> }
+                />
+                <Route path="/blog-posts/new" 
+                  render={(props) => <NewPost {...props} loggedIn={this.state.loggedIn}
+                          name={this.state.name} username={this.state.username}/> }
+                />
+            </Switch>
         </div>
       );
     }

@@ -1,17 +1,13 @@
 .post {
-    list-style: none;
-    border: 1px solid black;
-    border-radius: 5px;
-}
-
-.post-date {
-    float: right;
+    margin-bottom: 1rem;
 }
 
 .box {
     background: rgba(13, 161, 175, 0.3);
     padding: 10px 15px 5px 15px;
     z-index: -1;
+    border: 1px solid black;
+    border-radius: 7px;
 }
 
 .box p {
@@ -24,6 +20,19 @@
     margin-right: 5px;
 }
 
+.post-date {
+    float: right;
+}
+
 .post-footer a {
     color: white;
+}
+
+.post h4 {
+    display: inline;
+}
+
+.author {
+    float: right;
+    font-style: italic;
 }
