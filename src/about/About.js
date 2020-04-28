@@ -7,7 +7,7 @@ function About() {
             <div className='about-header'>
                 <h1>Team Meg</h1>
             </div>
-            <h3>About Us</h3>
+            <h3 className='about-us'>About Us</h3>
             <br/>
             <p>
                 Want to learn about us and Meg? You’ve come to the right place. 

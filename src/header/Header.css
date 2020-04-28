@@ -10,49 +10,67 @@
 }
 
 .logo {
-  height: 60px;
-  width: 60px;
-  pointer-events: none;
-  margin: 10px;
-  cursor: pointer;
+    height: 60px;
+    width: 60px;
+    pointer-events: none;
+    margin: 10px;
+    cursor: pointer;
 }
 
 .banner {
-  background-color: white;
-  color: black;
-  border-bottom: 1px solid grey;
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid grey;
 }
 
 .banner .title {
-    left: 45%;
-    position: absolute;
-    margin-top: 15px;
     font-size: 32px;
     color: #21a1af;
     font-weight: 500;
+    text-align: center;
+    margin: auto;
 }
 
-strong {
+.banner strong {
     position: relative;
 }
 
 #menu-toggle {
-    display: inline-block;
-    position: absolute;
-    right: 15px;
-    top: 30px;
+    float: right;
+    margin-right: 10px;
     cursor: pointer;
 }
 
 .log-in-menu {
-    position: absolute;
-    right: 65px;
-    top: 28px;
+    margin: auto;
+    text-align: right;
+}
+
+.accounts {
+    position: relative;
+    margin-right: 10px;
+    font-size: 20px;
 }
 
 .hamburger {
     width: 40px;
     background-color: #21a1af;
     height: 4px;
-    margin-bottom: 6px;
+    margin: 5px 0px;
+}
+
+@media screen and (max-width: 992px) {
+    .hamburger {
+        width: 4px;
+        border-radius: 50%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .title {
+        display: none;
+    }
+    .log-in-menu {
+        margin: auto 0px auto auto;
+    }
 }

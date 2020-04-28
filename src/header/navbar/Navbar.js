@@ -6,7 +6,7 @@ import { scrollTop } from '../../Helpers';
 function Navbar() {
   return (
     <div>
-        <nav className="navbar navbar-expand-lg navbar-light">
+        <nav className="navbar navbar-expand navbar-light justify-content-between">
             <Link to='/'>
                 <a className="navbar-brand" href="#" onClick={scrollTop}>Home</a>
             </Link>
@@ -15,11 +15,6 @@ function Navbar() {
                 <li className="nav-item">
                 <Link to='/how-it-works'>
                     <a className="nav-link" href="#" onClick={scrollTop}>How It Works</a>
-                </Link>
-                </li>
-                <li className="nav-item">
-                <Link to='/about'>
-                    <a className="nav-link" href="#" onClick={scrollTop}>About</a>
                 </Link>
                 </li>
                 <li className="nav-item">
@@ -33,19 +28,19 @@ function Navbar() {
                     </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <Link to ='/blog-posts/all'>
-                            <a className="dropdown-item" href="#">All Posts</a>
+                            <a className="dropdown-item" href="#" onClick={scrollTop}>All Posts</a>
                         </Link>
                         <Link to ='/blog-posts/my'>
-                            <a className="dropdown-item" href="#">My Posts</a>
+                            <a className="dropdown-item" href="#" onClick={scrollTop}>My Posts</a>
                         </Link>
                     <div className="dropdown-divider"></div>
                         <Link to ='/blog-posts/new'>
-                            <a className="dropdown-item" href="#">New Blog Post</a>
+                            <a className="dropdown-item" href="#" onClick={scrollTop}>New Blog Post</a>
                         </Link>
                     </div>
                 </li>
                 </ul>
-                <form className="form-inline">
+                <form className="form-inline search">
                     <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>

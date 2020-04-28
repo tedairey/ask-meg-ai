@@ -52,9 +52,9 @@ class NewPost extends Component {
         if (this.state.loggedIn) {
             return (
                 <div className='new-post container'>
-                    <h4 className="blog-posts-header">
+                    <h2 className="blog-posts-header">
                         New Post
-                    </h4>
+                    </h2>
                     <div className='new-post-container'>
                         <span className='title-box'>
                             <textarea className='blog-title' value={this.state.title} onChange={this.onTitleChange} 

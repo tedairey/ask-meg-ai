@@ -68,3 +68,15 @@ img {
     color: grey;
     border: 1px solid grey;
 }
+
+@media screen and (max-width: 767px) {
+    .text h1 {
+        text-align: center;
+    }
+    p {
+        margin-top: 10px;
+    }
+    .buttons {
+        display: block;
+    }
+}

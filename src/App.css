@@ -10,3 +10,7 @@ body {
 input:focus, textarea:focus {
     outline: none;
 }
+
+ul {
+    padding-left: 0px;
+}

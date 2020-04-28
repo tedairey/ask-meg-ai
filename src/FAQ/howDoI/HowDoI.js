@@ -32,7 +32,7 @@ function HowDoI() {
             <div className="question">
                 <h4>Cancel my subscription</h4>
                 <p>Please email
-                    <a href="mailto:subscriptions@askmeg.ai" class="email"> subscriptions@askmeg.ai</a>
+                    <a href="mailto:subscriptions@askmeg.ai" className="email"> subscriptions@askmeg.ai</a>
                 </p>
             </div>
             <div className="question">
@@ -55,7 +55,7 @@ function HowDoI() {
                 <h4>Complain</h4>
                 <p>
                     Have a complaint? Contact us at 
-                    <a href="mailto:support@askmeg.ai" class="email">support@askmeg.ai</a> 
+                    <a href="mailto:support@askmeg.ai" className="email">support@askmeg.ai</a> 
                     We’ll do whatever we can to make it right,
                 </p>
             </div>

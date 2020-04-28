@@ -30,3 +30,12 @@
     border: 1px solid white;
     margin: 5px;
 }
+
+@media screen and (max-width: 768px) {
+    .FAQ-nav {
+        display: inline-block;
+    }
+    .tabset {
+        display: block;
+    }
+}

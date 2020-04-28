@@ -8,7 +8,7 @@ function PageContent() {
   return (
     <div className="pageContent container">
         <div className="row">
-            <div className="col-4 text">
+            <div className="col-md-4 text">
                 <h1>
                     Meg: The Next Generation Weight Loss App Is Here
                 </h1>
@@ -16,16 +16,16 @@ function PageContent() {
                     <img src={AppleBadge}/>
                 </a>
             </div>
-            <div className="col-8">
+            <div className="col-md-8">
                 <img id="ask" src="https://crowdlly.com/video.gif"/>
             </div>
         </div>
         <hr></hr>
         <div className="gif row">
-            <div className="col-8">
+            <div className="col-md-8">
                 <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568420562/emokuhietha0cpmkpsb2.jpg"></img>
             </div>
-            <div className="col-4 text">
+            <div className="col-md-4 text">
                 <p>
                     <strong>Meg Is A Next Generation Of Dietitian In Your Pocket.</strong><br/>
                     A first-of-its-kind solution, Meg combines the latest proven science, 
@@ -37,12 +37,12 @@ function PageContent() {
         </div>
         <hr></hr>
         <div className="buttons">
-            <div id="learn-more" className="col-5">
+            <div id="learn-more">
                 <Link to='/how-it-works'>
                     <button className="btn back" onClick={scrollTop}>Learn More</button>
                 </Link>
             </div>
-            <div id="get-the-app" className="col-5">
+            <div id="get-the-app">
                 <button className="btn submit" formAction="https://www.apple.com/ios/app-store/">Get The App</button>
             </div>
         </div>

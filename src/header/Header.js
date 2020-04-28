@@ -15,23 +15,31 @@ class Header extends Component {
     render(){
       return (
         <div className="header sticky">
-            <div className="banner">
-                <a href="https://askmeg.ai">
-                    <img src={logo} className="logo" alt="logo" />
-                </a>
-                <strong id="website-title">
-                    askmeg.ai
-                </strong>
-                <span className="title">
-                    Team Meg
-                </span>
-                <span className='log-in-menu'>
-                    <AccountModals/>
-                </span>
-                <div className="menu-toggle" id="menu-toggle" role="button" tabindex="0">
-                    <div className="hamburger"></div>
-                    <div className="hamburger"></div>
-                    <div className="hamburger"></div>
+            <div className='banner row'>
+                <div className='col-auto col-md-4'>
+                    <a href="https://askmeg.ai">
+                        <img src={logo} className="logo" alt="logo" />
+                    </a>
+                    <strong id="website-title">
+                        askmeg.ai
+                    </strong>
+                </div>
+                <div className='title col-md-4'>
+                    <span className="title-text">
+                        Team Meg
+                    </span>
+                </div>
+                <div className='log-in-menu col-auto col-md-4'>
+                    <div className='log-in-menu-toggle'>
+                        <span className='accounts'>
+                            <AccountModals/>
+                        </span>
+                        <div className="menu-toggle" id="menu-toggle" role="button" tabindex="0">
+                            <div className="hamburger"></div>
+                            <div className="hamburger"></div>
+                            <div className="hamburger"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <Navbar />
