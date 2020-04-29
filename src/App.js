@@ -8,6 +8,7 @@ import HowItWorks from './howItWorks/howItWorks.js';
 import About from './about/About.js';
 import Footer from './footer/Footer.js';
 import BlogPosts from './blogPosts/BlogPosts.js';
+import MediaQuery from 'react-responsive';
 
 function App() {
   return (
@@ -22,7 +23,9 @@ function App() {
             <Route path="/about" component={About}/>
             <Route path="/blog-posts" component={BlogPosts}/>
           </Switch>
-          <Footer/>
+          <MediaQuery minWidth={768}>
+            <Footer/>
+          </MediaQuery>
         </div>
       </Router>
     </div>

@@ -1,0 +1,12 @@
+.mobile-header {
+    background-color: #fff;
+    border-bottom: 1px solid grey;
+}
+
+.mobile-logo {
+    margin: auto;
+}
+
+.mobile-login {
+    margin: auto 10px auto 10px;
+}

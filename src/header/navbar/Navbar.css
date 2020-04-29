@@ -5,15 +5,9 @@
 }
 
 .navbar-light .navbar-brand, .navbar-light .navbar-nav .nav-link {
-    color: #21a1af;
+    color: #21a1af!important;
 }
 
 .search {
     float: right;
-}
-
-@media screen and (max-width: 768px) {
-    .search {
-        display: none;
-    }
 }

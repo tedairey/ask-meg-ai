@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './RegisterModal.css';
 import RegisterField from './registerField/RegisterField';
+import MediaQuery from 'react-responsive';
 
 class RegisterModal extends Component {
     constructor(props){
@@ -152,9 +153,11 @@ class RegisterModal extends Component {
     render() {
         return (
             <span id="register-modal">
-                <a id="register" href="#" onClick={this.props.showRegister}>
-                    Register
-                </a>
+                <MediaQuery minWidth={768}>
+                    <a id="register" href="#" onClick={this.props.showRegister}>
+                        Register
+                    </a>
+                </MediaQuery>
 
                 <Modal show={this.props.registerModal} onHide={this.props.closeRegister}>
                     <Modal.Header closeButton>
@@ -190,7 +193,7 @@ class RegisterModal extends Component {
                     <Button variant="secondary" onClick={this.props.closeRegister}>
                         Close
                     </Button>
-                    <Button ref='create' variant="primary" onClick={this.handleCreate}>
+                    <Button variant="primary" onClick={this.handleCreate}>
                         Create an Account
                     </Button>
                     </Modal.Footer>

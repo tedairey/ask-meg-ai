@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react';
 import './AccountModals.css';
 import LogInModal from './logInModal/LogInModal.js';
 import RegisterModal from './registerModal/RegisterModal.js';
+import MediaQuery from 'react-responsive';
 
 class AccountModals extends Component {
     constructor(props){
@@ -23,24 +24,24 @@ class AccountModals extends Component {
         }
     }
 
-    showLogin = (event) => {
+    showLogin = () => {
         this.setState({loginModal: true});
     }
 
-    showRegister = (event) => {
+    showRegister = () => {
         this.setState({registerModal: true});
     }
 
-    handleRegister = (event) => {
+    handleRegister = () => {
         this.setState({loginModal: false});
         this.setState({registerModal: true});
     }
 
-    closeLogin = (event) => {
+    closeLogin = () => {
         this.setState({loginModal: false});
     }
 
-    closeRegister = (event) => {
+    closeRegister = () => {
         this.setState({registerModal: false});
     }
     
@@ -67,7 +68,9 @@ class AccountModals extends Component {
                         closeRegister={this.closeRegister}
                         setLogin={this.setLogin}
                     />
-                    |
+                    <MediaQuery minWidth={768}>
+                        |
+                    </MediaQuery>
                     <LogInModal
                         loginModal={this.state.loginModal}
                         showLogin={this.showLogin}

@@ -10,7 +10,7 @@ function HowItWorks() {
                 <h1 className ="how-it-works-header col-md-5">
                     Get Meg. Eat Delicious Food. Lose Weight. Every Week.
                 </h1>
-                <iframe className="col-md-7" src="https://player.vimeo.com/video/357418464?transparent=0&amp;app_id=122963" width="695" height="460" id="meg-campaign-video" data-ready="true" tabindex="-1"></iframe>
+                <iframe className="col-md-7" src="https://player.vimeo.com/video/357418464?transparent=0&amp;app_id=122963" width="695" height="460" id="meg-campaign-video" data-ready="true" tabIndex="-1"></iframe>
             </div>
             <hr/>
             <div className="row section">

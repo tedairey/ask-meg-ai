@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './LogInModal.css';
@@ -10,6 +10,9 @@ class LogInModal extends Component {
             email: "",
             password: ""
         }
+        this.errormsg = React.createRef();
+        this.emailbox = React.createRef();
+        this.passwordbox = React.createRef();
     }
 
     onEmailChange = (event) => {
@@ -25,9 +28,9 @@ class LogInModal extends Component {
             .then(res => res.json())
             .then(user => {
                 if (!user || !this.state.email || user.password != this.state.password) {
-                    this.refs.mismatcherr.style.display = 'block';
-                    this.refs.emailbox.style.borderColor = 'red';
-                    this.refs.passwordbox.style.borderColor = 'red';
+                    this.errormsg.current.style.display = 'block';
+                    this.emailbox.current.style.borderColor = 'red';
+                    this.passwordbox.current.style.borderColor = 'red';
                     return false;
                 }
                 else {
@@ -36,17 +39,17 @@ class LogInModal extends Component {
                 }
             })
             .catch(err => {
-                this.refs.mismatcherr.style.display = 'block';
-                this.refs.emailbox.style.borderColor = 'red';
-                this.refs.passwordbox.style.borderColor = 'red';
+                this.errormsg.current.style.display = 'block';
+                this.emailbox.current.style.borderColor = 'red';
+                this.passwordbox.current.style.borderColor = 'red';
                 return false;
             });
     }
 
     clearErrors = () => {
-        this.refs.mismatcherr.style.display = 'none';
-        this.refs.emailbox.style.borderColor = 'grey';
-        this.refs.passwordbox.style.borderColor = 'grey';
+        this.errormsg.current.style.display = 'none';
+        this.emailbox.current.style.borderColor = 'grey';
+        this.passwordbox.current.style.borderColor = 'grey';
     }
 
     render() {
@@ -61,15 +64,15 @@ class LogInModal extends Component {
                     <Modal.Title>Log In</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <span className='error-msg' ref='mismatcherr'>
+                        <span className='error-msg' ref={this.errormsg}>
                             Username or Password is not correct
                         </span>
-                        <span ref='emailbox' className='account-input'>
+                        <span ref={this.emailbox} className='account-input'>
                             <input value={this.state.email} placeholder="Email" onChange={this.onEmailChange}
                                 onFocus={this.clearErrors}/>
                         </span>
                         <br/>
-                        <span ref='passwordbox' className='account-input'>
+                        <span ref={this.passwordbox} className='account-input'>
                             <input value={this.state.password} placeholder="Password" type="password" 
                                 onChange={this.onPasswordChange} onFocus={this.clearErrors}/>
                         </span>

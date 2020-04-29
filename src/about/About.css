@@ -22,6 +22,7 @@
 @media screen and (max-width: 768px) {
     #our-team-photo {
         max-width: 85%;
+        margin-bottom: 30px;
     }
     .about-us {
         text-align: center;

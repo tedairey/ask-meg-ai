@@ -7,6 +7,8 @@ class RegisterField extends Component {
         this.state = {
             
         }
+        this.err = React.createRef();
+        this.fieldbox = React.createRef();
     }
 
     onFieldChange = (event) => {
@@ -14,28 +16,28 @@ class RegisterField extends Component {
     }
 
     clearFieldErr = () => {
-        this.refs.err.style.display = 'none';
-        this.refs.fieldbox.style.borderColor = 'grey';
+        this.err.current.style.display = 'none';
+        this.fieldbox.current.style.borderColor = 'grey';
     }
 
     validateField = () => {
-        this.props.validateField(this.state.field, this.refs.err, this.refs.fieldbox);
+        this.props.validateField(this.state.field, this.err.current, this.fieldbox.current);
     }
 
     showFieldErr = () => {
         if (!this.state.field) {
-            this.refs.err.style.display = 'block';
-            this.refs.fieldbox.style.borderColor = 'red';
+            this.err.current.style.display = 'block';
+            this.fieldbox.current.style.borderColor = 'red';
         }
     }
 
     render(){
         return (
             <span className='register-field'>
-                <span className='error-msg' ref='err'>
+                <span className='error-msg' ref={this.err}>
                     {this.props.errormsg}
                 </span>
-                <span ref='fieldbox' className='account-input'>
+                <span ref={this.fieldbox} className='account-input'>
                     <input value={this.state.field} placeholder={this.props.placeholder} 
                         onBlur={this.validateField} onChange={this.onFieldChange} 
                         onFocus={this.clearFieldErr} type={this.props.isPassword}/>

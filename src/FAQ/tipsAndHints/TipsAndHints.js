@@ -3,7 +3,7 @@ import './TipsAndHints.css';
 
 function TipsAndHints() {
     return (
-        <div id="tips-and-hints" className="container">
+        <div id="tips-and-hints">
             <div id="successful-logging">
                 <h4>Successful logging</h4>
                 <p>

@@ -58,19 +58,3 @@
     height: 4px;
     margin: 5px 0px;
 }
-
-@media screen and (max-width: 992px) {
-    .hamburger {
-        width: 4px;
-        border-radius: 50%;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .title {
-        display: none;
-    }
-    .log-in-menu {
-        margin: auto 0px auto auto;
-    }
-}

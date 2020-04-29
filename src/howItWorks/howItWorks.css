@@ -2,10 +2,6 @@
     color: white;
 }
 
-iframe {
-    width: fit-content;
-}
-
 #meg-campaign-video {
     border: none;
     height: 400px;
@@ -30,5 +26,8 @@ iframe {
     .how-it-works-header {
         margin-bottom: 20px;
         text-align: center;
+    }
+    #meg-campaign-video {
+        height: 300px;
     }
 }

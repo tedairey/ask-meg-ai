@@ -33,3 +33,9 @@
 .submit-post {
     width: 250px;
 }
+
+@media screen and (max-width: 768px) {
+    .submit-post {
+        width: 80%;
+    }
+}
