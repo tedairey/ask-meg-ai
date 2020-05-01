@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './header/Header.js';
-import PageContent from './pageContent/PageContent.js';
+import HomePage from './homePage/homePage.js';
 import FAQ from './FAQ/FAQ.js';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -17,7 +17,7 @@ function App() {
       <Header/>
         <div className='page-content'>
           <Switch>
-            <Route path="/" exact component={PageContent}/>
+            <Route path="/" exact component={HomePage}/>
             <Route path="/FAQ" component={FAQ}/>
             <Route path="/how-it-works" component={HowItWorks}/>
             <Route path="/about" component={About}/>

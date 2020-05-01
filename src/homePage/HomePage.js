@@ -1,12 +1,12 @@
 import React from 'react';
-import './PageContent.css';
+import './HomePage.css';
 import AppleBadge from '../App_Store_Badge.svg';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../Helpers';
 
-function PageContent() {
+function HomePage() {
   return (
-    <div className="pageContent container">
+    <div className="home-page container">
         <div className="row">
             <div className="col-md-4 text">
                 <h1>
@@ -50,4 +50,4 @@ function PageContent() {
   );
 }
 
-export default PageContent;
+export default HomePage;
