@@ -99,10 +99,17 @@ class RegisterModal extends Component {
         }
     }
 
-    confirmPasswords = (confirm, err, box) => {
+    validateConfirm = (confirm, err, box) => {
+        this.setState({confirmbox: box});
+        this.profile.confirm = confirm;
+    }
+
+    confirmPasswords = () => {
         const password=this.profile.password,
+            confirm=this.profile.confirm,
             passwordref=this.state.passwordref,
-            passwordbox=this.state.passwordbox;
+            passwordbox=this.state.passwordbox,
+            confirmbox=this.state.confirmbox;
 
         if (!password) {
             this.setState({passworderr: 'Password is a required field'})
@@ -113,7 +120,7 @@ class RegisterModal extends Component {
             this.setState({passworderr: 'Passwords do not match'})
             passwordref.style.display = 'block';
             passwordbox.style.borderColor = 'red';
-            box.style.borderColor = 'red';
+            confirmbox.style.borderColor = 'red';
         }
         else {
             return true;
@@ -121,11 +128,11 @@ class RegisterModal extends Component {
     }
 
     isEnabled = () => {
-        return Object.keys(this.profile).length === 5 ? true : false
+        return Object.keys(this.profile).length === 6 ? true : false
     }
 
     handleCreate = () => {
-        if (this.isEnabled()) {
+        if (this.isEnabled() && this.confirmPasswords()) {
             const newUser = {
                 email: this.profile.email,
                 username: this.profile.username,
@@ -186,7 +193,7 @@ class RegisterModal extends Component {
                         />
                         <RegisterField
                             placeholder="Confirm Password" errormsg=""
-                            validateField={this.confirmPasswords} isPassword='password'
+                            validateField={this.validateConfirm} isPassword='password'
                         />
                     </Modal.Body>
                     <Modal.Footer>

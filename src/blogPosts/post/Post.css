@@ -36,3 +36,13 @@
     float: right;
     font-style: italic;
 }
+
+.post hr {
+    margin: 10px -15px 0px;
+    background: black;
+    height: 1px;
+}
+
+.comment-section {
+    margin-bottom: 20px;
+}

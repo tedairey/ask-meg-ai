@@ -12,15 +12,15 @@ class AccountModals extends Component {
             registerModal: false,
             loggedIn: false
         }
+        this.initialState = this.state;
     }
 
     componentWillMount () {
         const user = JSON.parse(sessionStorage.getItem('user'));
         if (user) {
             this.setState({loggedIn: true});
-            this.setState({username: user.username});
-            this.setState({firstname: user.firstName});
-            this.setState({name: user.firstName + " " + user.lastName});
+            this.setState({firstName: user.firstName});
+            this.setState({greeting: 'Hello, ' + user.firstName});
         }
     }
 
@@ -46,16 +46,34 @@ class AccountModals extends Component {
     }
     
     setLogin = (user) => {
-        console.log(user);
-        this.setState({loggedIn: true, firstname: user.firstName});
+        this.setState({loggedIn: true, firstName: user.firstName});
+        this.setState({greeting: 'Hello, ' + this.state.firstName});
         sessionStorage.setItem('user', JSON.stringify(user));
+    }
+
+    showLogout = () => {
+        this.setState({greeting: 'Logout'})
+    }
+
+    showGreeting = () => {
+        this.setState({greeting: 'Hello, ' + this.state.firstName});
+    }
+
+    logout = () => {
+        this.setState({
+            loggedIn: false,
+            firstName: null,
+            greeting: null
+        })
+        sessionStorage.clear();
     }
 
     render() {
         if (this.state.loggedIn) {
             return (
-                <span className='greeting'>
-                    Hello, {this.state.firstname}
+                <span className='greeting' onMouseEnter={this.showLogout} onMouseLeave={this.showGreeting}
+                        onClick={this.logout}>
+                    {this.state.greeting}
                 </span>
             )
         }

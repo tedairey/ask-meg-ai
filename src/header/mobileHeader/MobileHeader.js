@@ -16,7 +16,7 @@ class MobileHeader extends Component {
         return (
             <div className="mobile-header row">
                 <SideMenu/>
-                <div className='mobile-logo col-2'>
+                <div className='mobile-logo col-auto'>
                     <a href="https://askmeg.ai">
                         <img src={logo} className="logo" alt="logo" />
                     </a>

@@ -19,4 +19,9 @@
 .greeting {
     font-weight: 500;
     color: #21a1af;
+    cursor: pointer;
+}
+
+.greeting:hover {
+    text-decoration: underline;
 }

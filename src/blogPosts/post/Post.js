@@ -1,48 +1,93 @@
 import React, { Component } from 'react';
 import './Post.css';
+import NewComment from './newComment/NewComment';
+import Comment from './comment/Comment';
 import commenticon from '../../commenticon.png';
+import { formatDate } from '../../Helpers';
 
 class Post extends Component {
     constructor(props){
         super(props) 
         this.state = {
-            date: ""
+            comments: [],
+            commentSection: false
         }
+        this.commentSection = 'comment-section d-none';
     }
 
     componentDidMount () {
-        this.formatDate(this.props.post.submitted);
+        this.setState({date: formatDate(this.props.post.submitted)});
     }
-    
-    formatDate = (submitted) => {
-        let year = submitted.substring(2,4),
-            month = submitted.substring(5,7),
-            day = submitted.substring(8,10);
-        if (day[0] === '0') {
-            day = day.slice(1);
+
+    addComment = (comment) => {
+        this.setState(state => {
+            const comments = state.comments.concat(<Comment comment={comment}/>);
+       
+            return {
+              comments
+            };
+        });
+    }
+
+    toggleCommentSection = () => {
+        if (this.state.commentSection) {
+            this.commentSection += ' d-none';
         }
-        if (month[0] === '0') {
-            month = month.substring(1);
+        else {
+            this.commentSection = this.commentSection.substring(0, this.commentSection.length-7);
         }
-        this.setState({date: month + '-' + day + '-' + year})
+        this.setState({commentSection: !this.state.commentSection});
+    }
+
+    toggleComments = () => {
+        this.toggleCommentSection();
+        if (!this.state.commentSection) {
+            fetch('http://localhost:8088/comments/' + this.props.post.id)
+                .then(res => res.json())
+                .then(res => {
+                    const comments = [];
+                    for (const [index, comment] of res.entries()) {
+                        comments.push(<Comment comment={comment}/>);
+                    }
+                    this.setState({comments: comments});
+                    return false;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+        else {
+            this.setState({comments: []});
+            return false;
+        }
     }
 
     render(){
         const post = this.props.post;
         return (
-            <div className='post box'>
-                <div className='post-header'>
-                    <h4><strong>{post.title}</strong></h4>
-                    <span className='author'>{post.name}</span>
+            <div className='post-container'>
+                <div className='post box'>
+                    <div className='post-header'>
+                        <h4><strong>{post.title}</strong></h4>
+                        <span className='author'>{post.name}</span>
+                    </div>
+                    <hr/>
+                    <br/>
+                    <p>
+                        {post.body}
+                    </p>
+                    <br/>
+                    <div className='post-footer'>
+                        <a href='javascript:void(0)' onClick={this.toggleComments}>
+                            <img className='comment-icon' src={commenticon}/>
+                            Comments {post.comments}
+                        </a>
+                        <span className='post-date'>{this.state.date}</span>
+                    </div>
                 </div>
-                <br/>
-                <p>
-                    {post.body}
-                </p>
-                <br/>
-                <div className='post-footer'>
-                    <a href='#'><img className='comment-icon' src={commenticon}/>Comments</a>
-                    <span className='post-date'>{this.state.date}</span>
+                <div className={this.commentSection}>
+                    <NewComment postID={post.id} addComment={this.addComment}/>
+                    {this.state.comments}
                 </div>
             </div>
         );

@@ -7,36 +7,41 @@ function Navbar() {
   return (
     <div>
         <nav className="navbar navbar-expand navbar-light justify-content-between">
-            <Link to='/'>
-                <a className="navbar-brand" href="#" onClick={scrollTop}>Home</a>
+            <Link to='/' className="navbar-brand" href="#" onClick={scrollTop}>
+                Home
             </Link>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                <Link to='/how-it-works'>
-                    <a className="nav-link" href="#" onClick={scrollTop}>How It Works</a>
+                <Link to='/how-it-works' className="nav-link" onClick={scrollTop}>
+                    How It Works
                 </Link>
                 </li>
                 <li className="nav-item">
-                <Link to ='/FAQ/tips-and-hints'>
-                    <a className="nav-link" href="#" onClick={scrollTop}>FAQs</a>
+                <Link to='/FAQ/tips-and-hints' className="nav-link" href="#" onClick={scrollTop}>
+                    FAQs
                 </Link>
                 </li>
+                <li className="nav-item">
+                    <Link to='/about' className="nav-link" href="#" onClick={scrollTop}>
+                        About Us
+                    </Link>
+                </li>
                 <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a className='nav-link dropdown-toggle' href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Blog Posts
                     </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <Link to ='/blog-posts/all'>
-                            <a className="dropdown-item" href="#" onClick={scrollTop}>All Posts</a>
+                        <Link to='/blog-posts/all' className="dropdown-item" href="#" onClick={scrollTop}>
+                            All Posts
                         </Link>
-                        <Link to ='/blog-posts/my'>
-                            <a className="dropdown-item" href="#" onClick={scrollTop}>My Posts</a>
+                        <Link to='/blog-posts/my' className="dropdown-item" href="#" onClick={scrollTop}>
+                            My Posts
                         </Link>
-                    <div className="dropdown-divider"></div>
-                        <Link to ='/blog-posts/new'>
-                            <a className="dropdown-item" href="#" onClick={scrollTop}>New Blog Post</a>
-                        </Link>
+                    <div className="dropdown-divider"/>
+                    <Link to='/blog-posts/new' className="dropdown-item" href="#" onClick={scrollTop}>
+                        New Blog Post
+                    </Link>
                     </div>
                 </li>
                 </ul>

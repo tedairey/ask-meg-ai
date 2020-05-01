@@ -32,8 +32,11 @@ class NewPost extends Component {
             body: JSON.stringify(newPost)
         };
         fetch('http://localhost:8088/newPost', requestOptions)
-            .then(res => {
-                this.goToMyPosts();
+            .then(res => res.json())
+            .then(post => {
+                if (this.props.addPost) {
+                    this.props.addPost(post);
+                }
             })
             .catch(err => {
                 console.log(err);

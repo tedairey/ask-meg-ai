@@ -3,7 +3,7 @@ import './MyPosts.css';
 import Post from '../post/Post';
 import NewPost from '../newPost/NewPost';
 
-class MyPosts extends Component {
+class Myposts extends Component {
     constructor(props){
         super(props) 
         this.state = {
@@ -31,8 +31,17 @@ class MyPosts extends Component {
         })
         .catch(err => {
           console.log(err);
-        });
-      
+        }); 
+    }
+
+    addPost = (post) => {
+      this.setState(state => {
+        const posts = state.posts.concat(<Post post={post}/>);
+  
+        return {
+          posts
+        };
+      });
     }
 
     render(){
@@ -40,12 +49,13 @@ class MyPosts extends Component {
         return (
           <div className="my-posts container">
             <h1 className="blog-posts-header">
-              Your Posts
+              Your posts
             </h1>
             <ul className='posts-list'>
               {this.state.posts}
             </ul>
-            <NewPost loggedIn={this.props.loggedIn} name={this.props.name} username={this.props.username}/>
+            <NewPost loggedIn={this.props.loggedIn} name={this.props.name} username={this.props.username}
+                      addPost={this.addPost}/>
           </div>
         );
       }
@@ -59,4 +69,4 @@ class MyPosts extends Component {
     }
 }
 
-export default MyPosts;
+export default Myposts;

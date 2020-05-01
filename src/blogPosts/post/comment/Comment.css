@@ -1,0 +1,16 @@
+.comment {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 0px 20px 10px;
+    background-color: rgba(13, 161, 175, 0.5);
+    width: 60%;
+}
+.comment-name {
+    float: right;
+    font-style: italic;
+}
+
+.comment-date {
+    text-align: right;
+}

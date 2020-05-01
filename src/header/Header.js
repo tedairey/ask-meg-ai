@@ -5,6 +5,7 @@ import Navbar from './navbar/Navbar.js';
 import AccountModals from './accountModals/AccountModals.js';
 import MobileHeader from './mobileHeader/MobileHeader';
 import MediaQuery from 'react-responsive';
+import SideMenu from './mobileHeader/sideMenu/SideMenu';
   
 
 class Header extends Component {
@@ -41,11 +42,7 @@ class Header extends Component {
                             <span className='accounts'>
                                 <AccountModals/>
                             </span>
-                            <div className="menu-toggle" id="menu-toggle" role="button" tabIndex="0">
-                                <div className="hamburger"></div>
-                                <div className="hamburger"></div>
-                                <div className="hamburger"></div>
-                            </div>
+                            <SideMenu/>
                         </div>
                     </div>
                 </div>

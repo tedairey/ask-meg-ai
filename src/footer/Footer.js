@@ -9,10 +9,10 @@ function Footer() {
         <hr/>
         <nav>
             <div className="menu-footer-menu-container">
-                <ul id="menu-footer-menu" className="menu">
+                <ul id="menu-footer-menu">
                     <li>
-                        <Link to="/about">
-                            <a href="#" onClick={scrollTop}>About Us</a>
+                        <Link to="/about" onClick={scrollTop}>
+                            About Us
                         </Link>
                     </li>
                     <li>
