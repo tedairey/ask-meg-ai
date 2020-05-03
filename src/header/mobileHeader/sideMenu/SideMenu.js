@@ -27,23 +27,18 @@ class SideMenu extends Component {
         event.target.id !== 'closebtn' && scrollTop();
         this.panel.current.style.width = '0px';
         this.blogs.current.style.height = '0px';
+        this.blogLink.current.style.borderTop = '0';
         this.panel.current.style.border = 'none';
     }
 
     toggleBlogMenu = () => {
-        let height = this.blogs.current.style.height,
-            borderTop = this.blogLink.current.style.borderTop;
+        let height = this.blogs.current.style.height;
         if (height === '' || height === '0px') {
             this.blogs.current.style.height = '163px';
-        }
-        else {
-            this.blogs.current.style.height = '0px';
-            this.blogLink.current.style.borderTop = '0';
-        }
-        if (borderTop === '' || borderTop === '0') {
             this.blogLink.current.style.borderTop = '.3em solid';
         }
         else {
+            this.blogs.current.style.height = '0px';
             this.blogLink.current.style.borderTop = '0';
         }
     }

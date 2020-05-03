@@ -1,64 +1,53 @@
-import React, { Component } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './MyPosts.css';
 import Post from '../post/Post';
 import NewPost from '../newPost/NewPost';
+import { UserContext } from '../../context/UserContext';
 
-class Myposts extends Component {
-    constructor(props){
-        super(props) 
-        this.state = {
-          
-        }
-    }
+function MyPosts(props) {
+    const [posts, setPosts] = useState([]); 
+    const user = useContext(UserContext);
 
-    componentDidMount () {
-      this.setState({loggedIn: this.props.loggedIn});
-      this.setState({username: this.props.username});
-      fetch('http://localhost:8088/posts/' + this.props.username)
-        .then(res => res.json())
-        .then(res => {
-          const posts = [];
-          if (res.length === 0) {
-            posts.push(<h4 className='blog-posts-header'>No User Posts</h4>);
-          }
-          else {
-            for (const [index, post] of res.entries()) {
-              post.username = '';
-              posts.push(<li key={index}><Post post={post}/></li>);
+    useEffect(() => {
+      if(user) {
+        fetch('http://localhost:8088/posts/' + user.username)
+          .then(res => res.json())
+          .then(res => {
+            const posts = [];
+            if (res.length === 0) {
+              posts.push(<h4 className='blog-posts-header'>No User Posts</h4>);
             }
-          }
-          this.setState({posts: posts});
-        })
-        .catch(err => {
-          console.log(err);
-        }); 
+            else {
+              for (const [index, post] of res.entries()) {
+                post.username = '';
+                posts.push(<li key={index}><Post loggedIn={user ? true: false} post={post}/></li>);
+              }
+            }
+            setPosts(posts);
+          })
+          .catch(err => {
+            console.log(err);
+          }); 
+      }
+    }, [user]);
+
+    const addPost = (post) => {
+        const newPosts = posts.concat(<Post loggedIn={user ? true: false} post={post}/>);
+        setPosts(newPosts);
     }
 
-    addPost = (post) => {
-      this.setState(state => {
-        const posts = state.posts.concat(<Post post={post}/>);
-  
-        return {
-          posts
-        };
-      });
-    }
-
-    render(){
-      if (this.state.loggedIn) {
-        return (
+    if (user) 
+      return (
           <div className="my-posts container">
             <h1 className="blog-posts-header">
               Your posts
             </h1>
             <ul className='posts-list'>
-              {this.state.posts}
+              {posts}
             </ul>
-            <NewPost loggedIn={this.props.loggedIn} name={this.props.name} username={this.props.username}
-                      addPost={this.addPost}/>
+            <NewPost addPost={addPost}/>
           </div>
-        );
-      }
+      );
       return (
         <div className='my-posts container'>
           <h1 className='blog-posts-header'>
@@ -66,7 +55,6 @@ class Myposts extends Component {
           </h1>
         </div>
       );
-    }
 }
 
-export default Myposts;
+export default MyPosts;

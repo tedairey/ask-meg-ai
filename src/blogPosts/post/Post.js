@@ -1,97 +1,98 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Post.css';
 import NewComment from './newComment/NewComment';
 import Comment from './comment/Comment';
 import commenticon from '../../commenticon.png';
 import { formatDate } from '../../Helpers';
+import { UserContext } from '../../context/UserContext';
 
-class Post extends Component {
-    constructor(props){
-        super(props) 
-        this.state = {
-            comments: [],
-            commentSection: false
-        }
-        this.commentSection = 'comment-section d-none';
+function Post (props){
+    
+    const [comments, setComments] = useState([]),
+        [date, setDate] = useState(''),
+        user = useContext(UserContext);
+
+    let [commentSectionStyle, setCommentSectionStyle] = useState('comment-section d-none');
+    
+    const [showCommentSection, setShowCommentSection] = useState(false);
+
+    useEffect(() => {
+        setDate(formatDate(props.post.submitted));
+    });
+
+    const addComment = (comment) => {
+        const newComments = comments.concat(<Comment comment={comment}/>);
+        setComments(newComments);
     }
 
-    componentDidMount () {
-        this.setState({date: formatDate(this.props.post.submitted)});
-    }
-
-    addComment = (comment) => {
-        this.setState(state => {
-            const comments = state.comments.concat(<Comment comment={comment}/>);
-       
-            return {
-              comments
-            };
-        });
-    }
-
-    toggleCommentSection = () => {
-        if (this.state.commentSection) {
-            this.commentSection += ' d-none';
+    const toggleCommentSection = () => {
+        if (showCommentSection) {
+            setCommentSectionStyle(commentSectionStyle + ' d-none');
         }
         else {
-            this.commentSection = this.commentSection.substring(0, this.commentSection.length-7);
+            setCommentSectionStyle(commentSectionStyle.substring(0, commentSectionStyle.length-7));
         }
-        this.setState({commentSection: !this.state.commentSection});
+        setShowCommentSection(!showCommentSection);
     }
 
-    toggleComments = () => {
-        this.toggleCommentSection();
-        if (!this.state.commentSection) {
-            fetch('http://localhost:8088/comments/' + this.props.post.id)
+    const toggleComments = () => {
+        toggleCommentSection();
+        if (!showCommentSection) {
+            fetch('http://localhost:8088/comments/' + props.post.id)
                 .then(res => res.json())
                 .then(res => {
                     const comments = [];
-                    for (const [index, comment] of res.entries()) {
-                        comments.push(<Comment comment={comment}/>);
+                    if (res.length) {
+                        for (const [index, comment] of res.entries()) {
+                            comments.push(<Comment comment={comment}/>);
+                        }
+                        setComments(comments);
+                        return false;
                     }
-                    this.setState({comments: comments});
-                    return false;
+                    else if (!user) {
+                        setComments('No user comments');
+                    }
                 })
                 .catch(err => {
                     console.log(err);
                 });
         }
         else {
-            this.setState({comments: []});
+            setComments([]);
             return false;
         }
     }
-
-    render(){
-        const post = this.props.post;
-        return (
-            <div className='post-container'>
-                <div className='post box'>
-                    <div className='post-header'>
-                        <h4><strong>{post.title}</strong></h4>
-                        <span className='author'>{post.name}</span>
-                    </div>
-                    <hr/>
-                    <br/>
-                    <p>
-                        {post.body}
-                    </p>
-                    <br/>
-                    <div className='post-footer'>
-                        <a href='javascript:void(0)' onClick={this.toggleComments}>
-                            <img className='comment-icon' src={commenticon}/>
-                            Comments {post.comments}
-                        </a>
-                        <span className='post-date'>{this.state.date}</span>
-                    </div>
+        
+    const post = props.post;
+    return (
+        <div className='post-container'>
+            <div className='post box'>
+                <div className='post-header'>
+                    <h4><strong>{post.title}</strong></h4>
+                    <span className='author'>{post.name}</span>
                 </div>
-                <div className={this.commentSection}>
-                    <NewComment postID={post.id} addComment={this.addComment}/>
-                    {this.state.comments}
+                <hr/>
+                <br/>
+                <p>
+                    {post.body}
+                </p>
+                <br/>
+                <div className='post-footer'>
+                    <a href='javascript:void(0)' onClick={toggleComments}>
+                        <img className='comment-icon' src={commenticon}/>
+                        Comments {post.comments}
+                    </a>
+                    <span className='post-date'>{date}</span>
                 </div>
             </div>
-        );
-      }
-  }
+            <div className={commentSectionStyle}>
+                {user &&
+                    <NewComment postID={post.id} addComment={addComment}/>
+                }  
+                {comments}
+            </div>
+        </div>
+    );
+}
   
 export default Post;

@@ -1,34 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import './Comment.css';
 import { formatDate } from '../../../Helpers';
 
-class Comment extends Component {
-    constructor(props){
-        super(props) 
-        this.state = {
+function Comment (props) {
 
-        }
-    }
+    const date = useState(formatDate(props.comment.submitted))
 
-    componentDidMount () {
-        this.setState({date: formatDate(this.props.comment.submitted)})
-    }
-
-    render(){
-        return (
-            <div className='comment'>
-                <span className='comment-body'>
-                    {this.props.comment.body}
-                </span>
-                <span className='comment-name'>
-                    {this.props.comment.name}
-                </span>
-                <div className='comment-date'>
-                    {this.state.date}
-                </div>
+    return (
+        <div className='comment'>
+            <span className='comment-body'>
+                {props.comment.body}
+            </span>
+            <span className='comment-name'>
+                {props.comment.name}
+            </span>
+            <div className='comment-date'>
+                {date}
             </div>
-        );
-      }
-  }
+        </div>
+    );
+}
   
 export default Comment;

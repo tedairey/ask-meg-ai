@@ -1,96 +1,87 @@
-import React, { Component, createRef } from 'react';
+import React, { useState, createRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './LogInModal.css';
 
-class LogInModal extends Component {
-    constructor(props){
-        super(props) 
-        this.state = {
-            email: "",
-            password: ""
-        }
-        this.errormsg = React.createRef();
-        this.emailbox = React.createRef();
-        this.passwordbox = React.createRef();
+function LogInModal(props) {
+    const [email, setEmail] = useState(''),
+        [password, setPassword] = useState('')
+
+    const errormsg = React.createRef();
+    const emailbox = React.createRef();
+    const passwordbox = React.createRef();
+
+    const onEmailChange = (event) => {
+        setEmail(event.target.value)
     }
 
-    onEmailChange = (event) => {
-        this.setState({email: event.target.value})
+    const onPasswordChange = (event) => {
+        setPassword(event.target.value)
     }
 
-    onPasswordChange = (event) => {
-        this.setState({password: event.target.value})
-    }
-
-    validateLogin = () => {
-        fetch("http://localhost:8088/" + this.state.email)
+    const validateLogin = () => {
+        fetch("http://localhost:8088/" + email)
             .then(res => res.json())
             .then(user => {
-                if (!user || !this.state.email || user.password != this.state.password) {
-                    this.errormsg.current.style.display = 'block';
-                    this.emailbox.current.style.borderColor = 'red';
-                    this.passwordbox.current.style.borderColor = 'red';
+                if (!user || !email || user.password != password) {
+                    errormsg.current.style.display = 'block';
+                    emailbox.current.style.borderColor = 'red';
+                    passwordbox.current.style.borderColor = 'red';
                     return false;
                 }
                 else {
-                    this.props.closeLogin();
-                    this.props.setLogin(user);
+                    props.closeLogin();
+                    props.setLogin(user);
                 }
             })
             .catch(err => {
-                this.errormsg.current.style.display = 'block';
-                this.emailbox.current.style.borderColor = 'red';
-                this.passwordbox.current.style.borderColor = 'red';
                 return false;
             });
     }
 
-    clearErrors = () => {
-        this.errormsg.current.style.display = 'none';
-        this.emailbox.current.style.borderColor = 'grey';
-        this.passwordbox.current.style.borderColor = 'grey';
+    const clearErrors = () => {
+        errormsg.current.style.display = 'none';
+        emailbox.current.style.borderColor = 'grey';
+        passwordbox.current.style.borderColor = 'grey';
     }
 
-    render() {
-        return (
-            <span id="log-in-modal">
-                <a id="log-in" href="#" onClick={this.props.showLogin}>
-                    Log In
-                </a>
+    return (
+        <span id="log-in-modal">
+            <a id="log-in" href="#" onClick={props.showLogin}>
+                Log In
+            </a>
 
-                <Modal show={this.props.loginModal} onHide={this.props.closeLogin}>
-                    <Modal.Header closeButton>
-                    <Modal.Title>Log In</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <span className='error-msg' ref={this.errormsg}>
-                            Username or Password is not correct
-                        </span>
-                        <span ref={this.emailbox} className='account-input'>
-                            <input value={this.state.email} placeholder="Email" onChange={this.onEmailChange}
-                                onFocus={this.clearErrors}/>
-                        </span>
-                        <br/>
-                        <span ref={this.passwordbox} className='account-input'>
-                            <input value={this.state.password} placeholder="Password" type="password" 
-                                onChange={this.onPasswordChange} onFocus={this.clearErrors}/>
-                        </span>
-                    </Modal.Body>
-                    <Modal.Footer>
+            <Modal show={props.loginModal} onHide={props.closeLogin}>
+                <Modal.Header closeButton>
+                <Modal.Title>Log In</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <span className='error-msg' ref={errormsg}>
+                        Username or Password is not correct
+                    </span>
+                    <span ref={emailbox} className='account-input'>
+                        <input value={email} placeholder="Email" onChange={onEmailChange}
+                            onFocus={clearErrors}/>
+                    </span>
+                    <br/>
+                    <span ref={passwordbox} className='account-input'>
+                        <input value={password} placeholder="Password" type="password" 
+                            onChange={onPasswordChange} onFocus={clearErrors}/>
+                    </span>
+                </Modal.Body>
+                <Modal.Footer>
                     Don't Have an Account?
-                    <a href="#" onClick={this.props.handleRegister}>
+                    <a href="#" onClick={props.handleRegister}>
                         Register
                     </a>
                     <br/>
-                    <Button variant="primary" onClick={this.validateLogin}>
+                    <Button variant="primary" onClick={validateLogin}>
                         Log In
                     </Button>
-                    </Modal.Footer>
-                </Modal>
-            </span>
-        );
-    }
+                </Modal.Footer>
+            </Modal>
+        </span>
+    );
 }
 
 export default LogInModal

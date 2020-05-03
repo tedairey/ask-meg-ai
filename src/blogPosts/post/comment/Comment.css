@@ -1,10 +1,10 @@
 .comment {
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 5px;
     padding: 5px 10px;
     margin: 0px 20px 10px;
-    background-color: rgba(13, 161, 175, 0.5);
-    width: 60%;
+    background-color: #222222;
+    width: 66%;
 }
 .comment-name {
     float: right;

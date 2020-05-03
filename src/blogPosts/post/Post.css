@@ -3,15 +3,12 @@
 }
 
 .box {
-    background: rgba(13, 161, 175, 0.3);
+    background: white;
     padding: 10px 15px 5px 15px;
     z-index: -1;
     border: 1px solid black;
     border-radius: 7px;
-}
-
-.box p {
-    color: white;
+    color: black;
 }
 
 .comment-icon {
@@ -25,7 +22,7 @@
 }
 
 .post-footer a {
-    color: white;
+    color: black;
 }
 
 .post h4 {

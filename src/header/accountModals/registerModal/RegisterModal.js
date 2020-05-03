@@ -25,7 +25,7 @@ class RegisterModal extends Component {
 
     validateFirstName = (name, err, box) => {
         if (this.validateField(name, err, box)) {
-            this.profile.firstname = name;
+            this.profile.firstName = name;
         }
     }
 
@@ -136,7 +136,7 @@ class RegisterModal extends Component {
             const newUser = {
                 email: this.profile.email,
                 username: this.profile.username,
-                firstName: this.profile.firstname,
+                firstName: this.profile.firstName,
                 lastName: this.profile.lastname,
                 password: this.profile.password,
                 isAdmin: false

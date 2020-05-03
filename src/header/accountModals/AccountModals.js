@@ -1,104 +1,97 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect, useContext } from 'react';
 import './AccountModals.css';
 import LogInModal from './logInModal/LogInModal.js';
 import RegisterModal from './registerModal/RegisterModal.js';
 import MediaQuery from 'react-responsive';
+import { UserContext } from '../../context/UserContext';
 
-class AccountModals extends Component {
-    constructor(props){
-        super(props) 
-        this.state = {
-            loginModal: false,
-            registerModal: false,
-            loggedIn: false
-        }
-        this.initialState = this.state;
-    }
+function AccountModals(props) {
 
-    componentWillMount () {
-        const user = JSON.parse(sessionStorage.getItem('user'));
+    const [loginModal, setLoginModal] = useState(false),
+        [registerModal, setRegisterModal] = useState(false),
+        [greeting, setGreeting] = useState('');
+
+    const { user, setUser } = useContext(UserContext);
+
+    useEffect(() => {
         if (user) {
-            this.setState({loggedIn: true});
-            this.setState({firstName: user.firstName});
-            this.setState({greeting: 'Hello, ' + user.firstName});
+            setGreeting('Hello, ' + user.firstName);
         }
+    },[user]);
+
+    const showLogin = () => {
+        setLoginModal(true);
     }
 
-    showLogin = () => {
-        this.setState({loginModal: true});
+    const showRegister = () => {
+        setRegisterModal(true);
     }
 
-    showRegister = () => {
-        this.setState({registerModal: true});
+    const handleRegister = () => {
+        setLoginModal(false);
+        setRegisterModal(true);
     }
 
-    handleRegister = () => {
-        this.setState({loginModal: false});
-        this.setState({registerModal: true});
+    const closeLogin = () => {
+        setLoginModal(false);
     }
 
-    closeLogin = () => {
-        this.setState({loginModal: false});
-    }
-
-    closeRegister = () => {
-        this.setState({registerModal: false});
+    const closeRegister = () => {
+        setRegisterModal(false);
     }
     
-    setLogin = (user) => {
-        this.setState({loggedIn: true, firstName: user.firstName});
-        this.setState({greeting: 'Hello, ' + this.state.firstName});
-        sessionStorage.setItem('user', JSON.stringify(user));
+    const setLogin = (newUser) => {
+        const profile = {
+            username: newUser.username,
+            firstName: newUser.firstName,
+            name: newUser.firstName + ' ' + newUser.lastName,
+        }
+        setUser(profile);
+        setGreeting('Hello, ' + newUser.firstName);
     }
 
-    showLogout = () => {
-        this.setState({greeting: 'Logout'})
+    const showLogout = () => {
+        setGreeting('Logout');
     }
 
-    showGreeting = () => {
-        this.setState({greeting: 'Hello, ' + this.state.firstName});
+    const showGreeting = () => {
+        setGreeting('Hello, ' + user.firstName);
     }
 
-    logout = () => {
-        this.setState({
-            loggedIn: false,
-            firstName: null,
-            greeting: null
-        })
+    const logout = () => {
+        setUser(null);
         sessionStorage.clear();
     }
-
-    render() {
-        if (this.state.loggedIn) {
-            return (
-                <span className='greeting' onMouseEnter={this.showLogout} onMouseLeave={this.showGreeting}
-                        onClick={this.logout}>
-                    {this.state.greeting}
-                </span>
-            )
-        }
-        else {
-            return (
-                <span className="account-modals">
-                    <RegisterModal
-                        registerModal={this.state.registerModal}
-                        showRegister={this.showRegister}
-                        closeRegister={this.closeRegister}
-                        setLogin={this.setLogin}
-                    />
-                    <MediaQuery minWidth={768}>
-                        |
-                    </MediaQuery>
-                    <LogInModal
-                        loginModal={this.state.loginModal}
-                        showLogin={this.showLogin}
-                        handleRegister={this.handleRegister}
-                        closeLogin={this.closeLogin}
-                        setLogin={this.setLogin}
-                    />
-                </span>
-            );
-        }
+    
+    if (user) {
+        return (
+            <span className='greeting' onMouseEnter={showLogout} onMouseLeave={showGreeting}
+                    onClick={logout}>
+                {greeting}
+            </span>
+        )
+    }
+    else {
+        return (
+            <span className="account-modals">
+                <RegisterModal
+                    registerModal={registerModal}
+                    showRegister={showRegister}
+                    closeRegister={closeRegister}
+                    setLogin={setLogin}
+                />
+                <MediaQuery minWidth={768}>
+                    |
+                </MediaQuery>
+                <LogInModal
+                    loginModal={loginModal}
+                    showLogin={showLogin}
+                    handleRegister={handleRegister}
+                    closeLogin={closeLogin}
+                    setLogin={setLogin}
+                />
+            </span>
+        );
     }
 
 }

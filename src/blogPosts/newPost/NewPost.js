@@ -1,87 +1,82 @@
-import React, { Component } from 'react';
+import React, { useState, useContext } from 'react';
 import './NewPost.css';
 import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 
-class NewPost extends Component {
-    constructor(props){
-        super(props) 
-        this.state = {
+function NewPost(props) {
+    const [title, setTitle] = useState(''),
+        [body, setBody] = useState('');
 
+    const user = useContext(UserContext);
+
+    const submitPost = () => {
+        if (title && body) {
+            const newPost = {
+                username: user.username,
+                name: user.name,
+                title: title,
+                body: body
+            }
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newPost)
+            };
+            fetch('http://localhost:8088/newPost', requestOptions)
+                .then(res => res.json())
+                .then(post => {
+                    if (props.addPost) {
+                        props.addPost(post);
+                        setTitle('');
+                        setBody('');
+                    }
+                    if (props.fullPage) {
+                        props.history.push('/blog-posts/my');
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     }
 
-    goToMyPosts = () => {
-        const history = useHistory();
-        history.push('/blog-posts/my');
+    const onTitleChange = (event) => {
+        setTitle(event.target.value);
     }
 
-    componentDidMount () {
-        this.setState({loggedIn: this.props.loggedIn});
+    const onBodyChange = (event) => {
+        setBody(event.target.value);
     }
 
-    submitPost = () => {
-        const newPost = {
-            username: this.props.username,
-            name: this.props.name,
-            title: this.state.title,
-            body: this.state.body
-        }
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newPost)
-        };
-        fetch('http://localhost:8088/newPost', requestOptions)
-            .then(res => res.json())
-            .then(post => {
-                if (this.props.addPost) {
-                    this.props.addPost(post);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }
-
-    onTitleChange = (event) => {
-        this.setState({title: event.target.value});
-    }
-
-    onBodyChange = (event) => {
-        this.setState({body: event.target.value});
-    }
-
-    render(){
-        if (this.state.loggedIn) {
-            return (
-                <div className='new-post container'>
-                    <h2 className="blog-posts-header">
-                        New Post
-                    </h2>
-                    <div className='new-post-container'>
-                        <span className='title-box'>
-                            <textarea className='blog-title' value={this.state.title} onChange={this.onTitleChange} 
-                                placeholder="Title"/>
-                        </span>
-                        <span className='body-box'>
-                            <textarea className='blog-body' rows='7' value={this.state.body} onChange={this.onBodyChange} 
-                                placeholder="Begin typing here"/>
-                        </span>
-                        <button className="btn submit submit-post" onClick={this.submitPost}>Submit</button>
-                        <br/>
-                    </div>
+    if (user) {
+        return (
+            <div className='new-post container'>
+                <h2 className="blog-posts-header">
+                    New Post
+                </h2>
+                <div className='new-post-container'>
+                    <span className='title-box'>
+                        <textarea className='blog-title' value={title} onChange={onTitleChange} 
+                            placeholder="Title"/>
+                    </span>
+                    <span className='body-box'>
+                        <textarea className='blog-body' rows='7' value={body} onChange={onBodyChange} 
+                            placeholder="Begin typing here"/>
+                    </span>
+                    <button className="btn submit submit-post" onClick={submitPost}>Submit</button>
+                    <br/>
                 </div>
-            );
-        } else {
-            return (
-                <div className='my-posts container'>
-                    <h1 className='blog-posts-header'>
-                        You are not logged in
-                    </h1>
-                </div>
-            );
-        }
-      }
-  }
+            </div>
+        );
+    } else {
+        return (
+            <div className='my-posts container'>
+                <h1 className='blog-posts-header'>
+                    You are not logged in
+                </h1>
+            </div>
+        );
+    }
+}
   
 export default NewPost;

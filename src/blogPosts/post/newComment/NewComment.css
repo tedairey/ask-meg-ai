@@ -1,10 +1,10 @@
 .comment-input {
     padding: 3px 5px;
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 5px;
     resize: none;
     color: white;
-    background-color: rgba(13, 161, 175, 0.8);
+    background-color: #222;
     width: 340px;
     margin-left: 20px;
 }
@@ -15,7 +15,7 @@
 }
 
 .comment-input:focus {
-    background-color: white;
+    background-color: #fff;
     border-color: grey;
     color: black;
 }
