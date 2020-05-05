@@ -11,10 +11,9 @@
 .search {
     border: 1px solid #21a1af;
     color: #21a1af;
-}
-
-.search:hover{
-    border-color: white;
-    background-color: #21a1af;
-    color: white;
+    &:hover{
+        border-color: white;
+        background-color: #21a1af;
+        color: white;
+    }
 }

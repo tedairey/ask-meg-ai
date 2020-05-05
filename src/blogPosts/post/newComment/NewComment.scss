@@ -7,26 +7,23 @@
     background-color: #222;
     width: 50%;
     margin-left: 20px;
+    &:focus {
+        background-color: #fff;
+        border-color: grey;
+        color: black;
+    }
+    &::placeholder {
+        color: white;
+    }
 }
 
 .new-comment {
     width: 100%;
     display: inline-flex;
     margin-bottom: 10px;
-}
-
-.comment-input:focus {
-    background-color: #fff;
-    border-color: grey;
-    color: black;
-}
-
-.comment-input::placeholder {
-    color: white;
-}
-
-.new-comment button {
-    margin: auto 0px auto 10px;
+    button {
+        margin: auto 0px auto 10px;
+    }
 }
 
 @media screen and (max-width: 767px) {

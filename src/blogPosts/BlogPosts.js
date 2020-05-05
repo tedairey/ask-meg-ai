@@ -1,6 +1,6 @@
 import React, { Component, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import './BlogPosts.css';
+import './BlogPosts.scss';
 import AllPosts from './allPosts/AllPosts.js';
 import MyPosts from './myPosts/MyPosts.js';
 import NewPost from './newPost/NewPost';

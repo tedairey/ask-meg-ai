@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './RegisterField.css';
+import './RegisterField.scss';
 
 class RegisterField extends Component {
     constructor(props){

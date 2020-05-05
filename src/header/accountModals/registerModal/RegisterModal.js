@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import './RegisterModal.css';
+import './RegisterModal.scss';
 import RegisterField from './registerField/RegisterField';
 import MediaQuery from 'react-responsive';
 

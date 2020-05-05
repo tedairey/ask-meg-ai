@@ -20,48 +20,43 @@
     background-color: #fff; 
     overflow-x: hidden;
     transition: 0.5s;
-}
-
-.menu a {
-    padding: 8px 8px 8px 12px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #21a1af;
-    display: block;
-    transition: 0.3s;
-    border-bottom: 1px solid grey;
-}
-
-.menu #closebtn {
-    position: absolute;
-    top: -5px;
-    right: 5px;
-    font-size: 36px;
-    margin-left: 50px;
-    border-bottom: none;
-}
-
-.blog-menu {
-    background-color: #eee; 
-    overflow-y: hidden;
-    height: 0;
-    transition: 0.5s;
-}
-
-.menu .title {
-    font-weight: bold;
-    border-bottom: 3px solid #21a1af;
-    padding-top: 12px;
-}
-
-.menu .blog-menu a {
-    padding: 8px 8px 8px 20px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #21a1af;
-    display: block;
-    transition: 0.3s;
-    border-bottom: 1px solid darkgray;
+    .title {
+        font-weight: bold;
+        border-bottom: 3px solid #21a1af;
+        padding-top: 12px;
+    }
+    a {
+        padding: 8px 8px 8px 12px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #21a1af;
+        display: block;
+        transition: 0.3s;
+        border-bottom: 1px solid grey;
+    }
+    #closebtn {
+        position: absolute;
+        top: -5px;
+        right: 5px;
+        font-size: 36px;
+        margin-left: 50px;
+        border-bottom: none;
+    }
+    .blog-menu {
+        background-color: #eee; 
+        overflow-y: hidden;
+        height: 0;
+        transition: 0.5s;
+        a {
+            padding: 8px 8px 8px 20px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #21a1af;
+            display: block;
+            transition: 0.3s;
+            border-bottom: 1px solid darkgray;
+        }
+    }
 }
 
 #blog-link::after {
@@ -84,9 +79,9 @@
     #nav-menu {
         right: 0;
         border-left: 1px solid grey;
-    }
-    #nav-menu a {
-        text-align: left;
+        a {
+            text-align: left;
+        }
     }
     .side-menu {
         float: right;

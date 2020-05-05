@@ -1,5 +1,5 @@
 import React from 'react';
-import './HowDoI.css';
+import './HowDoI.scss';
 
 function HowDoI() {
     return (

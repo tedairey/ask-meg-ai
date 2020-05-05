@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect, useContext } from 'react';
-import './AccountModals.css';
+import './AccountModals.scss';
 import LogInModal from './logInModal/LogInModal.js';
 import RegisterModal from './registerModal/RegisterModal.js';
 import MediaQuery, { useMediaQuery } from 'react-responsive';

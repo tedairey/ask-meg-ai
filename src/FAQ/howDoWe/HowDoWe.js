@@ -1,5 +1,5 @@
 import React from 'react';
-import './HowDoWe.css';
+import './HowDoWe.scss';
 
 function HowDoWe() {
     return (

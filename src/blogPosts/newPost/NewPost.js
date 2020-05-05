@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import './NewPost.css';
+import './NewPost.scss';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import pen from '../../pen.png';
-import './MyPosts.css';
+import './MyPosts.scss';
 import Post from '../post/Post';
 import NewPost from '../newPost/NewPost';
 import { UserContext } from '../../context/UserContext';

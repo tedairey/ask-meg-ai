@@ -1,5 +1,5 @@
 import React from 'react';
-import './Glossary.css';
+import './Glossary.scss';
 
 function Glossary() {
     return (

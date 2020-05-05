@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Footer.css';
+import './Footer.scss';
 import { scrollTop } from '../Helpers.js';
 import MediaQuery from 'react-responsive';
 

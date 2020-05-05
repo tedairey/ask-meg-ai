@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import './NewComment.css';
+import './NewComment.scss';
 import { UserContext } from '../../../context/UserContext';
 
 function NewComment (props) {

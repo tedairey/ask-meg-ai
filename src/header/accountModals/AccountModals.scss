@@ -1,12 +1,11 @@
 .modal-body {
     text-align: center;
     justify-content: center;
-}
-
-.modal-body input {
-    border: 0;
-    margin: 5px;
-    width: 200px;
+    input {
+        border: 0;
+        margin: 5px;
+        width: 200px;
+    }
 }
 
 .account-input {
@@ -26,8 +25,7 @@
     font-weight: 500;
     color: #21a1af;
     cursor: pointer;
-}
-
-.greeting:hover {
-    text-decoration: underline;
+    &:hover {
+        text-decoration: underline;
+    }
 }

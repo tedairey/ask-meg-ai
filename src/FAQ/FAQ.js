@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './FAQ.css';
+import './FAQ.scss';
 import { BrowserRouter as Router, Switch, Route, Link, withRouter } from 'react-router-dom';
 import TipsAndHints from './tipsAndHints/TipsAndHints.js';
 import HowDoI from './howDoI/HowDoI.js';

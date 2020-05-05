@@ -20,11 +20,10 @@
     text-align: center;
     font-size: 32px;
     font-weight: bold;
-}
-
-.new-post-modal-header .close {
-    padding: 1.75rem 1rem;
-}
+    .close {
+        padding: 1.75rem 1rem;
+    }
+} 
 
 .show-new-post {
     height: 70px;

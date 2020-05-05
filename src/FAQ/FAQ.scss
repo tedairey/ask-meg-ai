@@ -10,10 +10,9 @@
 .tab {
     color: white;
     font-size: 20px;
-}
-
-.tab:hover{
-    color: white;
+    &:hover{
+        color: white;
+    }
 }
 
 .tabset {

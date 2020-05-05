@@ -1,7 +1,7 @@
 import React, { useRef, useContext } from 'react';
 import accountIcon from '../../../accounticon.png';
 import { Link } from 'react-router-dom';
-import './AccountMenu.css';
+import './AccountMenu.scss';
 import { scrollTop } from '../../../Helpers';
 import { UserContext } from '../../../context/UserContext';
 

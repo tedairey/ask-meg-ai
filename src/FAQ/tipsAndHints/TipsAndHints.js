@@ -1,5 +1,5 @@
 import React from 'react';
-import './TipsAndHints.css';
+import './TipsAndHints.scss';
 
 function TipsAndHints() {
     return (

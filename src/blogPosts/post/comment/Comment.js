@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import './Comment.css';
+import './Comment.scss';
 import { formatDate } from '../../../Helpers';
 
 function Comment (props) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './SideMenu.css';
+import './SideMenu.scss';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../../../Helpers';
 

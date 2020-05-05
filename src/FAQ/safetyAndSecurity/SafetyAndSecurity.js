@@ -1,5 +1,5 @@
 import React from 'react';
-import './SafetyAndSecurity.css';
+import './SafetyAndSecurity.scss';
 
 function SafetyAndSecurity() {
     return (

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from '../../meglogo.png';
-import './MobileHeader.css';
+import './MobileHeader.scss';
 import AccountModals from '../accountModals/AccountModals';
 import SideMenu from './sideMenu/SideMenu';
 

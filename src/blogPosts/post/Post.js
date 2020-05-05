@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import './Post.css';
+import './Post.scss';
 import NewComment from './newComment/NewComment';
 import Comment from './comment/Comment';
 import commenticon from '../../commenticon.png';

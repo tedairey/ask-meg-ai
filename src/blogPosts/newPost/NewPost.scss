@@ -6,22 +6,24 @@
     padding: 30px 30px;
 }
 
-.modal-body .blog-posts-header {
-    display: none;
+.modal-body { 
+    .blog-posts-header {
+        display: none;
+    }
+    .new-post-container {
+        background: #21a1af;
+    }
 }
 
-.modal-body .new-post-container {
-    background: #21a1af;
-}
-
-.new-post input {
-    margin: 20px;
-}
-
-.new-post textarea {
-    padding: 3px 5px;
-    border: 1px solid grey;
-    border-radius: 5px;
+.new-post { 
+    input {
+        margin: 20px;
+    }
+    textarea {
+        padding: 3px 5px;
+        border: 1px solid grey;
+        border-radius: 5px;
+    }
 }
 
 .blog-title {

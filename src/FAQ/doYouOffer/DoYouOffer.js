@@ -1,5 +1,5 @@
 import React from 'react';
-import './DoYouOffer.css';
+import './DoYouOffer.scss';
 
 function DoYouOffer() {
     return (

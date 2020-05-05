@@ -1,5 +1,5 @@
 import React from 'react';
-import './HomePage.css';
+import './HomePage.scss';
 import AppleBadge from '../App_Store_Badge.svg';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../Helpers';

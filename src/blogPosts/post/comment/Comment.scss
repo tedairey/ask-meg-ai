@@ -5,6 +5,9 @@
     margin: 0px 20px 10px;
     background-color: #222222;
     width: 66%;
+    hr {
+        margin: 0px;
+    }
 }
 .comment-name {
     float: left;
@@ -17,10 +20,6 @@
 
 .comment-body {
     overflow: scroll;
-}
-
-.comment hr {
-    margin: 0px;
 }
 
 @media screen and (max-width: 767px) {

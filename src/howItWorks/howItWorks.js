@@ -1,5 +1,5 @@
 import React from 'react';
-import './howItWorks.css';
+import './howItWorks.scss';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../Helpers';
 
