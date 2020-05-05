@@ -2,8 +2,9 @@ import React, { Component, useState, useEffect, useContext } from 'react';
 import './AccountModals.css';
 import LogInModal from './logInModal/LogInModal.js';
 import RegisterModal from './registerModal/RegisterModal.js';
-import MediaQuery from 'react-responsive';
+import MediaQuery, { useMediaQuery } from 'react-responsive';
 import { UserContext } from '../../context/UserContext';
+import AccountMenu from '../mobileHeader/accountMenu/AccountMenu';
 
 function AccountModals(props) {
 
@@ -13,8 +14,10 @@ function AccountModals(props) {
 
     const { user, setUser } = useContext(UserContext);
 
+    const isSmall = useMediaQuery({ query: '(max-width: 768px)' });
+
     useEffect(() => {
-        if (user) {
+        if (user && window.innerWidth > 767) {
             setGreeting('Hello, ' + user.firstName);
         }
     },[user]);
@@ -46,6 +49,7 @@ function AccountModals(props) {
             firstName: newUser.firstName,
             name: newUser.firstName + ' ' + newUser.lastName,
         }
+        sessionStorage.setItem('user', JSON.stringify(profile));
         setUser(profile);
         setGreeting('Hello, ' + newUser.firstName);
     }
@@ -65,9 +69,15 @@ function AccountModals(props) {
     
     if (user) {
         return (
-            <span className='greeting' onMouseEnter={showLogout} onMouseLeave={showGreeting}
-                    onClick={logout}>
-                {greeting}
+            <span>
+                {isSmall ? <>
+                    <AccountMenu logout={logout}/>
+                </> : <>
+                    <span className='greeting' onMouseEnter={showLogout} onMouseLeave={showGreeting}
+                            onClick={logout}>
+                        {greeting}
+                    </span>
+                </>}
             </span>
         )
     }

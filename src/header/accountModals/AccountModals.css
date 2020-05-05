@@ -16,6 +16,12 @@
     margin: 3px;
 }
 
+.account-icon {
+    width: 40px;
+    cursor: pointer;
+    float: right;
+}
+
 .greeting {
     font-weight: 500;
     color: #21a1af;

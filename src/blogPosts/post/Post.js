@@ -5,6 +5,7 @@ import Comment from './comment/Comment';
 import commenticon from '../../commenticon.png';
 import { formatDate } from '../../Helpers';
 import { UserContext } from '../../context/UserContext';
+import { useMediaQuery } from 'react-responsive';
 
 function Post (props){
     
@@ -15,6 +16,8 @@ function Post (props){
     let [commentSectionStyle, setCommentSectionStyle] = useState('comment-section d-none');
     
     const [showCommentSection, setShowCommentSection] = useState(false);
+
+    const isSmall = useMediaQuery({ query: '(max-width: 768px)'})
 
     useEffect(() => {
         setDate(formatDate(props.post.submitted));
@@ -68,11 +71,15 @@ function Post (props){
         <div className='post-container'>
             <div className='post box'>
                 <div className='post-header'>
+                    {!isSmall && <>
+                        <span className='author'>{post.name}</span>
+                    </>}
                     <h4><strong>{post.title}</strong></h4>
-                    <span className='author'>{post.name}</span>
+                    {isSmall && <>
+                        <div className='author'>By: {post.name}</div>
+                    </>}
                 </div>
                 <hr/>
-                <br/>
                 <p>
                     {post.body}
                 </p>

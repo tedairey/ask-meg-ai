@@ -22,7 +22,7 @@ function NewPost(props) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newPost)
             };
-            fetch('http://localhost:8088/newPost', requestOptions)
+            fetch('http://localhost:8088/posts/newPost', requestOptions)
                 .then(res => res.json())
                 .then(post => {
                     if (props.addPost) {
@@ -32,6 +32,9 @@ function NewPost(props) {
                     }
                     if (props.fullPage) {
                         props.history.push('/blog-posts/my');
+                    }
+                    else {
+                        props.showModal(false);
                     }
                 })
                 .catch(err => {

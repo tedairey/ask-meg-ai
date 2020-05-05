@@ -33,7 +33,7 @@ class AllPosts extends Component {
 
     render(){
       return (
-        <div className="all-posts container">
+        <div className="all-posts">
           <h1 className="blog-posts-header">
             Recent Posts
           </h1>

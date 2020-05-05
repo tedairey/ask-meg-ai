@@ -5,11 +5,12 @@
     resize: none;
     color: white;
     background-color: #222;
-    width: 340px;
+    width: 50%;
     margin-left: 20px;
 }
 
 .new-comment {
+    width: 100%;
     display: inline-flex;
     margin-bottom: 10px;
 }
@@ -26,4 +27,11 @@
 
 .new-comment button {
     margin: auto 0px auto 10px;
+}
+
+@media screen and (max-width: 767px) {
+    .comment-input {
+        width: 100%;
+        margin-left: 0px;
+    }
 }

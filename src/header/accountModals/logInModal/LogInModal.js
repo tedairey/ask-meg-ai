@@ -1,4 +1,4 @@
-import React, { useState, createRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './LogInModal.css';
@@ -7,9 +7,9 @@ function LogInModal(props) {
     const [email, setEmail] = useState(''),
         [password, setPassword] = useState('')
 
-    const errormsg = React.createRef();
-    const emailbox = React.createRef();
-    const passwordbox = React.createRef();
+    const errormsg = useRef();
+    const emailbox = useRef();
+    const passwordbox = useRef();
 
     const onEmailChange = (event) => {
         setEmail(event.target.value)

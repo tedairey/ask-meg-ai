@@ -6,6 +6,14 @@
     padding: 30px 30px;
 }
 
+.modal-body .blog-posts-header {
+    display: none;
+}
+
+.modal-body .new-post-container {
+    background: #21a1af;
+}
+
 .new-post input {
     margin: 20px;
 }

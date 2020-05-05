@@ -1,0 +1,19 @@
+#account-panel {
+    right: 0;
+    text-align: left;
+}
+
+.profile-icon img {
+    width: 100px;
+}
+
+.profile-icon {
+    width: 40%;
+    margin: 10px auto;
+    color: #21a1af;
+}
+
+#profile-name {
+    text-align: center;
+    padding-top: 0px;
+}

@@ -8,12 +8,11 @@ import HowItWorks from './howItWorks/howItWorks.js';
 import About from './about/About.js';
 import Footer from './footer/Footer.js';
 import BlogPosts from './blogPosts/BlogPosts.js';
-import MediaQuery from 'react-responsive';
 import { UserContext } from './context/UserContext.js';
 
 function App() {
-  
-  const [user, setUser] = useState(null);
+
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user')));
 
   const value = useMemo(() => ({user, setUser}), [user, setUser]);
   
@@ -23,7 +22,7 @@ function App() {
       <UserContext.Provider value={value}>
         <Header/>
       </UserContext.Provider>
-        <div className='page-content'>
+        <div className='page-content container'>
           <Switch>
             <Route path="/" exact component={HomePage}/>
             <Route path="/FAQ" component={FAQ}/>
@@ -33,9 +32,7 @@ function App() {
               <Route path="/blog-posts" component={BlogPosts}/>
             </UserContext.Provider>
           </Switch>
-          <MediaQuery minWidth={768}>
-            <Footer/>
-          </MediaQuery>
+          <Footer/>
         </div>
       </Router>
     </div>

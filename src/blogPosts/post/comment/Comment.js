@@ -4,18 +4,27 @@ import { formatDate } from '../../../Helpers';
 
 function Comment (props) {
 
-    const date = useState(formatDate(props.comment.submitted))
+    const date = useState(formatDate(props.comment.submitted));
+
+    const formatName = (name) => {
+        if (name.length > 18) {
+            const spaceIndex = name.indexOf(' ');
+            return name.substring(0, spaceIndex+2) + '.'
+        }
+        return name;
+    }
 
     return (
         <div className='comment'>
-            <span className='comment-body'>
-                {props.comment.body}
-            </span>
-            <span className='comment-name'>
-                {props.comment.name}
-            </span>
+            <div className='comment-name'>
+                {formatName(props.comment.name)}
+            </div>
             <div className='comment-date'>
                 {date}
+            </div>
+            <hr/>
+            <div className='comment-body'>
+                {props.comment.body}
             </div>
         </div>
     );

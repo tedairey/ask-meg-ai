@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './SideMenu.css';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../../../Helpers';
-import { useMediaQuery } from 'react-responsive';
 
 class SideMenu extends Component {
     constructor(props){
@@ -45,7 +44,7 @@ class SideMenu extends Component {
 
     render(){
         return (
-            <div className="side-menu col-auto">
+            <div className="side-menu">
                 <div className='mobile-menu'>
                     <a className="menu-toggle" id="menu-toggle" onClick={this.openMenu} tabIndex="0">
                         <div className="hamburger"></div>
@@ -53,7 +52,7 @@ class SideMenu extends Component {
                         <div className="hamburger"></div>
                     </a>
                 </div>
-                <div className='menu' ref={this.panel}>
+                <div id='nav-menu' className='menu' ref={this.panel}>
                     <a href='#' id="closebtn" onClick={this.closeMenu}>&times;</a>
                     <Link to='/' className='title' onClick={this.closeMenu}>Home</Link>
                     <Link to='/how-it-works' onClick={this.closeMenu}>How It Works</Link>

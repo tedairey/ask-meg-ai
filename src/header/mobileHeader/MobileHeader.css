@@ -8,5 +8,7 @@
 }
 
 .mobile-login {
-    margin: auto 10px auto 10px;
+    margin: auto 20px auto 10px;
+    width: 80px;
+    text-align: right;
 }

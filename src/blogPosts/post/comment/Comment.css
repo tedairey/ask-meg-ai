@@ -7,10 +7,25 @@
     width: 66%;
 }
 .comment-name {
-    float: right;
+    float: left;
     font-style: italic;
 }
 
 .comment-date {
     text-align: right;
+}
+
+.comment-body {
+    overflow: scroll;
+}
+
+.comment hr {
+    margin: 0px;
+}
+
+@media screen and (max-width: 767px) {
+    .comment {
+        width: 100%;
+        margin-left: 0px;
+    }
 }

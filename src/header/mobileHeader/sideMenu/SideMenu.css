@@ -1,6 +1,15 @@
 .side-menu {
     margin: auto 10px auto 25px;
+    width: 80px;
 }
+
+@media screen and (max-width: 767px) {
+    #menu-toggle {
+        float: left;
+        margin-left: 15px;
+    }
+}
+    
 
 .menu {
     height: 100%; 
@@ -72,22 +81,23 @@
 }
 
 @media screen and (min-width: 768px) {
-    .menu {
+    #nav-menu {
         right: 0;
         border-left: 1px solid grey;
     }
-    .menu a {
+    #nav-menu a {
         text-align: left;
     }
     .side-menu {
         float: right;
         margin: auto 0px;
         padding: 0px 5px;
+        width: auto;
     }
 }
 
 @media screen and (max-width: 767px) {
-    .menu {
+    #nav-menu {
         left: 0;
     }
 }

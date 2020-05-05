@@ -34,7 +34,7 @@ class Header extends Component {
                     </div>
                     <div className='title col-md-4'>
                         <span className="title-text">
-                            Team Meg
+                            Meet Meg
                         </span>
                     </div>
                     <div className='log-in-menu col-auto col-md-4'>
