@@ -12,3 +12,10 @@
     margin: 20px;
     padding-inline-start: 0px;
 }
+
+@media (min-width: 992px) {
+    .blog-posts {
+        max-width: 80%;
+        margin: auto;
+    }
+}

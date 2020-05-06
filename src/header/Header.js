@@ -18,7 +18,7 @@ class Header extends Component {
 
     render(){
       return (
-        <div className="header sticky">
+        <div className="header">
             <MediaQuery maxWidth={767}>
                 <MobileHeader/>
             </MediaQuery>

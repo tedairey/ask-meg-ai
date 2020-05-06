@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import pen from '../../pen.png';
 import './MyPosts.scss';
@@ -10,7 +10,7 @@ function MyPosts(props) {
     const [posts, setPosts] = useState([]),
         [showNewPostModal, setShowNewPostModal] = useState(false),
         user = useContext(UserContext),
-        [newPostMessage, setNewPostMessage] = useState('new-post-hover d-none');
+        newPostMsgPanel = useRef();
 
     useEffect(() => {
       if(user) {
@@ -36,11 +36,11 @@ function MyPosts(props) {
     }, [user]);
 
     const showNewPostMessage = () => {
-      setNewPostMessage(newPostMessage.substring(0, newPostMessage.length-7));
+      newPostMsgPanel.current.style.width = '175px';
     }
 
     const hideNewPostMessage = () => {
-      setNewPostMessage(newPostMessage + ' d-none');
+      newPostMsgPanel.current.style.width = '0px';
     }
 
     const addPost = (post) => {
@@ -66,12 +66,14 @@ function MyPosts(props) {
                   <NewPost showModal={setShowNewPostModal} addPost={addPost}/> 
                 </Modal.Body>
               </Modal> :
-              <div className='new-post-button' onMouseLeave={hideNewPostMessage} 
-                   onClick={() => {setShowNewPostModal(true); hideNewPostMessage()}}>
-                <span className={newPostMessage}>
+              <div onMouseLeave={hideNewPostMessage} 
+              onClick={() => {setShowNewPostModal(true); hideNewPostMessage()}}>
+                <div ref={newPostMsgPanel} className='new-post-hover'>
                   Create New Post
-                </span>
-                <img src={pen} className='show-new-post' onMouseEnter={showNewPostMessage}/>
+                </div>
+                <div className='new-post-button'>
+                  <img src={pen} className='show-new-post' onMouseEnter={showNewPostMessage}/>
+                </div>
               </div>
             }
           </div>

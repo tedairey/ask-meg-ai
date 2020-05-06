@@ -4,11 +4,15 @@
     color: $megBlue;
 }
 
-.sticky {
-    position: fixed;
-    top: 0;
+@media (max-width: 768px) {
+    .header {
+        position: fixed;
+    }
+}
+
+.header {
     width: 100%;
-    z-index: 5;
+    z-index: 50;
 }
 
 .logo {
@@ -23,6 +27,11 @@
     background-color: white;
     color: black;
     border-bottom: 1px solid grey;
+    margin-right: 0px;
+}
+
+.modal-open {
+    overflow: scroll;
 }
 
 .banner .title {

@@ -17,7 +17,7 @@ function HowItWorks() {
             <div className="carousel-header">
                 <h3>Based on proven science</h3>
             </div>
-            <Carousel interval={7000}>
+            <Carousel interval={5000}>
                 <Carousel.Item>
                     <img
                     className="image-slide"

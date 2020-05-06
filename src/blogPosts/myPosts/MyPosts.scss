@@ -6,14 +6,28 @@
     background-color: white;
     border-radius: 8px;
     border: 3px solid black;
+    img {
+        float: right;
+    }
 }
 
 .new-post-hover {
     color: black;
-    padding: 0px 10px;
+    padding: 18px 10px;
     font-weight: bold;
     transition: 0.3s;
-    right: 100px; 
+    right: 70px;
+    bottom: 30px;
+    width: 0;
+    position: fixed;
+    height: 70px;
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 5px;
+    border-right: none;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .new-post-modal-header {

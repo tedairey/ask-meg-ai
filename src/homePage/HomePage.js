@@ -22,10 +22,7 @@ function HomePage() {
         </div>
         <hr></hr>
         <div className="gif row">
-            <div className="col-md-8">
-                <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568420562/emokuhietha0cpmkpsb2.jpg"></img>
-            </div>
-            <div className="col-md-4 text">
+            <div className="col-md-4 order-md-5 text">
                 <p>
                     <strong>Meg Is A Next Generation Of Dietitian In Your Pocket.</strong><br/>
                     A first-of-its-kind solution, Meg combines the latest proven science, 
@@ -33,6 +30,9 @@ function HomePage() {
                     Meg is a next generation of dietitian. An expert in your pocket and fully voice-enabled. 
                     Just talk to Meg, 24/7.
                 </p>
+            </div>
+            <div className="col-md-8 order-md-1">
+                <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"></img>
             </div>
         </div>
         <hr></hr>
