@@ -9,12 +9,43 @@
 
 .section {
     margin-top: 20px;
+    span {
+        font-size: 24px;
+    }
+    .person {
+        font-style: italic;
+    }
+    img {
+        border-radius: 10px;
+        border: 1px solid black;
+        padding: 0px;
+    }
 }
 
-.section img {
-    border-radius: 10px;
+.carousel-header {
+    text-align: center;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.carousel {
     border: 1px solid black;
-    padding: 0px;
+    .carousel-item {
+        p {
+            color: black;
+        }
+    }
+    .carousel-control-next, .carousel-control-prev {
+        width: 8%;
+        background-color: grey;
+    }
+    .carousel-indicators {
+        margin-bottom: 0;
+        z-index: 3;
+        li {
+            background-color: black;
+        }
+    }
 }
 
 .how-it-works-header {
@@ -29,5 +60,15 @@
     }
     #meg-campaign-video {
         height: 300px;
+    }
+    .carousel-header {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .carousel {
+        width: 80%;
+        margin: auto;
     }
 }

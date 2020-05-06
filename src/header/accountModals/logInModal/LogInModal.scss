@@ -1,7 +1,9 @@
+@import '../../../variables.scss';
+
 #log-in {
     display: inline;
     padding-left: 5px;
-    color: #21a1af;
+    color: $megBlue;
     font-weight: bold;
 }
 

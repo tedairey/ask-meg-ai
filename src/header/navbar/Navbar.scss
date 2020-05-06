@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .navbar {
     background-color: #eee;
     font-size: 16px;
@@ -5,15 +7,15 @@
 }
 
 .navbar-light .navbar-brand, .navbar-light .navbar-nav .nav-link {
-    color: #21a1af!important;
+    color: $megBlue!important;
 }
 
 .search {
-    border: 1px solid #21a1af;
-    color: #21a1af;
+    border: 1px solid $megBlue;
+    color: $megBlue;
     &:hover{
         border-color: white;
-        background-color: #21a1af;
+        background-color: $megBlue;
         color: white;
     }
 }
