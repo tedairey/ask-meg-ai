@@ -1,0 +1,17 @@
+.our-team {
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .photo-collection {
+        justify-content: center;
+        display: inline-flex;
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .our-team{
+        margin: 10px 20px;
+    }
+}

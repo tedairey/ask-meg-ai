@@ -1,0 +1,55 @@
+.team-photo {
+    position: relative;
+    width: 30%;
+    height: 100%;
+    display: block;
+    margin: 1rem;
+    &:hover {
+        .overlay {
+            height: 100%;
+            border-radius: 5px;
+            border: 1px solid white;
+        }
+    }
+    .overlay {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 0;
+        width: 100%;
+        background-color: #343942;
+        z-index: 4;
+        transition: 0.5s;
+        overflow: hidden;
+        font-size: 14px;
+        .member-name {
+            padding-top: 10px;
+            text-align: center;
+        }
+        .member-info {
+            padding: 5px 10px;
+        }
+    }
+    .member-photo {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 100%;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .team-photo {
+        width: 100%;
+        margin: 1rem;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    .team-photo {
+        width: 45%;
+        margin: 1rem;
+    }
+}

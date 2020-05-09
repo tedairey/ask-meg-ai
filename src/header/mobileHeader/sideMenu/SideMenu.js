@@ -23,7 +23,7 @@ class SideMenu extends Component {
 
     closeMenu = (event) => {
         this.toggleBlogMenu();
-        event.target.id !== 'closebtn' && scrollTop();
+        event.target.id === 'closebtn' ? event.preventDefault() : scrollTop();
         this.panel.current.style.width = '0px';
         this.blogs.current.style.height = '0px';
         this.blogLink.current.style.borderTop = '0';

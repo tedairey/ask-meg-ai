@@ -5,25 +5,8 @@ import { scrollTop } from '../../Helpers';
 
 function Navbar() {
 
-    const [isSticky, setSticky] = useState(false),
-        navBar = useRef();
-
-    const handleScroll = () => {
-        if (navBar.current) {
-          setSticky(navBar.current.getBoundingClientRect().top <= 0);
-        }
-    };
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-    
-        return () => {
-          window.removeEventListener('scroll', () => handleScroll);
-        };
-    }, []);
-
   return (
-    <div ref={navBar} className={`sticky-wrapper${isSticky ? ' sticky' : ''}`}>
+    <div>
         <nav className="navbar navbar-expand navbar-light justify-content-between">
             <Link to='/' className="navbar-brand" href="#" onClick={scrollTop}>
                 Home

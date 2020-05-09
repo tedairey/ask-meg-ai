@@ -4,20 +4,6 @@
     background-color: #eee;
     font-size: 16px;
     border-bottom: 1px solid grey;
-    width: 100%;
-}
-
-.sticky-wrapper {
-    position: relative;
-    height: 3rem; /* We need to change this value */
-}
-
-.sticky .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
 }
 
 .navbar-light .navbar-brand, .navbar-light .navbar-nav .nav-link {
