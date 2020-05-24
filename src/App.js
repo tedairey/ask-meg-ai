@@ -8,6 +8,7 @@ import HowItWorks from './howItWorks/howItWorks.js';
 import About from './about/About.js';
 import Footer from './footer/Footer.js';
 import BlogPosts from './blogPosts/BlogPosts.js';
+import Profile from './profile/Profile';
 import { UserContext } from './context/UserContext.js';
 
 function App() {
@@ -19,9 +20,9 @@ function App() {
   return (
     <div className="page">
       <Router>
-      <UserContext.Provider value={value}>
-        <Header/>
-      </UserContext.Provider>
+        <UserContext.Provider value={value}>
+          <Header/>
+        </UserContext.Provider>
         <div className='page-content container'>
           <Switch>
             <Route path="/" exact component={HomePage}/>
@@ -30,6 +31,7 @@ function App() {
             <Route path="/about" component={About}/>
             <UserContext.Provider value={user}>
               <Route path="/blog-posts" component={BlogPosts}/>
+              <Route path='/profile/:handle' component={Profile}/>
             </UserContext.Provider>
           </Switch>
           <Footer/>

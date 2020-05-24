@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import './NewPost.scss';
-import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 
 function NewPost(props) {
@@ -31,7 +31,7 @@ function NewPost(props) {
                         setBody('');
                     }
                     if (props.fullPage) {
-                        props.history.push('/blog-posts/my');
+                        props.history.push('/blog-posts/user');
                     }
                     else {
                         props.showModal(false);

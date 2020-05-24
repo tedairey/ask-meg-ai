@@ -20,10 +20,21 @@ function LogInModal(props) {
     }
 
     const validateLogin = () => {
-        fetch("http://localhost:8088/" + email)
+        const loginFields = {
+                email: email,
+                password: password
+            },
+            requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(loginFields)
+            };
+        
+        fetch('http://localhost:8088/login', requestOptions)
+        //fetch("http://localhost:8088/" + email)
             .then(res => res.json())
             .then(user => {
-                if (!user || !email || user.password != password) {
+                if (!user.username) {
                     errormsg.current.style.display = 'block';
                     emailbox.current.style.borderColor = 'red';
                     passwordbox.current.style.borderColor = 'red';
@@ -35,6 +46,9 @@ function LogInModal(props) {
                 }
             })
             .catch(err => {
+                errormsg.current.style.display = 'block';
+                emailbox.current.style.borderColor = 'red';
+                passwordbox.current.style.borderColor = 'red';
                 return false;
             });
     }

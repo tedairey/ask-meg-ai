@@ -1,0 +1,21 @@
+.page-control {
+    display: flex;
+    justify-content: center;
+    .page-button {
+        padding: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        border: 1px solid black;     
+        &.prev {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        &.next {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        &.active {
+            background-color: #aaa;
+        }
+    }
+}

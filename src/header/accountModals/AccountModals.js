@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect, useContext } from 'react';
 import './AccountModals.scss';
 import LogInModal from './logInModal/LogInModal.js';
 import RegisterModal from './registerModal/RegisterModal.js';
+import { useHistory } from 'react-router-dom';
 import MediaQuery, { useMediaQuery } from 'react-responsive';
 import { UserContext } from '../../context/UserContext';
 import AccountMenu from '../mobileHeader/accountMenu/AccountMenu';
@@ -10,7 +11,8 @@ function AccountModals(props) {
 
     const [loginModal, setLoginModal] = useState(false),
         [registerModal, setRegisterModal] = useState(false),
-        [greeting, setGreeting] = useState('');
+        [greeting, setGreeting] = useState(''),
+        history = useHistory();
 
     const { user, setUser } = useContext(UserContext);
 
@@ -63,6 +65,7 @@ function AccountModals(props) {
     }
 
     const logout = () => {
+        history.push('/');
         setUser(null);
         sessionStorage.clear();
     }

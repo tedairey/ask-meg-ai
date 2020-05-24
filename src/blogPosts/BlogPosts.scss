@@ -1,10 +1,13 @@
 .blog-posts {
     color: white;
-}
-
-.blog-posts-header {
-    text-align: center;
-    margin: 20px 0px;
+    .blog-posts-header {
+        text-align: center;
+        margin: 20px 0px;
+    }
+    .spinner-grow {
+        height: 5rem;
+        width: 5rem;
+    }
 }
 
 .posts-list {

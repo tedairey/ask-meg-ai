@@ -61,6 +61,11 @@ img {
     background-color: #222;
     border: 1px white solid;
     color: white;
+    &:hover {
+        background-color: white;
+        border: 1px black solid;
+        color: black;
+    }
 }
 
 .back {

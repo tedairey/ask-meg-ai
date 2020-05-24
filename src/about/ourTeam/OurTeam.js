@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './OurTeam.scss';
 import TeamPhoto from './teamPhoto/TeamPhoto';
-import TeamInfo from './teamInfo/TeamInfo.json';
+import TeamInfo from './TeamInfo.json';
 import { useMediaQuery } from 'react-responsive';
 
 function OurTeam() {

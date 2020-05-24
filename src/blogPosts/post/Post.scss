@@ -1,12 +1,22 @@
 .post {
     margin-bottom: 1rem;
+    .post h4 {
+        display: inline;
+    }
     hr {
         margin: 10px -15px 0px;
         background: black;
         height: 1px;
     }
-    .post h4 {
-        display: inline;
+    .comment-section {
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    .author {
+        font-style: italic;
+        color: black;
     }
 }
 
@@ -31,10 +41,6 @@
 
 .post-footer a {
     color: black;
-}
-
-.author {
-    font-style: italic;
 }
 
 .comment-section {

@@ -31,8 +31,8 @@ function AccountMenu(props) {
                 <div className='profile-icon'>
                     <img src={accountIcon} onClick={openMenu}/>
                 </div>
-                <Link to='/' id='profile-name' className='title' onClick={closeMenu}>{user.name}</Link>
-                <Link to='/blog-posts/my' onClick={closeMenu}>Your Blog Posts</Link>
+                <Link to={`/profile/` + user.username} id='profile-name' className='title' onClick={closeMenu}>{user.name}</Link>
+                <Link to='/blog-posts/user' onClick={closeMenu}>Your Blog Posts</Link>
                 <Link to='/blog-posts/new' onClick={closeMenu}>New Blog Post</Link>
                 <a href='#' onClick={props.logout}>Logout</a>
             </div>

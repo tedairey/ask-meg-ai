@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './HomePage.scss';
 import AppleBadge from '../App_Store_Badge.svg';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../Helpers';
 
 function HomePage() {
+
   return (
     <div className="home-page container">
         <div className="row">
@@ -20,7 +21,7 @@ function HomePage() {
                 <img id="ask" src="https://crowdlly.com/video.gif"/>
             </div>
         </div>
-        <hr></hr>
+        <hr/>
         <div className="gif row">
             <div className="col-md-4 order-md-5 text">
                 <p>
@@ -32,7 +33,7 @@ function HomePage() {
                 </p>
             </div>
             <div className="col-md-8 order-md-1">
-                <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"></img>
+                <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"/>
             </div>
         </div>
         <hr></hr>

@@ -4,7 +4,7 @@ import { formatDate } from '../../../Helpers';
 
 function Comment (props) {
 
-    const date = useState(formatDate(props.comment.submitted));
+    const [date, setDate] = useState(formatDate(props.comment.submitted));
 
     const formatName = (name) => {
         if (name.length > 18) {

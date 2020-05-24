@@ -6,6 +6,7 @@ import commenticon from '../../commenticon.png';
 import { formatDate } from '../../Helpers';
 import { UserContext } from '../../context/UserContext';
 import { useMediaQuery } from 'react-responsive';
+import { Link } from 'react-router-dom';
 
 function Post (props){
     
@@ -47,7 +48,7 @@ function Post (props){
                     const comments = [];
                     if (res.length) {
                         for (const [index, comment] of res.entries()) {
-                            comments.push(<Comment comment={comment}/>);
+                            comments.push(<Comment key={index} comment={comment}/>);
                         }
                         setComments(comments);
                         return false;
@@ -72,7 +73,7 @@ function Post (props){
             <div className='post box'>
                 <div className='post-header'>
                     {!isSmall && <>
-                        <span className='author'>{post.name}</span>
+                        <Link to={'/profile/' + post.username} className='author'>{post.name}</Link>
                     </>}
                     <h4><strong>{post.title}</strong></h4>
                     {isSmall && <>
@@ -85,10 +86,10 @@ function Post (props){
                 </p>
                 <br/>
                 <div className='post-footer'>
-                    <a href='javascript:void(0)' onClick={toggleComments}>
+                    <span className='comment-section' onClick={toggleComments}>
                         <img className='comment-icon' src={commenticon}/>
                         Comments {post.comments}
-                    </a>
+                    </span>
                     <span className='post-date'>{date}</span>
                 </div>
             </div>

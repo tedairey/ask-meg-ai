@@ -1,9 +1,12 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import './Navbar.scss';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../../Helpers';
+import { UserContext } from '../../context/UserContext';
 
 function Navbar() {
+
+    const user = useContext(UserContext); 
 
   return (
     <div>
@@ -36,7 +39,7 @@ function Navbar() {
                         <Link to='/blog-posts/all' className="dropdown-item" href="#" onClick={scrollTop}>
                             All Posts
                         </Link>
-                        <Link to='/blog-posts/my' className="dropdown-item" href="#" onClick={scrollTop}>
+                        <Link to='/blog-posts/user' className="dropdown-item" href="#" onClick={scrollTop}>
                             My Posts
                         </Link>
                     <div className="dropdown-divider"/>
