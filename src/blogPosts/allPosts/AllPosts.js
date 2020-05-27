@@ -23,7 +23,7 @@ function AllPosts (props) {
       .catch(err => {
         console.log(err);
       })
-  },[])
+  },[count, currentPage])
 
   const getPosts = (pageNumber) => {
     setPosts([]);

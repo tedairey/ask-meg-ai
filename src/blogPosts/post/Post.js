@@ -12,6 +12,8 @@ function Post (props){
     
     const [comments, setComments] = useState([]),
         [date, setDate] = useState(''),
+        [commentCount, setCommentCount] = useState(0),
+        [isLoaded, setIsLoaded] = useState(false),
         user = useContext(UserContext);
 
     let [commentSectionStyle, setCommentSectionStyle] = useState('comment-section d-none');
@@ -22,6 +24,14 @@ function Post (props){
 
     useEffect(() => {
         setDate(formatDate(props.post.submitted));
+    });
+
+    useEffect(() => {
+        fetch('http://localhost:8088/commentCount/' + props.post.id)
+            .then(res => res.json())
+            .then(count => {
+                setCommentCount(count);
+            })
     });
 
     const addComment = (comment) => {
@@ -51,11 +61,11 @@ function Post (props){
                             comments.push(<Comment key={index} comment={comment}/>);
                         }
                         setComments(comments);
-                        return false;
                     }
                     else if (!user) {
                         setComments('No user comments');
                     }
+                    setIsLoaded(true);
                 })
                 .catch(err => {
                     console.log(err);
@@ -88,7 +98,7 @@ function Post (props){
                 <div className='post-footer'>
                     <span className='comment-section' onClick={toggleComments}>
                         <img className='comment-icon' src={commenticon}/>
-                        Comments {post.comments}
+                        Comments ({commentCount})
                     </span>
                     <span className='post-date'>{date}</span>
                 </div>
@@ -97,7 +107,14 @@ function Post (props){
                 {user &&
                     <NewComment postID={post.id} addComment={addComment}/>
                 }  
-                {comments}
+                {isLoaded ?
+                    comments :
+                    <div className='text-center'>
+                        <div className='spinner-grow' role='status'>
+                            <span className='sr-only'>Loading...</span>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     );

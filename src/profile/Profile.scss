@@ -8,17 +8,30 @@
         border: 1px solid grey;
         border-radius: 10px;
         background-color: white;
-        max-width: 800px;
+        max-width: 650px;
         button {
             margin: 10px 0px;
         }
-        img {
+        @media screen and (max-width: 768px) {
+            .profile-photo {
+                max-width: 100px;
+                padding-bottom: 15px;
+            }
+            .profile-body {
+                text-align: center;
+            }
+        }
+        .profile-photo {
             max-width: 150px;
             margin: auto;
         }
         .profile-photo {
             display: flex;
         }
+    }
+    .profile-posts {
+        max-width: 825px;
+        margin: auto;
     }
     .blog-posts-header {
         color: white;

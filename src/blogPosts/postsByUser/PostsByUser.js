@@ -16,22 +16,24 @@ function PostsByUser(props) {
         newPostMsgPanel = useRef(),
         user = useContext(UserContext),
         spinner = useRef(),
-        [count, setCount] = useState(0);
+        [count, setCount] = useState(0),
+        [isUserPosts, setIsUserPosts] = useState(false);
 
     useEffect(() => {
       if (props.username) {
+        user.username === props.username && setIsUserPosts(true);
         fetch('http://localhost:8088/posts/count/' + props.username)
           .then(res => res.json())
           .then(res => {
             setCount(res);
             res > 10 && setPagination(Math.ceil(res/10));
-            getPosts(1);
+            getPosts(currentPage);
           })
           .catch(err => {
             console.log(err);
           })
       }
-    }, [props.username, user])
+    }, [props.username, count, currentPage, isUserPosts])
 
     const getPosts = (pageNumber) => {
       if (props.username) {
@@ -90,7 +92,6 @@ function PostsByUser(props) {
         selectedButton.classList.add('active');
         selectedButton.parentElement.children[currentPage].classList.remove('active');
         setCurrentPage(pageSelected);
-        getPosts(pageSelected);
         scrollTop();
       }
     }
@@ -139,7 +140,7 @@ function PostsByUser(props) {
               <Modal.Body>   
                 <NewPost showModal={setShowNewPostModal} addPost={addPost}/> 
               </Modal.Body>
-            </Modal> :
+            </Modal> : isUserPosts &&
             <div onMouseLeave={hideNewPostMessage} 
               onClick={() => {setShowNewPostModal(true); hideNewPostMessage()}}>
               <div ref={newPostMsgPanel} className='new-post-hover'>
