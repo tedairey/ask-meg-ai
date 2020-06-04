@@ -28,6 +28,18 @@ function AllPosts (props) {
   const getPosts = (pageNumber) => {
     setPosts([]);
     setIsLoaded(false);
+    // begin dummy code
+    // const posts = [],
+    //   post = {
+    //     title: 'First Post', 
+    //     body: 'My first post', 
+    //     usename: 'pairey', 
+    //     commentCount: 3,
+    //     submitted: 'yy20m05d29--'
+    //   }
+    // posts.push(<li key={1}><Post post={post}/></li>)
+    // setIsLoaded(true);
+    // setPosts(posts);
     fetch('http://localhost:8088/posts/page/' + pageNumber)
       .then(res => res.json())
       .then(res => {

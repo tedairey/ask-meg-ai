@@ -61,6 +61,7 @@ function SideMenu(props) {
                     </div>
                     <Link to={`/profile/` + user.username} id='profile-link' onClick={closeMenu}>
                         {user.name}
+                        {user.username}
                     </Link>
                 </> :
                     <Link to='/' className='title' onClick={closeMenu}>Home</Link>

@@ -12,9 +12,9 @@ function Post (props){
     
     const [comments, setComments] = useState([]),
         [date, setDate] = useState(''),
-        [commentCount, setCommentCount] = useState(0),
+        [commentCount, setCommentCount] = useState(props.post.commentCount),
         [isLoaded, setIsLoaded] = useState(false),
-        user = useContext(UserContext);
+        user = /*{username: 'tairey'}*/useContext(UserContext);
 
     let [commentSectionStyle, setCommentSectionStyle] = useState('comment-section d-none');
     
@@ -24,19 +24,12 @@ function Post (props){
 
     useEffect(() => {
         setDate(formatDate(props.post.submitted));
-    });
-
-    useEffect(() => {
-        fetch('http://localhost:8088/commentCount/' + props.post.id)
-            .then(res => res.json())
-            .then(count => {
-                setCommentCount(count);
-            })
-    });
+    }, []);
 
     const addComment = (comment) => {
         const newComments = comments.concat(<Comment comment={comment}/>);
         setComments(newComments);
+        setCommentCount(commentCount + 1);
     }
 
     const toggleCommentSection = () => {
@@ -51,14 +44,37 @@ function Post (props){
 
     const toggleComments = () => {
         toggleCommentSection();
-        if (!showCommentSection) {
+        if (!commentCount) {
+            setIsLoaded(true);
+            return;
+        }
+        else if (!showCommentSection) {
+            //begin dummy code
+            // const comments = [],
+            //     comment1 = {
+            //         username: 'tairey',
+            //         body: 'first comment',
+            //         submitted: 'yy20m05d29--',
+            //         id: 1
+            //     },
+            //     comment2 = {
+            //         username: 'pairey',
+            //         body: 'second comment',
+            //         submitted: 'yy20m05d29--',
+            //         id: 2
+            //     }
+            // comments.push(<Comment key={1} comment={comment1}/>);
+            // comments.push(<Comment key={2} comment={comment2}/>);
+            // setComments(comments);
+            // setIsLoaded(true);
+            //end dummy code
             fetch('http://localhost:8088/comments/' + props.post.id)
                 .then(res => res.json())
                 .then(res => {
                     const comments = [];
                     if (res.length) {
                         for (const [index, comment] of res.entries()) {
-                            comments.push(<Comment key={index} comment={comment}/>);
+                            comments.push(<Comment key={index} updateComment={toggleComments} comment={comment}/>);
                         }
                         setComments(comments);
                     }
@@ -83,11 +99,13 @@ function Post (props){
             <div className='post box'>
                 <div className='post-header'>
                     {!isSmall && <>
-                        <Link to={'/profile/' + post.username} className='author'>{post.name}</Link>
+                        <Link to={'/profile/' + post.username} className='author'>{post.username}</Link>
                     </>}
                     <h4><strong>{post.title}</strong></h4>
                     {isSmall && <>
-                        <div className='author'>By: {post.name}</div>
+                        <div className='author'>
+                            <Link to={'/profile/' + post.username}>{post.username}</Link>
+                        </div>
                     </>}
                 </div>
                 <hr/>

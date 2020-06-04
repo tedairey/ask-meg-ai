@@ -21,7 +21,9 @@ function PostsByUser(props) {
 
     useEffect(() => {
       if (props.username) {
-        user.username === props.username && setIsUserPosts(true);
+        if (user) {
+          user.username === props.username && setIsUserPosts(true)
+        };
         fetch('http://localhost:8088/posts/count/' + props.username)
           .then(res => res.json())
           .then(res => {

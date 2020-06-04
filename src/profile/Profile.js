@@ -73,12 +73,13 @@ function Profile(props) {
                 .then(res => res.json())
                 .then(success => {
                     if (success) {
+                        setShowChangePassword(false);
                         //add success modal popup
                     }
                     else {
                         setPasswordErr('Incorrect Password');
-                        //currentPasswordRef.current.style.borderColor = 'red';
-                        //passwordErrRef.current.style.display = 'block';
+                        currentPasswordRef.current.style.borderColor = 'red';
+                        passwordErrRef.current.style.display = 'block';
                     }
                 })
         }
@@ -102,12 +103,12 @@ function Profile(props) {
                     <img src={accountIcon}/>
                 </div>
                 <div className='profile-body col-md-8'>
-                    <h1>{profile.firstName} {profile.lastName}</h1>
+                <h1>{profile.username}</h1>
                     <div>
-                        <span className='profile-username'>
-                            Username: {profile.username}
-                        </span>
-                        {isUserProfile && <>
+                    { isUserProfile && <>
+                            <span className='profile-username'>
+                                {profile.firstName} {profile.lastName}
+                            </span>
                             <br/>
                             <button className='btn submit' onClick={() => setShowChangePassword(true)}>
                                 Change Password

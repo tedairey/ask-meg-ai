@@ -1,40 +1,64 @@
 .FAQs {
     color: white;
-}
-
-.FAQs-header {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.tab {
-    color: white;
-    font-size: 20px;
-    &:hover{
-        color: white;
+    .FAQs-header {
+        margin-top: 20px;
+        text-align: center;
     }
-}
-
-.tabset {
-    margin-bottom: 20px;
-    justify-content: center;
-    list-style: none;
-    display: flex;
-}
-
-.FAQ-nav {
-    background-color: #464040;
-    padding: 2px 8px;
-    border-radius: 4px;
-    border: 1px solid white;
-    margin: 5px;
-}
-
-@media screen and (max-width: 768px) {
-    .FAQ-nav {
-        display: inline-block;
+    .FAQ-search {
+        border: 1px solid black;
+        background-color: white;
+        border-radius: 10px;
+        padding: 5px;
+        display: inline-flex;
+        width: 40px;
+        transition: 0.5s;
+        overflow: hidden;
+        &:hover {
+            width: 300px;
+        }
+        .search-prompt {
+            margin-right: 8px;
+            height: 30px;
+            width: 30px;
+            cursor: pointer;
+        }
+        .FAQ-search-input {
+            resize: none;
+            border: 1px solid black;
+            border-radius: 5px;
+            height: 30px;
+            padding: 0px 5px;
+            width: inherit;
+        }
+        margin-bottom: 20px;
     }
     .tabset {
-        display: block;
+        margin-bottom: 20px;
+        justify-content: center;
+        list-style: none;
+        display: flex;
+        .tab {
+            color: white;
+            font-size: 20px;
+            &:hover{
+                color: white;
+            }
+        }
+    } 
+    .FAQ-nav {
+        background-color: #464040;
+        padding: 2px 8px;
+        border-radius: 4px;
+        border: 1px solid white;
+        margin: 5px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .FAQ-nav {
+            display: inline-block;
+        }
+        .tabset {
+            display: block;
+        }
     }
 }

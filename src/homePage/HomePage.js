@@ -9,7 +9,7 @@ function HomePage() {
   return (
     <div className="home-page container">
         <div className="row">
-            <div className="col-md-4 text">
+            <div className="col-lg-4 text">
                 <h1>
                     Meg: The Next Generation Weight Loss App Is Here
                 </h1>
@@ -17,13 +17,13 @@ function HomePage() {
                     <img src={AppleBadge}/>
                 </a>
             </div>
-            <div className="col-md-8">
+            <div className="col-lg-8">
                 <img id="ask" src="https://crowdlly.com/video.gif"/>
             </div>
         </div>
         <hr/>
         <div className="gif row">
-            <div className="col-md-4 order-md-5 text">
+            <div className="col-lg-4 order-lg-5 text">
                 <p>
                     <strong>Meg Is A Next Generation Of Dietitian In Your Pocket.</strong><br/>
                     A first-of-its-kind solution, Meg combines the latest proven science, 
@@ -32,7 +32,7 @@ function HomePage() {
                     Just talk to Meg, 24/7.
                 </p>
             </div>
-            <div className="col-md-8 order-md-1">
+            <div className="col-lg-8 order-lg-1">
                 <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"/>
             </div>
         </div>

@@ -9,18 +9,24 @@
     hr {
         margin: 0px;
     }
-}
-.comment-name {
-    float: left;
-    font-style: italic;
-}
-
-.comment-date {
-    text-align: right;
-}
-
-.comment-body {
-    overflow: auto;
+    a {
+        color: white;
+    }
+    .three-dots {
+        margin-top: -3px;
+        margin-right: -6px;
+        cursor: pointer;
+    }    
+    .comment-name {
+        float: left;
+        font-style: italic;
+    }
+    .comment-date {
+        text-align: right;
+    }
+    .comment-body {
+        overflow: auto;
+    }
 }
 
 @media screen and (max-width: 767px) {
