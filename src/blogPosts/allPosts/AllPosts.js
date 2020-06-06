@@ -13,6 +13,17 @@ function AllPosts (props) {
     [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
+    const loadingTimer = setTimeout(() => {
+      if (!isLoaded) {
+          setIsLoaded(true);
+          setPosts('Error Loading Posts');
+      }
+    }, 10000);
+    
+    return () => {clearTimeout(loadingTimer)}
+  }, [isLoaded]);
+
+  useEffect(() => {
     fetch('http://localhost:8088/posts/count/')
       .then(res => res.json())
       .then(res => {
@@ -26,8 +37,8 @@ function AllPosts (props) {
   },[count, currentPage])
 
   const getPosts = (pageNumber) => {
-    setPosts([]);
-    setIsLoaded(false);
+    // setPosts([]);
+    // setIsLoaded(false);
     // begin dummy code
     // const posts = [],
     //   post = {

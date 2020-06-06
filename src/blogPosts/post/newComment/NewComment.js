@@ -28,14 +28,21 @@ function NewComment (props) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newComment)
             };
-            if (props.currentComment && props.currentComment.body !== comment) {
-                fetch('http://localhost:8088/updateComment/' + props.currentComment.id, requestOptions)
-                    .then(res => res.json())
-                    .then(res => {
-                        if (res) {
-                            props.addComment();
-                        }
-                    })
+            if (props.currentComment) {
+                //If text has not been edited
+                if(props.currentComment.body !== comment) {
+                    fetch('http://localhost:8088/updateComment/' + props.currentComment.id, requestOptions)
+                        .then(res => res.json())
+                        .then(res => {
+                            if (res) {
+                                props.addComment();
+                            }
+                        })
+                }
+                //Just reset comment
+                else {
+                    props.addComment();
+                }
             }
             else {
                 fetch('http://localhost:8088/newComment', requestOptions)

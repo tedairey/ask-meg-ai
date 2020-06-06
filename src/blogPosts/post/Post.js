@@ -27,9 +27,54 @@ function Post (props){
     }, []);
 
     const addComment = (comment) => {
-        const newComments = comments.concat(<Comment comment={comment}/>);
+        const newComments = comments.concat(<Comment deleteComment={deleteComment} comment={comment}/>);
         setComments(newComments);
         setCommentCount(commentCount + 1);
+    }
+
+    const deleteComment = () => {
+        //setCommentCount(commentCount);
+        fetchComments();
+    }
+
+    const fetchComments = () => {
+        //begin dummy code
+        // const comments = [],
+        //     comment1 = {
+        //         username: 'tairey',
+        //         body: 'first comment',
+        //         submitted: 'yy20m05d29--',
+        //         id: 1
+        //     },
+        //     comment2 = {
+        //         username: 'pairey',
+        //         body: 'second comment',
+        //         submitted: 'yy20m05d29--',
+        //         id: 2
+        //     }
+        // comments.push(<Comment key={1} comment={comment1}/>);
+        // comments.push(<Comment key={2} comment={comment2}/>);
+        // setComments(comments);
+        // setIsLoaded(true);
+        //end dummy code
+        fetch('http://localhost:8088/comments/' + props.post.id)
+                .then(res => res.json())
+                .then(res => {
+                    const comments = [];
+                    if (res.length) {
+                        for (const [index, comment] of res.entries()) {
+                            comments.push(<Comment key={index} deleteComment={deleteComment} comment={comment}/>);
+                        }
+                        setComments(comments);
+                    }
+                    else if (!user) {
+                        setComments('No user comments');
+                    }
+                    setIsLoaded(true);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
     }
 
     const toggleCommentSection = () => {
@@ -44,48 +89,13 @@ function Post (props){
 
     const toggleComments = () => {
         toggleCommentSection();
-        if (!commentCount) {
+        if (!commentCount && !user) {
+            setComments('No comments');
             setIsLoaded(true);
             return;
         }
         else if (!showCommentSection) {
-            //begin dummy code
-            // const comments = [],
-            //     comment1 = {
-            //         username: 'tairey',
-            //         body: 'first comment',
-            //         submitted: 'yy20m05d29--',
-            //         id: 1
-            //     },
-            //     comment2 = {
-            //         username: 'pairey',
-            //         body: 'second comment',
-            //         submitted: 'yy20m05d29--',
-            //         id: 2
-            //     }
-            // comments.push(<Comment key={1} comment={comment1}/>);
-            // comments.push(<Comment key={2} comment={comment2}/>);
-            // setComments(comments);
-            // setIsLoaded(true);
-            //end dummy code
-            fetch('http://localhost:8088/comments/' + props.post.id)
-                .then(res => res.json())
-                .then(res => {
-                    const comments = [];
-                    if (res.length) {
-                        for (const [index, comment] of res.entries()) {
-                            comments.push(<Comment key={index} updateComment={toggleComments} comment={comment}/>);
-                        }
-                        setComments(comments);
-                    }
-                    else if (!user) {
-                        setComments('No user comments');
-                    }
-                    setIsLoaded(true);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            fetchComments();
         }
         else {
             setComments([]);

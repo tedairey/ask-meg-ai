@@ -21,10 +21,10 @@ function Comment (props) {
         if (user) {
             user.username === props.comment.username && setIsUserComment(true);
         }
-    },[isUserComment]);
+    },[user]);
 
     const showEditMenu = () => {
-        setEditMenu(editMenu - ' d-none');
+        setEditMenu(editMenu.slice(0,-7));
     }
 
     const hideEditMenu = () => {
@@ -46,6 +46,7 @@ function Comment (props) {
             .then(res => {
                 if (res) {
                     setShowDeleteModal(false);
+                    props.deleteComment();
                     //successfully deleted comment
                     //updatecomment
                 }
