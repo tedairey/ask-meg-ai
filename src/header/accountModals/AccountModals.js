@@ -50,6 +50,7 @@ function AccountModals(props) {
             username: newUser.username,
             firstName: newUser.firstName,
             name: newUser.firstName + ' ' + newUser.lastName,
+            isAdmin: newUser.isAdmin
         }
         sessionStorage.setItem('user', JSON.stringify(profile));
         setUser(profile);

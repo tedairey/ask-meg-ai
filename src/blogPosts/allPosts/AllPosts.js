@@ -12,6 +12,7 @@ function AllPosts (props) {
     [isLoaded, setIsLoaded] = useState(false),
     [currentPage, setCurrentPage] = useState(1);
 
+  //load timeout
   useEffect(() => {
     const loadingTimer = setTimeout(() => {
       if (!isLoaded) {
@@ -23,35 +24,22 @@ function AllPosts (props) {
     return () => {clearTimeout(loadingTimer)}
   }, [isLoaded]);
 
+  //posts count
   useEffect(() => {
     fetch('http://localhost:8088/posts/count/')
       .then(res => res.json())
       .then(res => {
         setCount(res);
         res > 10 && setPagination(Math.ceil(res/10));
-        getPosts(currentPage);
       })
       .catch(err => {
         console.log(err);
       })
-  },[count, currentPage])
+  }, [])
 
-  const getPosts = (pageNumber) => {
-    // setPosts([]);
-    // setIsLoaded(false);
-    // begin dummy code
-    // const posts = [],
-    //   post = {
-    //     title: 'First Post', 
-    //     body: 'My first post', 
-    //     usename: 'pairey', 
-    //     commentCount: 3,
-    //     submitted: 'yy20m05d29--'
-    //   }
-    // posts.push(<li key={1}><Post post={post}/></li>)
-    // setIsLoaded(true);
-    // setPosts(posts);
-    fetch('http://localhost:8088/posts/page/' + pageNumber)
+  //page change
+  useEffect(() => {
+    fetch('http://localhost:8088/posts/page/' + currentPage)
       .then(res => res.json())
       .then(res => {
         const posts = [];
@@ -69,7 +57,7 @@ function AllPosts (props) {
       .catch(err => {
         console.log(err);
       });
-  };
+  }, [currentPage]);
 
   const setPagination = (totalPages) => {
     let pages = [];
@@ -103,7 +91,6 @@ function AllPosts (props) {
       selectedButton.classList.add('active');
       selectedButton.parentElement.children[currentPage].classList.remove('active');
       setCurrentPage(pageSelected);
-      getPosts(pageSelected);
       scrollTop();
     }
   }

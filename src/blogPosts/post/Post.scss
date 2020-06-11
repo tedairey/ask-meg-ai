@@ -21,6 +21,15 @@
     a {
         color: black;
     }
+    .edit-menu {
+        position: relative;
+        display: grid;
+        float: right;
+        svg {
+            margin-left: 3px;
+            margin-bottom: 3px;
+        }
+    }
 }
 
 .box {

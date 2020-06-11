@@ -16,9 +16,22 @@ function PostsByUser(props) {
         newPostMsgPanel = useRef(),
         user = useContext(UserContext),
         spinner = useRef(),
-        [count, setCount] = useState(0),
+        count = useRef(0),
         [isUserPosts, setIsUserPosts] = useState(false);
 
+    //load timeout
+    useEffect(() => {
+      const loadingTimer = setTimeout(() => {
+        if (!isLoaded) {
+            setIsLoaded(true);
+            setPosts('Error Loading Posts');
+        }
+      }, 10000);
+      
+      return () => {clearTimeout(loadingTimer)}
+    }, [isLoaded]);
+
+    //fetch count of posts
     useEffect(() => {
       if (props.username) {
         if (user) {
@@ -27,21 +40,21 @@ function PostsByUser(props) {
         fetch('http://localhost:8088/posts/count/' + props.username)
           .then(res => res.json())
           .then(res => {
-            setCount(res);
+            count.current = res;
             res > 10 && setPagination(Math.ceil(res/10));
-            getPosts(currentPage);
           })
           .catch(err => {
             console.log(err);
           })
       }
-    }, [props.username, count, currentPage, isUserPosts])
+    }, [props.username, user])
 
-    const getPosts = (pageNumber) => {
+    //fetch posts per page
+    useEffect(() => {
       if (props.username) {
         setIsLoaded(false);
         const username = props.username;
-        fetch('http://localhost:8088/posts/' + username + '/' + pageNumber)
+        fetch('http://localhost:8088/posts/' + username + '/' + currentPage)
           .then(res => res.json())
           .then(res => {
             const posts = [];
@@ -60,7 +73,7 @@ function PostsByUser(props) {
             console.log(err);
           });
         }
-    };
+    }, [user, currentPage]);
 
     const setPagination = (totalPages) => {
       let pages = [];

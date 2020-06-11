@@ -9,7 +9,7 @@ import PostsByUser from '../blogPosts/postsByUser/PostsByUser';
 function Profile(props) {
   
     const user = useContext(UserContext),
-        [profile, setProfile] = useState({}),
+        [profileUsername, setProfileUsername] = useState(props.match.params.handle),
         [isUserProfile, setIsUserProfile] = useState(false),
         [showChangePassword, setShowChangePassword] = useState(false),
         currentPasswordRef = useRef(),
@@ -24,19 +24,13 @@ function Profile(props) {
         [blogPostsHeader, setBlogPostsHeader] = useState('');
 
     useEffect(() => {
-        const username = props.match.params.handle;
-        fetch('http://localhost:8088/' + username)
-            .then(res => res.json())
-            .then(profile => {
-                setProfile(profile);
-                if (user && profile.username === user.username) {
-                    setIsUserProfile(true);
-                    setBlogPostsHeader('Your Blog Posts');
-                }
-                else {
-                    setBlogPostsHeader(profile.firstName + `'s Blog Posts`);
-                }
-            });
+        if (user && user.username === profileUsername) {
+            setIsUserProfile(true);
+            setBlogPostsHeader('Your Blog Posts');
+        }
+        else {
+            setBlogPostsHeader(profileUsername + `'s Blog Posts`);
+        }
     }, [props.match.params]);
 
     const changePassword = (event) => {
@@ -103,11 +97,11 @@ function Profile(props) {
                     <img src={accountIcon}/>
                 </div>
                 <div className='profile-body col-md-8'>
-                <h1>{profile.username}</h1>
+                <h1>{profileUsername}</h1>
                     <div>
                     { isUserProfile && <>
                             <span className='profile-username'>
-                                {profile.firstName} {profile.lastName}
+                                {user.name}
                             </span>
                             <br/>
                             <button className='btn submit' onClick={() => setShowChangePassword(true)}>
@@ -161,7 +155,7 @@ function Profile(props) {
                 </div>
             </div>
             <div className='profile-posts'>
-                <PostsByUser username={profile.username} header={blogPostsHeader}/>
+                <PostsByUser username={profileUsername} header={blogPostsHeader}/>
             </div>
         </div>
     );
