@@ -4,7 +4,6 @@ import HomePage from './homePage/HomePage.js';
 import FAQ from './FAQ/FAQ.js';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import HowItWorks from './howItWorks/howItWorks.js';
 import About from './about/About.js';
 import Footer from './footer/Footer.js';
 import BlogPosts from './blogPosts/BlogPosts.js';
@@ -27,7 +26,6 @@ function App() {
           <Switch>
             <Route path="/" exact component={HomePage}/>
             <Route path="/FAQ" component={FAQ}/>
-            <Route path="/how-it-works" component={HowItWorks}/>
             <Route path="/about" component={About}/>
             <UserContext.Provider value={user}>
               <Route path="/blog-posts" component={BlogPosts}/>

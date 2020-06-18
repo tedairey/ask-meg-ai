@@ -120,7 +120,8 @@ function PostsByUser(props) {
     }
 
     const addPost = (post) => {
-        const newPosts = posts.concat(<Post loggedIn={user ? true: false} post={post}/>);
+        const newPosts = posts;
+        newPosts.unshift(<li key={count + 1}><Post loggedIn={user ? true: false} post={post}/></li>);
         setPosts(newPosts);
     }
     
@@ -153,7 +154,7 @@ function PostsByUser(props) {
                 New Post
               </Modal.Header>
               <Modal.Body>   
-                <NewPost showModal={setShowNewPostModal} addPost={addPost}/> 
+                <NewPost showModal={setShowNewPostModal} showSuccessModal={props.showSuccessModal} addPost={addPost}/> 
               </Modal.Body>
             </Modal> : isUserPosts &&
             <div onMouseLeave={hideNewPostMessage} 

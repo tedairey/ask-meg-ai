@@ -7,13 +7,11 @@ import DoYouOffer from './doYouOffer/DoYouOffer.js';
 import HowDoWe from './howDoWe/HowDoWe.js';
 import SafetyAndSecurity from './safetyAndSecurity/SafetyAndSecurity.js';
 import Glossary from './glossary/Glossary.js';
-import searchIcon from '../searchicon.png';
 
 function FAQ (props) {
 	
 	const tipsTab = useRef(),
-		[active, setActive] = useState(null),
-		[searchInput, setSearchInput] = useState('');
+		[active, setActive] = useState(null);
 
 	useEffect(() => {
 		setActive(tipsTab.current);
@@ -48,11 +46,6 @@ function FAQ (props) {
 					Want to see how to get the most out of Meg? You’ve come to the right place.
 					Just click on the tab most relevant to your question or interest.
 				</p>
-			</div>
-			<div className='FAQ-search'>
-				<img src={searchIcon} className='search-prompt' alt='searc'/> 
-				<input className='FAQ-search-input' placeholder='Search...' 
-					value={searchInput} onChange={(event) => setSearchInput(event.target.value)}/>
 			</div>
 			<ul className="tabset">
 				<li className='FAQ-nav'>

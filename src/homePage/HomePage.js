@@ -3,6 +3,7 @@ import './HomePage.scss';
 import AppleBadge from '../App_Store_Badge.svg';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../Helpers';
+import HowItWorks from '../howItWorks/howItWorks';
 
 function HomePage() {
 
@@ -36,17 +37,8 @@ function HomePage() {
                 <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"/>
             </div>
         </div>
-        <hr></hr>
-        <div className="buttons">
-            <div id="learn-more">
-                <Link to='/how-it-works'>
-                    <button className="btn back" onClick={scrollTop}>Learn More</button>
-                </Link>
-            </div>
-            <div id="get-the-app">
-                <button className="btn submit" formAction="https://www.apple.com/ios/app-store/">Get The App</button>
-            </div>
-        </div>
+        <hr/>
+        <HowItWorks/>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import './SideMenu.scss';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../../../Helpers';
 import { UserContext } from '../../../context/UserContext';
-import { accountIcon } from '../../../accounticon.png';
+import { RiAccountCircleLine } from 'react-icons/ri';
 import { useMediaQuery } from 'react-responsive';
 
 function SideMenu(props) {
@@ -13,8 +13,6 @@ function SideMenu(props) {
         blogLink = useRef(),
         user = useContext(UserContext).user,
         isLarge = useMediaQuery({ query: '(min-width: 768px)' });
-
-    ///static/media/accounticon.35c10e70.png
 
     const openMenu = () => {
         panel.current.style.width = '250px';
@@ -56,17 +54,15 @@ function SideMenu(props) {
             <div id='nav-menu' className='menu' ref={panel}>
                 <a href='#' id="closebtn" onClick={closeMenu}>&times;</a>
                 {user && isLarge ? <>
-                    <div className='profile-icon'>
-                        <img src={'/static/media/accounticon.35c10e70.png'} onClick={openMenu}/>
+                    <div className='profile-icon' style={{color: '#21a1af'}}>
+                        <RiAccountCircleLine size='150px' onClick={openMenu}/>
                     </div>
                     <Link to={`/profile/` + user.username} id='profile-link' onClick={closeMenu}>
                         {user.name}
-                        {user.username}
                     </Link>
                 </> :
                     <Link to='/' className='title' onClick={closeMenu}>Home</Link>
                 }
-                <Link to='/how-it-works' onClick={closeMenu}>How It Works</Link>
                 <Link to='/FAQ/tips-and-hints' onClick={closeMenu}>FAQ</Link>
                 <a ref={blogLink} id='blog-link' href='#' onClick={toggleBlogMenu}>Blog Posts</a>
                 <div className='blog-menu' ref={blogs}>

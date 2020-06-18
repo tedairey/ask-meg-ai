@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './AccountMenu.scss';
 import { scrollTop } from '../../../Helpers';
 import { UserContext } from '../../../context/UserContext';
+import { RiAccountCircleLine } from 'react-icons/ri';
 
 function AccountMenu(props) {
 
@@ -23,13 +24,13 @@ function AccountMenu(props) {
 
     return (
         <div className='account-menu'>
-            <div className='account-icon'>
-                <img src={accountIcon} onClick={openMenu}/>
+            <div className='account-icon' style={{color: '#21a1af'}}>
+                <RiAccountCircleLine size='50px' onClick={openMenu}/>
             </div>
             <div id='account-panel' className='menu' ref={panel}>
                 <a href='#' id="closebtn" onClick={closeMenu}>&times;</a>
-                <div className='profile-icon'>
-                    <img src={accountIcon} onClick={openMenu}/>
+                <div className='profile-icon' style={{color: '#21a1af'}}>
+                    <RiAccountCircleLine size={'lg'} onClick={openMenu}/>
                 </div>
                 <Link to={`/profile/` + user.username} id='profile-name' className='title' onClick={closeMenu}>{user.name}</Link>
                 <Link to='/blog-posts/user' onClick={closeMenu}>Your Blog Posts</Link>

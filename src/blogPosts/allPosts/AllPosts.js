@@ -43,7 +43,7 @@ function AllPosts (props) {
       .then(res => res.json())
       .then(res => {
         const posts = [];
-        if (res.length == 0) {
+        if (res.length === 0) {
           posts.push(<h4 className='blog-posts-header'>No Recent Posts</h4>);
         }
         else {

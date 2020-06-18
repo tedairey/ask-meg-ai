@@ -1,10 +1,9 @@
 import React, {useState, useEffect, useContext, useRef} from 'react';
 import './Profile.scss';
-import accountIcon from '../accounticon.png';
-import RegisterField from '../header/accountModals/registerModal/registerField/RegisterField';
 import { Modal } from 'react-bootstrap';
 import { UserContext } from '../context/UserContext';
 import PostsByUser from '../blogPosts/postsByUser/PostsByUser';
+import { RiAccountCircleLine } from 'react-icons/ri';
 
 function Profile(props) {
   
@@ -93,8 +92,8 @@ function Profile(props) {
     return (
         <div className='profile'>
             <div className='account-container row'>
-                <div className='profile-photo col-md-4'>
-                    <img src={accountIcon}/>
+                <div className='profile-photo col-md-4' style={{color: '#21a1af'}}>
+                    <RiAccountCircleLine size='lg'/>
                 </div>
                 <div className='profile-body col-md-8'>
                 <h1>{profileUsername}</h1>

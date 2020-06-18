@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import './NewPost.scss';
-import { withRouter } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 
 function NewPost(props) {
@@ -33,6 +32,7 @@ function NewPost(props) {
                     .then(res => res.json())
                     .then(post => {
                         //success
+                        props.showSuccessModal(true);
                         props.close();
                     })
                     .catch(err => {
@@ -63,7 +63,7 @@ function NewPost(props) {
                             props.history.push('/blog-posts/user');
                         }
                         else {
-                            props.showModal(false);
+                            //props.showModal(false);
                         }
                     })
                     .catch(err => {

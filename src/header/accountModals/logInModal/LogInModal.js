@@ -61,9 +61,9 @@ function LogInModal(props) {
 
     return (
         <span id="log-in-modal">
-            <a id="log-in" href="#" onClick={props.showLogin}>
+            <button id="log-in" className='link' onClick={props.showLogin}>
                 Log In
-            </a>
+            </button>
 
             <Modal show={props.loginModal} onHide={props.closeLogin}>
                 <Modal.Header closeButton>
@@ -85,9 +85,9 @@ function LogInModal(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     Don't Have an Account?
-                    <a href="#" onClick={props.handleRegister}>
+                    <button className='link' onClick={props.handleRegister}>
                         Register
-                    </a>
+                    </button>
                     <br/>
                     <Button variant="primary" onClick={validateLogin}>
                         Log In

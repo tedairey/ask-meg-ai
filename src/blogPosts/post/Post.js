@@ -53,23 +53,23 @@ function Post (props){
 
     const fetchComments = () => {
         fetch('http://localhost:8088/comments/' + props.post.id)
-                .then(res => res.json())
-                .then(res => {
-                    const comments = [];
-                    if (res.length) {
-                        for (const [index, comment] of res.entries()) {
-                            comments.push(<Comment key={index} deleteComment={deleteComment} comment={comment}/>);
-                        }
-                        setComments(comments);
+            .then(res => res.json())
+            .then(res => {
+                const comments = [];
+                if (res.length) {
+                    for (const [index, comment] of res.entries()) {
+                        comments.push(<Comment key={index} deleteComment={deleteComment} comment={comment}/>);
                     }
-                    else if (!user) {
-                        setComments('No user comments');
-                    }
-                    setIsLoaded(true);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+                    setComments(comments);
+                }
+                else if (!user) {
+                    setComments('No user comments');
+                }
+                setIsLoaded(true);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     const toggleCommentSection = () => {
@@ -151,12 +151,14 @@ function Post (props){
                 </Modal.Body>
             </Modal>
             <div className='post box' onMouseEnter={showEditMenu} onMouseLeave={hideEditMenu}>
-                {isUserPost &&
-                    <span className={editMenu}>
-                        <BsPencil onClick={() => setShowEditModal(true)}/> 
-                        <AiFillDelete onClick={() => setShowDeleteModal(true)}/>
-                    </span>
-                }
+                <span className={editMenu}>
+                    {isUserPost &&
+                        <BsPencil size='20px' onClick={() => setShowEditModal(true)}/>
+                    }
+                    {(user.isAdmin || isUserPost) &&
+                        <AiFillDelete size='20px' onClick={() => setShowDeleteModal(true)}/>
+                    }
+                </span>
                 <div className='post-header'>
                     {!isSmall && <>
                         <Link to={'/profile/' + post.username} className='author'>{post.username}</Link>

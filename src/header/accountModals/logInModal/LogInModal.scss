@@ -7,6 +7,14 @@
     font-weight: bold;
 }
 
+.link {
+    border: none;
+    background: transparent;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 .modal-footer a {
     margin-left: 5px;
 }
