@@ -155,7 +155,7 @@ function Post (props){
                     {isUserPost &&
                         <BsPencil size='20px' onClick={() => setShowEditModal(true)}/>
                     }
-                    {(user.isAdmin || isUserPost) &&
+                    {((user && user.isAdmin) || isUserPost) &&
                         <AiFillDelete size='20px' onClick={() => setShowDeleteModal(true)}/>
                     }
                 </span>

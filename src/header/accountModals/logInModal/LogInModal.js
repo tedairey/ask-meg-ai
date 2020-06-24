@@ -62,7 +62,7 @@ function LogInModal(props) {
     return (
         <span id="log-in-modal">
             <button id="log-in" className='link' onClick={props.showLogin}>
-                Log In
+                Login
             </button>
 
             <Modal show={props.loginModal} onHide={props.closeLogin}>

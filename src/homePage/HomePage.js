@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './HomePage.scss';
 import AppleBadge from '../App_Store_Badge.svg';
-import { Link } from 'react-router-dom';
-import { scrollTop } from '../Helpers';
 import HowItWorks from '../howItWorks/howItWorks';
 
 function HomePage() {

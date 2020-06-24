@@ -80,8 +80,12 @@ function Comment (props) {
                     <div className='comment-date'>
                         {date} 
                         <span className={editMenu}>
-                            <BsPencil onClick={editComment}/> 
-                            <AiFillDelete onClick={() => setShowDeleteModal(true)}/>
+                            {isUserComment &&
+                                <BsPencil size='20px' onClick={editComment}/>
+                            }
+                            {((user && user.isAdmin) || isUserComment) &&
+                                <AiFillDelete size='20px' onClick={() => setShowDeleteModal(true)}/>
+                            }
                         </span>
                     </div>
                     <hr/>
