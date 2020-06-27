@@ -1,28 +1,40 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
+import React from 'react';
 import './Navbar.scss';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../../Helpers';
-import { UserContext } from '../../context/UserContext';
 
 function Navbar() {
-
-    const user = useContext(UserContext); 
 
   return (
     <div>
         <nav className="navbar navbar-expand navbar-light justify-content-between">
-            <Link to='/' className="navbar-brand" href="#" onClick={scrollTop}>
+            <Link to='/meet-meg' className="navbar-brand" onClick={scrollTop}>
                 Home
             </Link>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                <Link to='/FAQ/tips-and-hints' className="nav-link" href="#" onClick={scrollTop}>
-                    FAQs
-                </Link>
+                    <Link to='/meet-meg/how-it-works' className='nav-link'>
+                        How It Works
+                    </Link>
+                </li>
+                <li className='nav-item'>
+                    <Link to='/meet-meg/try-it-for-free' className='nav-link'>
+                        Try It For Free
+                    </Link>
+                </li>
+                <li className='nav-item'>
+                    <Link to='/meet-meg/testimonials' className='nav-link'>
+                        Testimonials
+                    </Link>
+                </li>
+                <li className='nav-item'>
+                    <Link to='/FAQ/tips-and-hints' className="nav-link" onClick={scrollTop}>
+                        FAQs
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to='/about' className="nav-link" href="#" onClick={scrollTop}>
+                    <Link to='/about' className="nav-link" onClick={scrollTop}>
                         About Us
                     </Link>
                 </li>
@@ -31,14 +43,14 @@ function Navbar() {
                         Blog Posts
                     </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <Link to='/blog-posts/all' className="dropdown-item" href="#" onClick={scrollTop}>
+                        <Link to='/blog-posts/all' className="dropdown-item" onClick={scrollTop}>
                             All Posts
                         </Link>
-                        <Link to='/blog-posts/user' className="dropdown-item" href="#" onClick={scrollTop}>
+                        <Link to='/blog-posts/user' className="dropdown-item" onClick={scrollTop}>
                             My Posts
                         </Link>
                     <div className="dropdown-divider"/>
-                    <Link to='/blog-posts/new' className="dropdown-item" href="#" onClick={scrollTop}>
+                    <Link to='/blog-posts/new' className="dropdown-item" onClick={scrollTop}>
                         New Blog Post
                     </Link>
                     </div>

@@ -24,11 +24,13 @@ function App() {
         </UserContext.Provider>
         <div className='page-content container'>
           <Switch>
-            <Route path="/" exact component={HomePage}/>
-            <Route path="/FAQ" component={FAQ}/>
-            <Route path="/about" component={About}/>
+            <Route path='/' exact component={HomePage}/>
+            <Route path='/meet-meg' exact component={HomePage}/>
+            <Route path='/meet-meg/:handle' component={HomePage}/>
+            <Route path='/FAQ' component={FAQ}/>
+            <Route path='/about' component={About}/>
             <UserContext.Provider value={user}>
-              <Route path="/blog-posts" component={BlogPosts}/>
+              <Route path='/blog-posts' component={BlogPosts}/>
               <Route path='/profile/:handle' component={Profile}/>
             </UserContext.Provider>
           </Switch>

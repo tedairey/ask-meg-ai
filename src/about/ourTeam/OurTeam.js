@@ -6,8 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 
 function OurTeam() {
 
-    const [members, setMembers] = useState([]),
-        isSmall = useMediaQuery({ query: '(max-width: 768px)'});
+    const [members, setMembers] = useState([]);
 
     useEffect(() => {
         const members = [];
@@ -22,11 +21,6 @@ function OurTeam() {
             <div className='photo-collection'>
                 {members}
             </div>
-            {isSmall && <>
-                <div className='mobile-info'>
-                    Tap on a picture for more info!
-                </div>
-            </>}
         </div>
     );
 }

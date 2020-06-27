@@ -33,7 +33,7 @@ function SideMenu(props) {
     const toggleBlogMenu = () => {
         let height = blogs.current.style.height;
         if (height === '' || height === '0px') {
-            blogs.current.style.height = '163px';
+            blogs.current.style.height = '150px';
             blogLink.current.style.borderTop = '.3em solid';
         }
         else {
@@ -61,8 +61,11 @@ function SideMenu(props) {
                         {user.name}
                     </Link>
                 </> :
-                    <Link to='/' className='title' onClick={closeMenu}>Home</Link>
+                    <Link to='/meet-meg' className='title' onClick={closeMenu}>Meet Meg</Link>
                 }
+                <Link to='/meet-meg/how-it-works' onClick={closeMenu}>How It Works</Link>
+                <Link to='/meet-meg/try-it-for-free' onClick={closeMenu}>Try It For Free</Link>
+                <Link to='/meet-meg/testimonials' onClick={closeMenu}>Testimonials</Link>
                 <Link to='/FAQ/tips-and-hints' onClick={closeMenu}>FAQ</Link>
                 <a ref={blogLink} id='blog-link' href='#' onClick={toggleBlogMenu}>Blog Posts</a>
                 <div className='blog-menu' ref={blogs}>
@@ -71,6 +74,7 @@ function SideMenu(props) {
                     <Link to='/blog-posts/new' onClick={closeMenu}>New Post</Link>
                 </div>
                 <Link to='/about' onClick={closeMenu}>About</Link>
+                <Link to='/about/contact-us' onClick={closeMenu}>Contact Us</Link>
             </div>
         </div>
     );

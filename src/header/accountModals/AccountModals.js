@@ -66,7 +66,7 @@ function AccountModals(props) {
     }
 
     const logout = () => {
-        history.push('/');
+        history.push('/meet-meg');
         setUser(null);
         sessionStorage.clear();
     }

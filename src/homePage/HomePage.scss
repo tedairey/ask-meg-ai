@@ -1,11 +1,28 @@
 .home-page {
     margin: 20px auto 0px auto;
     color: white;
+    
+    .apple-badge {
+        margin-top: 20px;
+    }
 }
 
 .text {
     margin: auto;
+    font-size: 20px;
 }
+
+@media screen and (max-width: 991px) {  
+    .title-text {
+        text-align: center;
+    }
+}
+@media screen and (max-width: 768px) {  
+    .title-text {
+        font-size: 25px;
+    }
+}
+
 
 hr {
     margin-top: 20px;
@@ -16,10 +33,12 @@ p {
     font-size: 20px;
 }
 
-#ask {
-    border-radius: 10px;
-    border: 1px solid black;
-    margin-top: 10px;
+.home-image {
+    img {
+        border-radius: 10px;
+        border: 1px solid black;
+        margin-top: 10px;
+    }
 }
 
 img {
@@ -34,11 +53,6 @@ img {
 
 .gif {
     margin: 20px auto 0px auto;
-}
-
-.gif img {
-    border-radius: 10px;
-    border: 1px solid black;
 }
 
 .buttons {
@@ -75,9 +89,6 @@ img {
 }
 
 @media screen and (max-width: 991px) {
-    .text h1 {
-        text-align: center;
-    }
     p {
         margin-top: 10px;
     }
