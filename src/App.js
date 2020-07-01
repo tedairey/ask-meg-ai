@@ -22,7 +22,7 @@ function App() {
         <UserContext.Provider value={value}>
           <Header/>
         </UserContext.Provider>
-        <div className='page-content container'>
+        <div className='page-content'>
           <Switch>
             <Route path='/' exact component={HomePage}/>
             <Route path='/meet-meg' exact component={HomePage}/>

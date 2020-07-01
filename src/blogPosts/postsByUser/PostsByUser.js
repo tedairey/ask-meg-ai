@@ -170,7 +170,7 @@ function PostsByUser(props) {
         </div>
       );
     return (
-      <div className='my-posts container'>
+      <div className='my-posts'>
         <h1 className='blog-posts-header'>
           You are not logged in
         </h1>

@@ -14,11 +14,23 @@ function SideMenu(props) {
         user = useContext(UserContext).user,
         isLarge = useMediaQuery({ query: '(min-width: 768px)' });
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (panel.current && !panel.current.contains(event.target)) {
+                if (panel.current.style.width !== '' && panel.current.style.width !=='0px') {
+                    closeMenu(event);
+                }
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    })
+
     const openMenu = () => {
         panel.current.style.width = '250px';
-        window.innerWidth < 768 ?
-            panel.current.style.borderRight = '1px solid grey' :
-            panel.current.style.borderLeft = '1px solid grey';
     }
 
     const closeMenu = (event) => {
@@ -27,13 +39,12 @@ function SideMenu(props) {
         panel.current.style.width = '0px';
         blogs.current.style.height = '0px';
         blogLink.current.style.borderTop = '0';
-        panel.current.style.border = 'none';
     }
 
     const toggleBlogMenu = () => {
         let height = blogs.current.style.height;
         if (height === '' || height === '0px') {
-            blogs.current.style.height = '150px';
+            blogs.current.style.height = '141px';
             blogLink.current.style.borderTop = '.3em solid';
         }
         else {
@@ -52,7 +63,7 @@ function SideMenu(props) {
                 </a>
             </div>
             <div id='nav-menu' className='menu' ref={panel}>
-                <a href='#' id="closebtn" onClick={closeMenu}>&times;</a>
+                <a href='#' id='closebtn' className="close-x" onClick={closeMenu}>&times;</a>
                 {user && isLarge ? <>
                     <div className='profile-icon' style={{color: '#21a1af'}}>
                         <RiAccountCircleLine size='150px' onClick={openMenu}/>
@@ -61,7 +72,7 @@ function SideMenu(props) {
                         {user.name}
                     </Link>
                 </> :
-                    <Link to='/meet-meg' className='title' onClick={closeMenu}>Meet Meg</Link>
+                    <Link to='/meet-meg' className='panel-title' onClick={closeMenu}>Meet Meg</Link>
                 }
                 <Link to='/meet-meg/how-it-works' onClick={closeMenu}>How It Works</Link>
                 <Link to='/meet-meg/try-it-for-free' onClick={closeMenu}>Try It For Free</Link>

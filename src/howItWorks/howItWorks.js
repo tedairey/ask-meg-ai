@@ -1,12 +1,15 @@
 import React from 'react';
 import './HowItWorks.scss';
-import AppleBadge from '../App_Store_Badge.svg';
+import weightGraph from '../homePageImages/weightGraph.png';
+import yourProgress from '../homePageImages/yourProgress.png';
+import grocery from '../homePageImages/grocery.png';
+import milkGif from '../homePageImages/milkAlt.gif';
 
 function HowItWorks() {
     return (
-        <div className="how-it-works container">
+        <div className="how-it-works">
             <div className="row section">
-                <div className='col-lg-7'>
+                <div className='col-lg-6'>
                     <h1 className ="how-it-works-header title-text">
                         Leverage Proven Food Science
                     </h1>
@@ -18,8 +21,8 @@ function HowItWorks() {
                         Perhaps it’s no wonder 70 percent of us are overweight. 
                     </div>
                 </div>
-                <div className='col-lg-5'>
-                    <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"/>
+                <div className='col-lg-6 home-image'>
+                    <img src={milkGif}/>
                 </div>
             </div>
             <hr/>
@@ -30,8 +33,8 @@ function HowItWorks() {
                         and provides simple thumbs up and thumbs down feedback, so you know what you’re eating.  
                     </div>
                 </div>
-                <div className='col-lg-5 order-lg-1'>
-                    <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"/>
+                <div className='col-lg-5 home-image order-lg-1 home-image'>
+                    <img src={weightGraph}/>
                 </div>
             </div>
             <hr/>
@@ -47,8 +50,8 @@ function HowItWorks() {
                         Right there. Right then.
                     </div>
                 </div>
-                <div className='col-lg-5'>
-                    <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"/>
+                <div className='col-lg-5 home-image'>
+                    <img src={grocery}/>
                 </div>
             </div>
             <hr/>
@@ -66,8 +69,8 @@ function HowItWorks() {
                         Meg has you covered.
                     </div>
                 </div>
-                <div className='col-lg-5 order-lg-1'>
-                    <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"/>
+                <div className='col-lg-5 home-image order-lg-1 home-image'>
+                    <img src={yourProgress}/>
                 </div>
             </div>
             <hr/>
@@ -85,7 +88,7 @@ function HowItWorks() {
                         talking to an informed friend. One where you enjoy your interactions.
                     </div>
                 </div>
-                <div className='col-lg-5'>
+                <div className='col-lg-5 home-image'>
                     <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"/>
                 </div>
             </div>

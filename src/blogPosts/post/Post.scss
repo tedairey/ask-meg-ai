@@ -1,29 +1,23 @@
 .post {
     margin-bottom: 1rem;
-    .post h4 {
+    .post-title {
         display: inline;
-    }
-    hr {
-        margin: 10px -15px 0px;
-        background: black;
-        height: 1px;
-    }
-    .comment-section {
-        cursor: pointer;
-        &:hover {
-            text-decoration: underline;
-        }
     }
     .author {
         font-style: italic;
         color: black;
+    }
+    .post-divider {
+        margin: 10px -15px 5px;
+        background: black;
+        height: 1px;
     }
     a {
         color: black;
     }
     .edit-menu {
         position: relative;
-        display: grid;
+        display: block;
         float: right;
         svg {
             cursor: pointer;
@@ -31,29 +25,44 @@
             margin-bottom: 3px;
         }
     }
-}
-
-.box {
+    .comment-section {
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
     background: white;
     padding: 10px 15px 5px 15px;
     z-index: -1;
     border: 1px solid black;
     border-radius: 7px;
     color: black;
+    .post-date {
+        float: right;
+    }
+    .post-body {
+        font-size: 20px;
+    }
+    .post-footer a {
+        color: black;
+    }
+    @media (max-width: '767px') {
+        .post-body {
+            font-size: 16px;
+            line-height: 1.3;
+        }
+    }
+    @media (max-width: '767px') {
+        .edit-menu {
+            display: grid;
+        }
+    }
 }
 
 .comment-icon {
     height: 28px;
     width: 28px;
     margin-right: 5px;
-}
-
-.post-date {
-    float: right;
-}
-
-.post-footer a {
-    color: black;
 }
 
 .comment-section {
@@ -67,7 +76,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .post h4 {
+    .post-title {
         font-size: 20px;
     }
 }

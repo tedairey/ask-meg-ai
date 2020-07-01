@@ -22,7 +22,7 @@
     background: rgba(255, 255, 255, 0.863);
     overflow-x: hidden;
     transition: 0.5s;
-    .title {
+    .panel-title {
         font-weight: bold;
         border-bottom: 3px solid $megBlue;
         padding-top: 12px;
@@ -35,7 +35,7 @@
     a {
         padding: 8px 8px 8px 12px;
         text-decoration: none;
-        font-size: 25px;
+        font-size: 20px;
         color: $megBlue;
         display: block;
         transition: 0.3s;
@@ -44,11 +44,20 @@
     }
     #closebtn {
         position: absolute;
-        top: -5px;
+        top: -12px;
         right: 5px;
         font-size: 36px;
         margin-left: 50px;
         border-bottom: none;
+    }
+    @media screen and (max-width: '768px') {
+        .panel-title {
+            padding-top: 16px;
+            height: 62px;
+        }
+        #closebtn {
+            top: -7px;
+        }
     }
     .blog-menu {
         background-color: rgba(230, 230, 230, 0.863); 
@@ -75,7 +84,9 @@
 
 @media screen and (max-height: 450px) {
     .menu {
-        a {font-size: 18px;}
+        a {
+            font-size: 18px;
+        }
         padding-top: 15px;
     }
 }

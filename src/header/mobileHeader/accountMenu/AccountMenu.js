@@ -1,5 +1,4 @@
-import React, { useRef, useContext } from 'react';
-import accountIcon from '../../../accounticon.png';
+import React, { useRef, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './AccountMenu.scss';
 import { scrollTop } from '../../../Helpers';
@@ -11,14 +10,27 @@ function AccountMenu(props) {
     const panel = useRef();
     const { user } = useContext(UserContext);
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (panel.current && !panel.current.contains(event.target)) {
+                if (panel.current.style.width !== '' && panel.current.style.width !=='0px') {
+                    closeMenu(event);
+                }
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    })
+
     const openMenu = () => {
         panel.current.style.width = '250px';
-        panel.current.style.borderLeft = '1px solid grey';
     }
 
     const closeMenu = (event) => {
         panel.current.style.width = '0px';
-        panel.current.style.borderLeft = 'none';
         event.target.id !== 'closebtn' && scrollTop();
     }
 

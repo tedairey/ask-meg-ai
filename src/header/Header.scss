@@ -29,6 +29,10 @@
     pointer-events: none;
     margin: 10px;
     cursor: pointer;
+    @media (max-width: '768px') {
+        height: 40px;
+        width: 40px;
+    }
 }
 
 .banner {

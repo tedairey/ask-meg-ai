@@ -38,11 +38,11 @@ function FAQ (props) {
 	}
 
 	return (
-		<div className="FAQs container">
+		<div className="FAQs">
 		<Router>
 			<div className='FAQs-header'>
 				<h2>Welcome</h2>
-				<p>
+				<p className='FAQ-prompt'>
 					Want to see how to get the most out of Meg? You’ve come to the right place.
 					Just click on the tab most relevant to your question or interest.
 				</p>

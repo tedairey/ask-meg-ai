@@ -15,14 +15,14 @@ function About() {
 
     return (
         <div className="about">
-            <div className='about-header'>
+            <div className='team-meg-header'>
                 <h1>Team Meg</h1>
             </div>
             <OurTeam/>
             <hr/>
-            <h3 className='about-us'>About Us</h3>
+            <h3 className='about-us-header'>About Us</h3>
             <br/>
-            <p>
+            <p className='about-us-text'>
                 Want to learn about us and Meg? You’ve come to the right place. 
                 <br/>
                 We, and many of those close to us, have
@@ -49,7 +49,7 @@ function About() {
                 a dietitian in your pocket!
             </p>
             <hr/>
-            <p>
+            <p className='about-us-text'>
                 We are curious and love to learn. We sought to
                 develop a solution that would learn with us. A
                 solution that could learn not only what works
@@ -61,7 +61,7 @@ function About() {
                 this possible.
             </p>
             <hr/>
-            <p>
+            <p className='about-us-text'>
                 We believe programs should be affordable and
                 not break the bank. That’s why we are offering
                 Meg for the price of a cup of coffee each week.
@@ -80,7 +80,7 @@ function About() {
                 <h1 className = 'contact-us-header'>
                     Contact Us
                 </h1>
-                <div className='text'>
+                <div className='about-us-text'>
                     If you have a question or some feedback on an
                     item not covered on our website? Please use
                     the contact form below or email us at

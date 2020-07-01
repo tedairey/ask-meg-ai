@@ -150,7 +150,7 @@ function Post (props){
                     <NewPost currentPost={post} close={() => setShowEditModal(false)}/>
                 </Modal.Body>
             </Modal>
-            <div className='post box' onMouseEnter={showEditMenu} onMouseLeave={hideEditMenu}>
+            <div className='post' onMouseEnter={showEditMenu} onMouseLeave={hideEditMenu}>
                 <span className={editMenu}>
                     {isUserPost &&
                         <BsPencil size='20px' onClick={() => setShowEditModal(true)}/>
@@ -163,15 +163,15 @@ function Post (props){
                     {!isSmall && <>
                         <Link to={'/profile/' + post.username} className='author'>{post.username}</Link>
                     </>}
-                    <h4><strong>{post.title}</strong></h4>
+                    <h4 className='post-title'><strong>{post.title}</strong></h4>
                     {isSmall && <>
                         <div className='author'>
                             <Link to={'/profile/' + post.username}>{post.username}</Link>
                         </div>
                     </>}
                 </div>
-                <hr/>
-                <p>
+                <hr className='post-divider'/>
+                <p className='post-body'>
                     {post.body}
                 </p>
                 <br/>

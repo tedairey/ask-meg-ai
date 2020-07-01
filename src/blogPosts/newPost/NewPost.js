@@ -83,7 +83,7 @@ function NewPost(props) {
 
     if (user) {
         return (
-            <div className='new-post container'>
+            <div className='new-post'>
                 <h2 className="blog-posts-header">
                     New Post
                 </h2>

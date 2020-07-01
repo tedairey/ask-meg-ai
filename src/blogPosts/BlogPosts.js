@@ -20,7 +20,7 @@ function BlogPosts(props) {
     }
 
     return (
-      <div className="blog-posts container">
+      <div className="blog-posts">
           {successModal && <>
               <SuccessModal message='Successfully submitted post!'/>
               <div className='FAQ-search'>

@@ -6,7 +6,7 @@ import Testimonials from './testimonials/Testimonials';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../Helpers';
 import { useMediaQuery } from 'react-responsive';
-import MilkGif from '../homePageImages/milk.gif';
+import intro from '../homePageImages/intro.gif';
 
 function HomePage(props) {
 
@@ -18,7 +18,7 @@ function HomePage(props) {
 
     useEffect(() => {
         if (requestedPage) {
-            let headerOffset = isSmall ? 80 : 138;
+            let headerOffset = isSmall ? 60 : 138;
             switch (requestedPage) {
                 case 'how-it-works' :
                     window.scrollTo(0, howItWorksRef.current.offsetTop - headerOffset);
@@ -36,7 +36,7 @@ function HomePage(props) {
     }, [requestedPage]);
 
   return (
-    <div className="home-page container">
+    <div className="home-page">
         <div className="row">
             <div className="col-lg-4 text">
                 <h1 className='title-text'>
@@ -47,7 +47,7 @@ function HomePage(props) {
                 </a>
             </div>
             <div className="col-lg-8 home-image">
-                <img src="https://crowdlly.com/video.gif"/>
+                <img src={intro}/>
             </div>
         </div>
         <hr/>
@@ -59,7 +59,7 @@ function HomePage(props) {
                 weight loss goals achievable.
             </div>
             <div className="col-lg-8 order-lg-1 home-image">
-                <img src={MilkGif}/>
+                <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"/>
             </div>
         </div>
         <hr ref={howItWorksRef}/>
@@ -79,7 +79,6 @@ function HomePage(props) {
         </div>
         <hr ref={testimonialsRef}/>
         <Testimonials/>
-        <hr/>
         <br/>
         <div className="buttons">
             <div id="learn-more">
