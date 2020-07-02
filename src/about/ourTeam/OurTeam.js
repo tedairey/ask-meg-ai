@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './OurTeam.scss';
 import TeamPhoto from './teamPhoto/TeamPhoto';
 import TeamInfo from './TeamInfo.json';
-import { useMediaQuery } from 'react-responsive';
+import TeamInfoJS from './TeamInfo.js';
 
 function OurTeam() {
 
@@ -10,7 +10,8 @@ function OurTeam() {
 
     useEffect(() => {
         const members = [];
-        for (const [index, member] of TeamInfo.teamInfo.entries()) {
+        console.log(TeamInfoJS);
+        for (const [index, member] of TeamInfoJS.teamInfo.entries()) {
             members.push(<TeamPhoto key={index} member={member}/>);
         }
         setMembers(members);

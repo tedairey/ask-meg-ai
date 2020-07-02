@@ -29,7 +29,7 @@ function TeamPhoto(props) {
                 </div> : <>
                 <img ref={memberPhoto} className='member-photo' 
                     onLoad={handleImageLoad} src={props.member.photo}
-                    alt={props.member.name + 'photo'}
+                    alt={props.member.name + ' photo'}
                 />
                 <div className='overlay'>
                     <div className='member-name'>

@@ -21,13 +21,22 @@
         z-index: 4;
         transition: 0.5s;
         overflow: hidden;
+        line-height: 1.3;
         .member-name {
             font-weight: bold;
-            padding-top: 10px;
+            padding-top: 5px;
             text-align: center;
         }
         .member-info {
-            padding: 5px 10px;
+            padding: 3px 5px;
+        }
+    }
+    @media (max-width: '991px') {
+        .overlay {
+            font-size: 14px;
+            .member-name {
+                padding-top: 5px;
+            }
         }
     }
     .member-photo {
@@ -47,7 +56,7 @@
     }
 }
 
-@media screen and (min-width: 768px) and (max-width: 992px) {
+@media screen and (min-width: 768px) and (max-width: 1200px) {
     .team-photo {
         width: 45%;
         margin: 1rem;
