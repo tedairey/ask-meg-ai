@@ -149,7 +149,6 @@ class RegisterModal extends Component {
             fetch('http://localhost:8088/newUser', requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(this.profile);
                     this.props.closeRegister();
                     this.props.setLogin(newUser);
                 })

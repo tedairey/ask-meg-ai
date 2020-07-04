@@ -1,10 +1,11 @@
-import React, { useRef, useContext, useEffect } from 'react';
+import React, { useRef, useContext, useEffect, useState } from 'react';
 import './SideMenu.scss';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../../../Helpers';
 import { UserContext } from '../../../context/UserContext';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import { useMediaQuery } from 'react-responsive';
+import BetaTestingModal from '../../../alertModals/BetaTestingModal';
 
 function SideMenu(props) {
     
@@ -12,6 +13,7 @@ function SideMenu(props) {
         blogs = useRef(),
         blogLink = useRef(),
         user = useContext(UserContext).user,
+        [showBetaTesting, setShowBetaTesting] = useState(false),
         isLarge = useMediaQuery({ query: '(min-width: 768px)' });
 
     useEffect(() => {
@@ -34,11 +36,16 @@ function SideMenu(props) {
     }
 
     const closeMenu = (event) => {
-        toggleBlogMenu();
-        event.target.id === 'closebtn' ? event.preventDefault() : scrollTop();
+        if (user) {
+            toggleBlogMenu();
+            blogs.current.style.height = '0px';
+            blogLink.current.style.borderTop = '0';
+        }
+        if (event.target.name !== 'no-scroll') {
+            scrollTop();
+        }
         panel.current.style.width = '0px';
-        blogs.current.style.height = '0px';
-        blogLink.current.style.borderTop = '0';
+        return false;
     }
 
     const toggleBlogMenu = () => {
@@ -56,7 +63,7 @@ function SideMenu(props) {
     return (
         <div className="side-menu">
             <div className='mobile-menu'>
-                <a className="menu-toggle" id="menu-toggle" onClick={openMenu} tabIndex="0">
+                <a name='no-scroll' className="menu-toggle" id="menu-toggle" onClick={openMenu} tabIndex="0">
                     <div className="hamburger"></div>
                     <div className="hamburger"></div>
                     <div className="hamburger"></div>
@@ -74,19 +81,31 @@ function SideMenu(props) {
                 </> :
                     <Link to='/meet-meg' className='panel-title' onClick={closeMenu}>Meet Meg</Link>
                 }
-                <Link to='/meet-meg/how-it-works' onClick={closeMenu}>How It Works</Link>
-                <Link to='/meet-meg/try-it-for-free' onClick={closeMenu}>Try It For Free</Link>
-                <Link to='/meet-meg/testimonials' onClick={closeMenu}>Testimonials</Link>
+                <Link name='no-scroll' to='/meet-meg/how-it-works' onClick={closeMenu}>How It Works</Link>
+                <Link name='no-scroll' to='/meet-meg/try-it-for-free' onClick={closeMenu}>Try It For Free</Link>
+                <Link name='no-scroll' to='/meet-meg/testimonials' onClick={closeMenu}>Testimonials</Link>
                 <Link to='/FAQ/tips-and-hints' onClick={closeMenu}>FAQ</Link>
-                <a ref={blogLink} id='blog-link' href='#' onClick={toggleBlogMenu}>Blog Posts</a>
-                <div className='blog-menu' ref={blogs}>
-                    <Link to='/blog-posts/all' onClick={closeMenu}>Recent Posts</Link>
-                    <Link to={'/blog-posts/user'} onClick={closeMenu}>Your Posts</Link>
-                    <Link to='/blog-posts/new' onClick={closeMenu}>New Post</Link>
-                </div>
+                {user ? <>
+                    <a ref={blogLink} name='no-scroll' id='blog-link' href='#' onClick={toggleBlogMenu}>
+                        Blog Posts
+                    </a>
+                    <div className='blog-menu' ref={blogs}>
+                        <Link to='/blog-posts/all' onClick={closeMenu}>Recent Posts</Link>
+                        <Link to={'/blog-posts/user'} onClick={closeMenu}>Your Posts</Link>
+                        <Link to='/blog-posts/new' onClick={closeMenu}>New Post</Link>
+                    </div> </> : <>
+                    <Link name='no-scroll' to='/blog-posts/all' onClick={closeMenu}>
+                        Community
+                    </Link>
+                </>}
+                <a name='no-scroll' href='#' onClick={() => setShowBetaTesting(true)}>
+                    Beta Testing
+                </a>
                 <Link to='/about' onClick={closeMenu}>About</Link>
-                <Link to='/about/contact-us' onClick={closeMenu}>Contact Us</Link>
+                <Link name='no-scroll' to='/about/contact-us' onClick={closeMenu}>Contact Us</Link>
+                <Link to='/conduct' onClick={closeMenu}>Conduct</Link>
             </div>
+            <BetaTestingModal showModal={showBetaTesting} setShowModal={setShowBetaTesting}/>
         </div>
     );
 }

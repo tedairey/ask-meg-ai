@@ -52,7 +52,7 @@ hr {
     color: white;
 }
 
-.sumbit:hover {
+.submit:hover {
     background-color: white;
     border: 1px black solid;
     color: black;
@@ -71,6 +71,10 @@ hr {
     .buttons {
         display: block;
     }
+    hr {
+        visibility: hidden;
+        margin-bottom: 0;
+    }
 }
 
 #learn-more, #get-the-app {
@@ -82,6 +86,16 @@ hr {
 
 .back {
     background-color: white;
-    color: grey;
-    border: 1px solid grey;
+    color: black;
+    border: 1px solid black;
+}
+
+.back:hover {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+
+.email, .email:hover {
+    color: inherit;
 }

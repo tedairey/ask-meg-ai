@@ -81,10 +81,10 @@ function About() {
                     Contact Us
                 </h1>
                 <div className='about-us-text'>
-                    If you have a question or some feedback on an
+                    Have a question or some feedback on an
                     item not covered on our website? Please use
-                    the contact form below or email us at
-                    support@askmeg.ai
+                    the contact form below or email us 
+                    at <a href="mailto:support@askmeg.ai" className="email">support@askmeg.ai</a>.
                 </div>
             </div>
         </div>

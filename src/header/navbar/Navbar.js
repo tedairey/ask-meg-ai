@@ -33,8 +33,8 @@ function Navbar() {
                         FAQs
                     </Link>
                 </li>
-                <li className="nav-item">
-                    <Link to='/about' className="nav-link" onClick={scrollTop}>
+                <li className='nav-item'>
+                    <Link to='/about' className='nav-link' onClick={scrollTop}>
                         About Us
                     </Link>
                 </li>

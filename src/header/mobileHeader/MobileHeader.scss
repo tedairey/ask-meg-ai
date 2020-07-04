@@ -1,15 +1,18 @@
+@import '../../variables.scss';
+
 .mobile-header {
     background-color: #fff;
     border-bottom: 1px solid grey;
     z-index: 5;
-}
-
-.mobile-logo {
-    margin: auto;
-}
-
-.mobile-login {
-    margin: auto 20px auto 10px;
-    width: 80px;
-    text-align: right;
+    .mobile-title {
+        font-weight: bold;
+        font-size: 25px;
+        color: $megBlue;
+        margin: 10px auto;
+    }
+    .mobile-login {
+        margin: auto 20px auto 10px;
+        width: 80px;
+        text-align: right;
+    }
 }

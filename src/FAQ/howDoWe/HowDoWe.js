@@ -53,6 +53,22 @@ function HowDoWe() {
                 </p>
             </div>
             <div className="question">
+                <h4>Provide medical advice</h4>
+                <p className='FAQ-prompt'>
+                    In short, we do not provide medical advice. If you need medical advice, we 
+                    encourage you to consult your doctor.
+                </p>
+            </div>
+            <div className="question">
+                <h4>Score alcohol</h4>
+                <p className='FAQ-prompt'>
+                    Meg does not score alcohol. If you ask her about alcohol she will provide guidance 
+                    to support your weight loss. If you have questions about dependency or medical 
+                    conditions, please consult with a health professional. Meg does not provide 
+                    medical advice.
+                </p>
+            </div>
+            <div className="question">
                 <h4>Set a safe rate of weight loss</h4>
                 <p className='FAQ-prompt'>
                     We encourage you to maintain your weight within the healthy weight guidelines endorsed by 
@@ -102,22 +118,6 @@ function HowDoWe() {
                     she has been programmed with thousands of questions and answers developed by leading 
                     weight loss experts. This way you can ask her, for example, “what’s a healthy pizza” 
                     and she’ll tell you.
-                </p>
-            </div>
-            <div className="question">
-                <h4>Score alcohol</h4>
-                <p className='FAQ-prompt'>
-                    Meg does not score alcohol. If you ask her about alcohol she will provide guidance 
-                    to support your weight loss. If you have questions about dependency or medical 
-                    conditions, please consult with a health professional. Meg does not provide 
-                    medical advice.
-                </p>
-            </div>
-            <div className="question">
-                <h4>Provide medical advice</h4>
-                <p className='FAQ-prompt'>
-                    In short, we do not provide medical advice. If you need medical advice, we 
-                    encourage you to consult your doctor.
                 </p>
             </div>
         </div>

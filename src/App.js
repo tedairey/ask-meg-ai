@@ -9,6 +9,8 @@ import Footer from './footer/Footer.js';
 import BlogPosts from './blogPosts/BlogPosts.js';
 import Profile from './profile/Profile';
 import { UserContext } from './context/UserContext.js';
+import Conduct from './conduct/Conduct.js';
+import UseOfApplication from './useOfApplication/UseOfApplication.js';
 
 function App() {
 
@@ -29,6 +31,9 @@ function App() {
             <Route path='/meet-meg/:handle' component={HomePage}/>
             <Route path='/FAQ' component={FAQ}/>
             <Route path='/about' component={About}/>
+            <Route path='/conduct' component={Conduct}/>
+            <Route path='/terms-of-use' component={UseOfApplication}/>
+            <Route path='/privacy-policy' component={UseOfApplication}/>
             <UserContext.Provider value={user}>
               <Route path='/blog-posts' component={BlogPosts}/>
               <Route path='/profile/:handle' component={Profile}/>

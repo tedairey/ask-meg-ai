@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './OurTeam.scss';
 import TeamPhoto from './teamPhoto/TeamPhoto';
-import TeamInfo from './TeamInfo.json';
 import TeamInfoJS from './TeamInfo.js';
 
 function OurTeam() {
@@ -10,7 +9,6 @@ function OurTeam() {
 
     useEffect(() => {
         const members = [];
-        console.log(TeamInfoJS);
         for (const [index, member] of TeamInfoJS.teamInfo.entries()) {
             members.push(<TeamPhoto key={index} member={member}/>);
         }

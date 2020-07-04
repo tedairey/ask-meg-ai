@@ -70,7 +70,7 @@ export default {
         {
             name: "Megan Airey",
             role: "INSERT ROLE HERE",
-            info: "INSERT INFO HERE",
+            info: "Meg is a mental health specialist focused on human behaviors and mental illnesses. Formerly of the Children's Hospital of Philadelphia and the National Institute of Mental Health, Meg’s post graduate research is focused on young adults struggling with depression and anxiety. In her spare time, Meg is a crisis counselor. She is also a passionate runner and avid dog-lover.",
             photo: MegImg
         },
         {
@@ -81,8 +81,8 @@ export default {
         },
         {
             name: "Ted Airey",
-            role: "INSERT ROLE HERE",
-            info: "INSERT INFO HERE",
+            role: "Software Engineer",
+            info: "Ted is a technology engineer applying leading mobile web technologies including React and Spring to create engaging user experiences. His experience includes being part of a team developing state of the art app and website functionality for one of the world’s largest financial services firms. Ted brings passion and a lively sense of humor to complex, real-world problem solving.",
             photo: TedImg
         }
     ]

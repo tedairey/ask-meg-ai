@@ -5,34 +5,18 @@ function HowDoI() {
     return (
         <div id="how-do-i">
             <div className="question">
-                <h4>Change the name Meg uses</h4>
-                <p className='FAQ-prompt'>Say “Change my name” to Meg and she’ll guide you through the process.</p>
-            </div>
-            <div className="question">
-                <h4>Change my height or gender or other element of my profile</h4>
-                <p className='FAQ-prompt'>Say “Change my profile” to Meg and she’ll guide you through the process.</p>
-            </div>
-            <div className="question">
-                <h4>Change your plan</h4>
-                <p className='FAQ-prompt'>Say “Change my plan” to Meg and she’ll guide you through the steps.</p>
-            </div>
-            <div className="question">
-                <h4>Change your target weight</h4>
-                <p className='FAQ-prompt'>Say “Change my plan” to Meg and she’ll guide you through the steps.</p>
-            </div>
-            <div className="question">
-                <h4>Log in</h4>
+                <h4>Cancel an entry</h4>
                 <p className='FAQ-prompt'>
-                    To log in, please go to the login screen and enter your details. You can skip 
-                    this step if you mark the check box for auto log in. If you have not logged in 
-                    previously, you will need to sign up and create an account. You can do this by 
-                    going to Sign Up.
+                    To cancel or abort an entry when you are midway through a logging process, just 
+                    say “cancel”.
                 </p>
             </div>
             <div className="question">
                 <h4>Cancel my subscription</h4>
-                <p className='FAQ-prompt'>Please email
-                    <a href="mailto:subscriptions@askmeg.ai" className="email">subscriptions@askmeg.ai</a>. 
+                <p className='FAQ-prompt'>
+                    Please email <a href="mailto:support@askmeg.ai" className="email">
+                        support@askmeg.ai
+                    </a>. 
                 </p>
             </div>
             <div className="question">
@@ -52,20 +36,36 @@ function HowDoI() {
                 </p>
             </div>
             <div className="question">
+                <h4>Change the name Meg uses</h4>
+                <p className='FAQ-prompt'>Say “Change my name” to Meg and she’ll guide you through the process.</p>
+            </div>
+            <div className="question">
+                <h4>Change my height or gender or other element of my profile</h4>
+                <p className='FAQ-prompt'>Say “Change my profile” to Meg and she’ll guide you through the process.</p>
+            </div>
+            <div className="question">
+                <h4>Change your plan</h4>
+                <p className='FAQ-prompt'>Say “Change my plan” to Meg and she’ll guide you through the steps.</p>
+            </div>
+            <div className="question">
+                <h4>Change your target weight</h4>
+                <p className='FAQ-prompt'>Say “Change my plan” to Meg and she’ll guide you through the steps.</p>
+            </div>
+            <div className="question">
                 <h4>Complain</h4>
                 <p className='FAQ-prompt'>
-                    Have a complaint? Contact us at 
-                    <a href="mailto:support@askmeg.ai" className="email">support@askmeg.ai</a> 
-                    We’ll do whatever we can to make it right,
+                    Have a complaint? Contact us at <a href="mailto:support@askmeg.ai" className="email">
+                        support@askmeg.ai 
+                    </a>. 
+                    We’ll do whatever we can to make it right.
                 </p>
             </div>
             <div className="question">
-                <h4>Edit a previously logged entry</h4>
-                <p className='FAQ-prompt'>[to come]</p>
-            </div>
-            <div className="question">
                 <h4>Get a meal suggestion</h4>
-                <p className='FAQ-prompt'>Just ask Meg “What’s a healthy breakfast” or “What’s a healthy lunch” or snack or dinner</p>
+                <p className='FAQ-prompt'>
+                    Just ask Meg “What’s a healthy breakfast” or “What’s a healthy lunch” or snack or dinner, 
+                    or, just tap the healthy options icon in the app to see healthy suggestions each day!
+                </p>
             </div>
             <div className="question">
                 <h4>Get started</h4>
@@ -122,18 +122,20 @@ function HowDoI() {
                 </p>
             </div>
             <div className="question">
+                <h4>Log in</h4>
+                <p className='FAQ-prompt'>
+                    To log in, please go to the login screen and enter your details. You can skip 
+                    this step if you mark the check box for auto log in. If you have not logged in 
+                    previously, you will need to sign up and create an account. You can do this by 
+                    going to Sign Up.
+                </p>
+            </div>
+            <div className="question">
                 <h4>Provide feedback</h4>
                 <p className='FAQ-prompt'>
                     We welcome your feedback, positive and critical. It’s how we learn. First, we’re 
                     sorry you may be experiencing difficulty. To send feedback, please say “Feedback” 
                     to Meg and she’ll guide you through the steps involved.
-                </p>
-            </div>
-            <div className="question">
-                <h4>Cancel an entry</h4>
-                <p className='FAQ-prompt'>
-                    To cancel or abort an entry when you are midway through a logging process, just 
-                    say “cancel”
                 </p>
             </div>
             <div className="question">

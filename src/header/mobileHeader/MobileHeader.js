@@ -8,10 +8,12 @@ function MobileHeader(props) {
     return (
         <div className="mobile-header row">
             <SideMenu/>
-            <div className='mobile-logo'>
-                <a href="https://askmeg.ai">
+            <div className='mobile-title'>
+                askmeg.ai
+                {/* ASKMEG.AI */}
+                {/* <a href="https://askmeg.ai">
                     <img src={logo} className="logo" alt="logo" />
-                </a>
+                </a> */}
             </div>
             <div className='mobile-login'>
                 <div className='log-in-menu-toggle'>

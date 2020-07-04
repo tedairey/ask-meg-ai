@@ -1,24 +1,28 @@
 import React from 'react';
 import './HowItWorks.scss';
-import weightGraph from '../homePageImages/weightGraph.png';
-import yourProgress from '../homePageImages/yourProgress.png';
-import grocery from '../homePageImages/grocery.png';
+import feedback from '../homePageImages/feedback.jpeg';
 import milkGif from '../homePageImages/milkAlt.gif';
+import anywhere from '../homePageImages/anywhere.gif';
 
 function HowItWorks() {
     return (
         <div className="how-it-works">
             <div className="row section">
-                <div className='col-lg-6'>
-                    <h1 className ="how-it-works-header title-text">
-                        Leverage Proven Food Science
-                    </h1>
+                <div className='col-lg-6 m-auto'>
+                    <h2 className = 'how-it-works-header title-text'>
+                        Know, Right Now, Which Foods Will Cause You To Gain or Lose Weight
+                    </h2>
                     <div className='section-text'>
-                        In May 2019, the National Institutes of Health proved that people gain weight when 
-                        they eat highly processed foods and lose weight when they reduce or avoid them. The 
-                        researchers demonstrated their outcomes in randomized control trials, the “gold standard” 
-                        of scientific proof. Today highly processed foods are pervasive and not easy to recognize. 
-                        Perhaps it’s no wonder 70 percent of us are overweight. 
+                        <p>
+                            In 2019 the National Institutes of Health proved that when people eat highly 
+                            processed foods they gain weight and when they avoid them, they lose weight. 
+                            But, recognizing highly processed foods is not easy. Until now.
+                        </p>
+                        <p>
+                            Developed with experts trained at the University of Chicago and Northwestern’s 
+                            Feinberg School of Medicine, Meg scores every food you eat and gives you simple 
+                            thumbs up, thumbs down guidance. Instantly.
+                        </p>
                     </div>
                 </div>
                 <div className='col-lg-6 home-image'>
@@ -27,69 +31,59 @@ function HowItWorks() {
             </div>
             <hr/>
             <div className='row section'>
-                <div className='col-lg-7 order-lg-5'>
+                <div className='col-lg-7 order-lg-5 m-auto'>
+                    <h2 className='how-it-works-header title-text'>
+                        Get Nutrition Guidance, Anywhere, Anytime
+                    </h2>
                     <div className='section-text'>
-                        Meg applies the food classification system used by the NIH researchers to over 300,000 foods 
-                        and provides simple thumbs up and thumbs down feedback, so you know what you’re eating.  
+                        <p>
+                            <strong>In The Grocery Store.</strong> Scan a food. Thumbs down? Meg recommends a close 
+                            alternative that’s heathier. Instantly. 
+                        </p>
+                        <p>
+                            <strong>On-The-Go.</strong> Get healthy meal suggestion each day.  Have a vegan, vegetarian 
+                            or gluten-free preference? Meg has you covered.
+                        </p>
+                        <p>
+                            <strong>Dining Out.</strong> More convenient than a dietitian on speed dial, just text Meg and get the advice you need. Right there. Right then. 
+                        </p>
                     </div>
                 </div>
                 <div className='col-lg-5 home-image order-lg-1 home-image'>
-                    <img src={weightGraph}/>
+                    <img src={anywhere}/>
                 </div>
             </div>
             <hr/>
             <div className='row section'>
-                <div className='col-lg-7'>
-                    <div className='section-text'>
-                        In the grocery store. Scan a food. Thumbs down? Meg recommends a close alternative that’s heathier. Instantly.
-                        <br/>
-                        On-the-go. Ask Meg about a food. Thumbs up? Enjoy! Thumbs down? She’ll recommend a heathier alternative from 
-                        among your preferred brands. Immediately.
-                        <br/>
-                        A night out. More convenient than a dietitian on speed dial, just ask Meg 24/7 and get the advice you need. 
-                        Right there. Right then.
-                    </div>
-                </div>
-                <div className='col-lg-5 home-image'>
-                    <img src={grocery}/>
-                </div>
-            </div>
-            <hr/>
-            <div className='row section'>
-                <div className='col-lg-7 order-lg-5'>
-                    <h1 className='how-it-works-header title-text'>
+                <div className='col-lg-7 m-auto'>
+                    <h2 className='how-it-works-header title-text'>
                         Get Personalized Recommendations Every Day
-                    </h1>
+                    </h2>
                     <div className='section-text'>
-                        Developed with experts trained at the University of Chicago and Northwestern’s Feinberg School of Medicine, 
-                        Meg will compare your progress with your weight-losing peers and suggest one area for the greatest improvement. 
-                        For example, changing your lunch choice to raise your nutrition score.
-                        <br/>
-                        She’ll also suggest healthy food choices each day. Have a vegan, vegetarian or gluten-free preference? 
-                        Meg has you covered.
+                        Using the power of AI, each day Meg will suggest an area for improvement. 
+                        For example, changing your lunch choice to raise your nutrition score. She’ll 
+                        then give you some alternative choices for weight loss success.
                     </div>
                 </div>
-                <div className='col-lg-5 home-image order-lg-1 home-image'>
-                    <img src={yourProgress}/>
+                <div className='col-lg-5 home-image m-auto'>
+                    <img src={feedback}/>
                 </div>
             </div>
             <hr/>
-            <div className='row section'>
-                <div className='col-lg-7'>
-                    <h1 className = 'how-it-works-header title-text'>
-                        Speaking With Meg Is Easy. Engaging. Enjoyable.
-                    </h1>
-                    <div className='section-text'>
-                        Unlike ‘traditional apps’ requiring screen-by-screen scrolling and lots of text thumbing, Meg provides 
-                        the convenience of voice logging. As quickly as you can say “log my breakfast of turkey sausage, 
-                        scrambled egg and toast” Meg logs it. It’s that simple.
-                        <br/>
-                        Speaking in complete sentences and using human-like facial expressions, interacting with Meg is like 
-                        talking to an informed friend. One where you enjoy your interactions.
-                    </div>
-                </div>
-                <div className='col-lg-5 home-image'>
-                    <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"/>
+            <div className='section'>
+                <h2 className='how-it-works-header title-text'>
+                    Meg Is Fully Voice-Enabled. Just Talk To Meg
+                </h2>
+                <div className='section-text'>
+                    <p>    
+                        Unlike ‘traditional apps’ requiring screen-by-screen scrolling and lots of text thumbing, 
+                        Meg provides the convenience of voice logging. As quickly as you can say “log my breakfast 
+                        of turkey sausage, scrambled egg and toast” Meg logs it. It’s really that simple.
+                    </p>
+                    <p>
+                        Speaking in complete sentences and using human-like facial expressions, interacting 
+                        with Meg is like talking to an informed friend. 
+                    </p>
                 </div>
             </div>
             <hr/>
@@ -98,9 +92,13 @@ function HowItWorks() {
                     Meg Is Affordable
                 </h1>
                 <div className='section-text'>
-                    Meg costs about the same as a cup of coffee each week. Well, less than that if it’s from you know where!  
-                    <br/>
-                    Joking aside, we believe world class weight loss support should be affordable. 
+                    <p>
+                        Meg costs about the same as a cup of coffee each week. Well, less than that if it’s 
+                        from you know where!  
+                    </p>
+                    <p>
+                        Joking aside, we believe world class weight loss support should be affordable.
+                    </p> 
                 </div>
             </div>
         </div>

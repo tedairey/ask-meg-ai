@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './HomePage.scss';
 import AppleBadge from '../App_Store_Badge.svg';
 import HowItWorks from '../howItWorks/HowItWorks';
@@ -6,12 +6,14 @@ import Testimonials from './testimonials/Testimonials';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../Helpers';
 import { useMediaQuery } from 'react-responsive';
-import intro from '../homePageImages/intro.gif';
+import intro from '../homePageImages/intro2.gif';
+import BetaTestingModal from '../alertModals/BetaTestingModal';
 
 function HomePage(props) {
 
     const requestedPage = props.match.params.handle,
         isSmall = useMediaQuery({query: '(max-width: 768px)'}),
+        [betaTestingModal, setBetaTestingModal] = useState(false),
         howItWorksRef = useRef(),
         tryItForFreeRef = useRef(),
         testimonialsRef = useRef();
@@ -38,29 +40,30 @@ function HomePage(props) {
   return (
     <div className="home-page">
         <div className="row">
-            <div className="col-lg-4 text">
+            <div className="col-lg-6 text">
                 <h1 className='title-text'>
-                    Meg: The Next Generation Weight Loss App Is Here
+                    Meg: The Next Gen Weight Loss Assistant
                 </h1>
-                <a className= "col-2" id="apple" href="https://www.apple.com/ios/app-store/">
-                    <img src={AppleBadge}/>
-                </a>
             </div>
-            <div className="col-lg-8 home-image">
+            <div className="col-lg-6 home-image">
                 <img src={intro}/>
             </div>
         </div>
         <hr/>
-        <div className="row">
-            <div className="col-lg-4 order-lg-5 text">
-                <h1 className='title-text'>Lose Weight With Meg</h1>
-                Meg is a first-of-its-kind solution combining proven food science and 
-                expert advice with a friendly and engaging human-like ‘AI’ to make your 
-                weight loss goals achievable.
+        <div className='section'>
+            <div className="text">
+                <h1 className='title-text'>Weight Loss. Made Achievable.</h1>
+                Using proven science, Meg scores every food
+                you eat. Instantly, on your phone. Thumbs
+                up, helps you lose weight. Thumbs down,
+                causes weight gain.
             </div>
-            <div className="col-lg-8 order-lg-1 home-image">
-                <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1567542175/qqksxyq3kg14a45bvjfg.png"/>
+            <div className='get-the-app'>
+                <button className='btn get-started' onClick={()=>setBetaTestingModal(true)}>
+                    Get Started With Meg
+                </button>
             </div>
+            <BetaTestingModal showModal={betaTestingModal} setShowModal={setBetaTestingModal}/>
         </div>
         <hr ref={howItWorksRef}/>
         <HowItWorks/>
@@ -73,9 +76,22 @@ function HomePage(props) {
                 Use Meg for 14-days free. Like Meg, subscribe and please tell your friends. Don’t like Meg, just cancel your 
                 subscription within 14 days. No hassle. And please tell us why so we can improve. 
             </div>
-            <a href="https://www.apple.com/ios/app-store/">
-                <img className='apple-badge' src={AppleBadge}/>
-            </a>
+            <div className='get-the-app'>
+                <button className='btn get-started' onClick={()=>setBetaTestingModal(true)}>
+                    Get Started With Meg
+                </button>
+            </div>
+        </div>
+        <hr/>
+        <div className='section'>
+            <h1 className='how-it-works-header title-text'>
+                Learn. Share.
+            </h1>
+            <div className='text'>
+                Join our community. Get advice on emotional eating, motivation, diet choices and daily 
+                exercise ideas directly from our experts. Read about the experiences of other users.  
+                Share a story of your own.
+            </div>
         </div>
         <hr ref={testimonialsRef}/>
         <Testimonials/>
@@ -85,9 +101,6 @@ function HomePage(props) {
                 <Link to='/FAQ/tips-and-hints'>
                     <button className="btn back" onClick={scrollTop}>FAQs</button>
                 </Link>
-            </div>
-            <div id="get-the-app">
-                <button className="btn submit">Get The App</button>
             </div>
         </div>
     </div>
