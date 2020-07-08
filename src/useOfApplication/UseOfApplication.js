@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react'; 
 import './UseOfApplication.scss';
-import { useAccordionToggle } from 'react-bootstrap';
 import { useMediaQuery } from 'react-responsive';
 
 function UseOfApplication() {

@@ -41,11 +41,6 @@ ul {
     padding-left: 0px;
 }
 
-hr {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
 .submit {
     background-color: #222;
     border: 1px white solid;
@@ -63,18 +58,14 @@ hr {
 }
 
 .buttons button {
-    width: 250px;
+    font-size: 20px;
+    width: 288px;
     text-align: center;
 }
 
-@media screen and (max-width: 991px) {
-    .buttons {
-        display: block;
-    }
-    hr {
-        visibility: hidden;
-        margin-bottom: 0;
-    }
+.buttons .get-the-app {
+    text-align: center;
+    margin: 0px auto;
 }
 
 #learn-more, #get-the-app {

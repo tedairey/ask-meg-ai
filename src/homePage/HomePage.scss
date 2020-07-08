@@ -1,45 +1,20 @@
 .home-page {
-    margin: 20px auto 0px auto;
+    margin: auto;
     color: white;
-    .front-title-text {
-        text-align: center;
-    }
     .home-image {
         img {
             border-radius: 10px;
             border: 1px solid black;
             margin-top: 10px;
-        }
-    }
-    .apple-badge {
-        margin-top: 20px;
-    }
-    .text {
-        margin: auto;
-        font-size: 20px;
-    }
-    img {
-        width: inherit;
-    }
-    .get-the-app {
-        margin-top: 15px;
-        text-align: center;
-        .get-started {
-            background-color: #126702;
-            color: white;
-            border: 1px solid white;
-            font-weight: 700;
-            font-size: 20px;
-            padding: 5px 40px;
-            &:hover {
-                background-color: white;
-                color: #126702;
-                border: 1px solid #126702;
-            }
+            width: inherit;
         }
     }
     .gif {
         margin: 20px auto 0px auto;
+    }
+    hr {
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
     @media (max-width: '767px') {
         .home-image {
@@ -48,20 +23,40 @@
                 border-radius: 0;
             }  
         }
-        .text {
-            font-size: 18px;
-            line-height: 1.3;
-        }
     }
-    @media screen and (max-width: 991px) {  
-        .title-text {
-            text-align: center;
+    @media screen and (max-width: 991px) {
+        .buttons {
+            display: block;
         }
+        // hr {
+        //     visibility: hidden;
+        //     margin-bottom: 0;
+        // }
     }
-    @media screen and (max-width: 768px) {  
-        .title-text {
-            font-size: 25px;
-        }
+}
+
+
+.text {
+    font-size: 20px;
+    margin: auto;
+}
+
+@media (max-width: '767px') {
+    .text {
+        font-size: 18px;
+        line-height: 1.3;
+    }
+    .title-text {
+        font-size: 25px;
+    }
+}
+
+@media (max-width: '991px') {
+    .text {
+        margin-top: 15px;
+    }
+    .title-text {
+        text-align: center;
     }
 }
 
@@ -69,5 +64,23 @@
     text-align: left;
     .beta-testing-list {
         padding-left: 15px;
+    }
+}
+
+.get-the-app {
+    margin-top: 15px;
+    text-align: center;
+    .get-started {
+        background-color: #126702;
+        color: white;
+        border: 1px solid white;
+        font-weight: 700;
+        font-size: 20px;
+        width: 288px;
+        &:hover {
+            background-color: white;
+            color: #126702;
+            border: 1px solid #126702;
+        }
     }
 }

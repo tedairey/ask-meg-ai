@@ -1,9 +1,19 @@
 .testimonials {
     .testimonials-header {
         text-align: center;
+        margin-bottom: 15px;
     }
     .testimonials-image {
         border: 1px solid black;
         border-radius: 10px;
+        width: inherit;
+    }
+    .quote {
+        font-weight: 700;
+        font-size: 24px;
+    }
+    .person {
+        font-style: italic;
+        font-size: 18px;
     }
 }

@@ -5,8 +5,8 @@ function Conduct(props) {
 
     return (
         <div className='conduct'>
-            <h1 className='conduct-header'>Community Code of Conduct</h1>
-            <p className='conduct-header'>Come on in and welcome to Team Meg!</p>
+            <h2 className='conduct-header'>Community Code of Conduct</h2>
+            <p className='conduct-subheader'>Come on in and welcome to Team Meg!</p>
             <p>
                 We are glad you've decided to become a member of our Community. We have
                 built Meg to provide healthy advice and we’d like to reflect that same spirit here.

@@ -6,16 +6,15 @@ function BetaTestingModal(props) {
     return (
         <Modal show={props.showModal} onHide={() => props.setShowModal(false)} centered>
             <Modal.Header closeButton>
-                <Modal.Title>Become a Beta Tester</Modal.Title>
+                <Modal.Title>Get Free Use of Meg!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className='modal-message'>
                     <p>
-                        Want to help us develop Meg? Meg is
-                        undergoing beta testing and we’re looking for
+                        Want to get free use of Meg and be recognized as a customer - developer? 
+                        Meg is undergoing beta testing and we’re looking for
                         volunteers. The program is free of charge and
-                        you may terminate your involvement at any
-                        time.
+                        you may terminate your involvement at any time.
                     </p>
                     <strong>Here’s what you get:</strong>
                     <br/>

@@ -4,12 +4,12 @@ import './Testimonials.scss';
 function Testimonials(props) {
     return (
         <div className='testimonials'>
-            <h2 className='testimonials-header'>
-                Here's What Our Users Say
+            <h2 className='testimonials-header title-text'>
+                What Our Users Say
             </h2>
             <div className='row section'>
                 <div className='col-md-7'>
-                    <img className="testimonials-image" src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568751667/hu5qy2jdfz5ssxfio5uk.png"/>
+                    <img className='testimonials-image' src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568751667/hu5qy2jdfz5ssxfio5uk.png"/>
                 </div>
                 <div className="col-md-5">
                     <span className='quote'>"Keeps Me Motivated"</span><br/>
@@ -19,7 +19,7 @@ function Testimonials(props) {
             <hr/>
             <div className='row section'>
                 <div className='col-md-7'>
-                    <img className="testimonials-image" src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568750847/okwx41mw4cxswgya9qy3.png"/>
+                    <img className='testimonials-image' src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568750847/okwx41mw4cxswgya9qy3.png"/>
                 </div>
                 <div className="col-md-5">
                     <span className='quote'>"The Perfect Friend"</span><br/>
@@ -29,7 +29,7 @@ function Testimonials(props) {
             <hr/>
             <div className='row section'>
                 <div className='col-md-7'>
-                    <img className="testimonials-image" src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568751231/my3agepuhv8xgksuje18.png"/>
+                    <img className='testimonials-image' src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568751231/my3agepuhv8xgksuje18.png"/>
                 </div>
                 <p className="col-md-5">
                     <span className='quote'>"All the Benefits of Dietitian Input"</span><br/>
@@ -39,7 +39,7 @@ function Testimonials(props) {
             <hr/>
             <div className='row section'>
                 <div className='col-md-7'>
-                    <img className="testimonials-image" src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568751418/lpqdqxovwg7awscq2h6g.png"/>
+                    <img className='testimonials-image' src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568751418/lpqdqxovwg7awscq2h6g.png"/>
                 </div>
                 <p className="col-md-5">
                     <span className='quote'>"So Nice"</span><br/>

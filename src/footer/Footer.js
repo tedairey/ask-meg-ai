@@ -36,7 +36,7 @@ function Footer() {
         </nav>
         <br/>
         <div className="site-info-text">
-            <Link to='/terms-of-use' onClick={scrollTop}>Use of Application Agreement</Link> | <Link to='/privacy-policy'>Privacy Policy</Link><br/>
+            <Link to='/terms-of-use' onClick={scrollTop}>Terms of Use</Link> | <Link to='/privacy-policy'>Privacy Policy</Link><br/>
             © 2020 Tonbridgehealth LLC
         </div>
     </div>

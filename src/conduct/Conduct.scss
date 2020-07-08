@@ -1,11 +1,26 @@
 .conduct {
     margin-top: 20px;
     color: white;
+    font-size: 20px;
     .conduct-header {
         text-align: center;
+    }
+    .conduct-subheader{
+        text-align: center;
+        margin-top: 10px;
     }
     .conduct-list {
         list-style: none;
         margin: 5px auto;
+    }
+}
+
+@media (max-width: '767px') {
+    .conduct {
+        font-size: 18px;
+        line-height: 1.3;
+        .conduct-header {
+            font-size: 25px;
+        }
     }
 }
