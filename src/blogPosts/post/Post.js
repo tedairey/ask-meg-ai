@@ -16,13 +16,13 @@ function Post (props){
     
     const [comments, setComments] = useState([]),
         [date, setDate] = useState(''),
-        [commentCount, setCommentCount] = useState(props.post.commentCount),
+        [commentCount, setCommentCount] = useState(props.post.comments.length),
         [isLoaded, setIsLoaded] = useState(false),
         [editMenu, setEditMenu] = useState('edit-menu d-none'),
         [isUserPost, setIsUserPost] = useState(false),
         [showDeleteModal, setShowDeleteModal] = useState(false),
         [showEditModal, setShowEditModal] = useState(false),
-        user = /*{username: 'tairey'}*/useContext(UserContext);
+        user = useContext(UserContext);
 
     let [commentSectionStyle, setCommentSectionStyle] = useState('comment-section d-none');
     
@@ -31,7 +31,8 @@ function Post (props){
     const isSmall = useMediaQuery({ query: '(max-width: 768px)'})
 
     useEffect(() => {
-        setDate(formatDate(props.post.submitted));
+        setDate(formatDate(props.post.timestamp));
+        setCommentCount(props.post.comments.length);
     }, []);
 
     useEffect(() => {
@@ -39,38 +40,6 @@ function Post (props){
             user.username === props.post.username && setIsUserPost(true);
         }
     },[user]);
-
-    const addComment = (comment) => {
-        const newComments = comments.concat(<Comment deleteComment={deleteComment} comment={comment}/>);
-        setComments(newComments);
-        setCommentCount(commentCount + 1);
-    }
-
-    const deleteComment = () => {
-        //setCommentCount(commentCount);
-        fetchComments();
-    }
-
-    const fetchComments = () => {
-        fetch('http://localhost:8088/comments/' + props.post.id)
-            .then(res => res.json())
-            .then(res => {
-                const comments = [];
-                if (res.length) {
-                    for (const [index, comment] of res.entries()) {
-                        comments.push(<Comment key={index} deleteComment={deleteComment} comment={comment}/>);
-                    }
-                    setComments(comments);
-                }
-                else if (!user) {
-                    setComments('No user comments');
-                }
-                setIsLoaded(true);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }
 
     const toggleCommentSection = () => {
         if (showCommentSection) {
@@ -93,22 +62,66 @@ function Post (props){
             fetchComments();
         }
         else {
-            setComments([]);
             setIsLoaded(true);
             return false;
         }
     }
 
+    const fetchComments = (newComments) => {
+        const commentsArr = [];
+        if (!newComments && comments.length) {
+            setIsLoaded(true);
+        }
+        else if (commentCount || newComments) {
+            for (const [index, comment] of (newComments ? newComments.entries() : props.post.comments.entries())) {
+                commentsArr.push(
+                    <Comment key={index} index={index} deleteComment={deleteComment} 
+                        comment={comment} postID={props.post.id} addComment={addComment}/>
+                );
+            }
+            setComments(commentsArr);
+            setCommentCount(commentsArr.length);
+        }
+        else if (!user) {
+            setComments('No user comments');
+        }
+        setIsLoaded(true);
+    }
+
     const deletePost = () => {
-        fetch('http://localhost:8088/posts/deletePost/' + props.post.id)
+        setShowDeleteModal(false);
+        props.deletePost(props.post.id);
+    }
+
+    const addComment = (comment, index) => {
+        let newComments;
+        if (index !== undefined) {
+            newComments = props.post.comments;
+            newComments[index] = comment; 
+        }
+        else {
+            newComments = props.post.comments.concat(comment);
+            index = -1;
+        }
+        let newPost = props.post;
+        newPost.comments = newComments;
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newPost)
+        };
+        fetch('http://localhost:8088/comments/save/' + index, requestOptions)
             .then(res => res.json())
             .then(res => {
-                //success
-                setShowDeleteModal(false);
+                fetchComments(res.comments);
             })
             .catch(err => {
                 console.log(err);
-            });
+            })
+    }
+
+    const deleteComment = (newComments) => {
+        fetchComments(newComments);
     }
 
     const showEditMenu = () => {
@@ -121,6 +134,10 @@ function Post (props){
         if (!/\s/g.test(editMenu)) {
             setEditMenu(editMenu + ' d-none');
         }
+    }
+    
+    const closeEditModal = () => {
+        setShowEditModal(false);
     }
         
     const post = props.post;
@@ -147,7 +164,7 @@ function Post (props){
                 <Modal.Title>Edit Post</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <NewPost currentPost={post} close={() => setShowEditModal(false)}/>
+                    <NewPost currentPost={post} close={closeEditModal}/>
                 </Modal.Body>
             </Modal>
             <div className='post' onMouseEnter={showEditMenu} onMouseLeave={hideEditMenu}>

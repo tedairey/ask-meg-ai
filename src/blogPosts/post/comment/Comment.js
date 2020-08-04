@@ -10,7 +10,7 @@ import NewComment from '../newComment/NewComment';
 
 function Comment (props) {
 
-    const [date, setDate] = useState(formatDate(props.comment.submitted)),
+    const [date, setDate] = useState(formatDate(props.comment.timestamp)),
         [editMenu, setEditMenu] = useState('edit-menu d-none'),
         [isUserComment, setIsUserComment] = useState(false),
         [isEditingComment, setIsEditingComment] = useState(false),
@@ -24,29 +24,35 @@ function Comment (props) {
     },[user]);
 
     const showEditMenu = () => {
-        setEditMenu(editMenu.slice(0,-7));
+        if (/\s/g.test(editMenu)) {
+            setEditMenu(editMenu.slice(0,-7));
+        }
     }
 
     const hideEditMenu = () => {
-        setEditMenu(editMenu + ' d-none');
+        if (!/\s/g.test(editMenu)) {
+            setEditMenu(editMenu + ' d-none');
+        }
     }
 
     const editComment = () => {
         setIsEditingComment(true);
     }
 
-    const updateComment = () => {
+    const updateComment = (comment) => {
         setIsEditingComment(false);
         hideEditMenu();
+        comment.timestamp = props.comment.timestamp;
+        props.addComment(comment, props.index);
     }
 
     const deleteComment = () => {
-        fetch('http://localhost:8088/deleteComment/' + props.comment.id)
+        fetch('http://localhost:8088/comments/delete/' + props.postID + '/' + props.index)
             .then(res => res.json())
             .then(res => {
                 if (res) {
                     setShowDeleteModal(false);
-                    props.deleteComment();
+                    props.deleteComment(res.comments);
                     //successfully deleted comment
                     //updatecomment
                 }

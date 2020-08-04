@@ -6,6 +6,18 @@
     background: white;
     margin-top: 20px;
     padding: 30px 30px;
+    .topic {
+        border: 1px solid black;
+        border-radius: 5px;
+        color: grey;
+        margin-bottom: 20px;
+        padding: 3px 5px;
+    }
+    .topic-error {
+        margin-bottom: 3px;
+        color: red;
+        display: none;
+    }
 }
 
 .modal-body { 

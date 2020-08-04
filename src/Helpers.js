@@ -5,14 +5,19 @@ export function scrollTop() {
 }
 
 export function formatDate(submitted) {
-    let year = submitted.substring(2,4),
-        month = submitted.substring(5,7),
-        day = submitted.substring(8,10);
-    if (day[0] === '0') {
-        day = day.slice(1);
+    if (submitted) {
+        let year = submitted.substring(2,4),
+            month = submitted.substring(5,7),
+            day = submitted.substring(8,10);
+        if (day[0] === '0') {
+            day = day.slice(1);
+        }
+        if (month[0] === '0') {
+            month = month.substring(1);
+        }
+        return month + '-' + day + '-' + year;
     }
-    if (month[0] === '0') {
-        month = month.substring(1);
+    else {
+        return 'null';
     }
-    return month + '-' + day + '-' + year;
 }

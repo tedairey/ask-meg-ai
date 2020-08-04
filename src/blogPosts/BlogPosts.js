@@ -8,7 +8,7 @@ import { UserContext } from '../context/UserContext';
 import SuccessModal from '../alertModals/SuccessModal';
 import searchIcon from '../searchicon.png';
 
-function BlogPosts(props) {
+function BlogPosts() {
 
     const user = useContext(UserContext),
           [successModal, setSuccessModal] = useState(false),

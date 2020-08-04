@@ -1,13 +1,13 @@
 import React from 'react';
 import './HowItWorks.scss';
 import feedback from '../homePageImages/feedback.jpeg';
-import milkGif from '../homePageImages/milk.gif';
-import anywhere from '../homePageImages/anywhere.gif';
+import yogurtGif from '../homePageImages/comparisonAlt.gif';
+import anywhere from '../homePageImages/anywhere.png';
 import comparison from '../homePageImages/comparison.gif';
 
 function HowItWorks() {
 
-    const milkTitle = 'Meg Helps You Make Better Food Choices. Instantly.',
+    const yogurtTitle = 'Meg Helps You Make Better Food Choices. Instantly.',
         anywhereTitle = 'Meg Gives You Nutrition Guidance, Anywhere, Anytime',
         feedbackTitle = 'Meg Gives You Personalized Recommendations Every Day',
         comparisonTitle = 'Get Meg. Get Next Generation Weight Loss. Today.';
@@ -16,14 +16,14 @@ function HowItWorks() {
         <div className="how-it-works">
             <div className="row section">
                 <h2 className='title-text d-lg-none'>
-                    {milkTitle}
+                    {yogurtTitle}
                 </h2>
                 <div className='col-lg-6 home-image'>
-                    <img src={milkGif}/>
+                    <img src={yogurtGif}/>
                 </div>
                 <div className='col-lg-6 m-auto'>
                     <h2 className = 'title-text d-none d-lg-block'>
-                        {milkTitle}
+                        {yogurtTitle}
                     </h2>
                     <div className='text'>
                         <p>

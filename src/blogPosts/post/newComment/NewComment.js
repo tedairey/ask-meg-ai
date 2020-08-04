@@ -19,7 +19,6 @@ function NewComment (props) {
     const submitComment = () => {
         if (comment && user) {
             const newComment = {
-                postID: props.postID,
                 body: comment,
                 username: user.username
             }
@@ -28,33 +27,8 @@ function NewComment (props) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newComment)
             };
-            if (props.currentComment) {
-                //If text has not been edited
-                if(props.currentComment.body !== comment) {
-                    fetch('http://localhost:8088/updateComment/' + props.currentComment.id, requestOptions)
-                        .then(res => res.json())
-                        .then(res => {
-                            if (res) {
-                                props.addComment();
-                            }
-                        })
-                }
-                //Just reset comment
-                else {
-                    props.addComment();
-                }
-            }
-            else {
-                fetch('http://localhost:8088/newComment', requestOptions)
-                    .then(res => res.json())
-                    .then(res => {
-                        setComment('');
-                        props.addComment(res);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
+            props.addComment(newComment);
+            setComment('');
         }
     }
 

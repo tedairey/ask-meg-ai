@@ -28,6 +28,16 @@
         .profile-photo {
             display: flex;
         }
+        .progress-page-link {
+            border: 1px solid #007bff;
+            padding: .375rem .75rem;
+            border-radius: 5px;
+        }
+        @media (max-width: 767px) {
+            .progress-page-link {
+                text-align: center;
+            }
+        }
     }
     .profile-posts {
         max-width: 825px;

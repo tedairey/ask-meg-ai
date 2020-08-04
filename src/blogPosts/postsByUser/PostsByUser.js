@@ -8,15 +8,16 @@ import { UserContext } from '../../context/UserContext';
 import { scrollTop } from '../../Helpers';
 
 function PostsByUser(props) {
-    const [pages, setPages] = useState([]),
-        [currentPage, setCurrentPage] = useState(1),
+    const [currentPage, setCurrentPage] = useState(1),
         [posts, setPosts] = useState([]),
         [showNewPostModal, setShowNewPostModal] = useState(false),
         [isLoaded, setIsLoaded] = useState(false),
+        [firstPostId, setFirstPostId] = useState(''),
+        [lastPostId, setLastPostId] = useState(''),
         newPostMsgPanel = useRef(),
         user = useContext(UserContext),
         spinner = useRef(),
-        count = useRef(0),
+        [count, setCount] = useState(0),
         [isUserPosts, setIsUserPosts] = useState(false);
 
     //load timeout
@@ -37,11 +38,11 @@ function PostsByUser(props) {
         if (user) {
           user.username === props.username && setIsUserPosts(true)
         };
-        fetch('http://localhost:8088/posts/count/' + props.username)
+        fetch('http://localhost:8088/posts/count/user/' + props.username)
           .then(res => res.json())
           .then(res => {
-            count.current = res;
-            res > 10 && setPagination(Math.ceil(res/10));
+            setCount(res);
+            fetchPosts(0,0);
           })
           .catch(err => {
             console.log(err);
@@ -49,12 +50,10 @@ function PostsByUser(props) {
       }
     }, [props.username, user])
 
-    //fetch posts per page
-    useEffect(() => {
-      if (props.username) {
-        setIsLoaded(false);
-        const username = props.username;
-        fetch('http://localhost:8088/posts/' + username + '/' + currentPage)
+    const fetchPosts = (ref, direction) => {
+      setIsLoaded(false);
+      const username = props.username;
+      fetch('http://localhost:8088/posts/' + username + '/' + ref + '/' + direction)
           .then(res => res.json())
           .then(res => {
             const posts = [];
@@ -63,52 +62,37 @@ function PostsByUser(props) {
             }
             else {
               for (const [index, post] of res.entries()) {
-                posts.push(<li key={index}><Post loggedIn={user ? true: false} post={post}/></li>);
+                posts.push(<li key={index}>
+                  <Post post={post} deletePost={deletePost}/>
+                </li>);
               }
             }
+            setFirstPostId(res[0].id);
+            setLastPostId(res[posts.length-1].id);
             setPosts(posts);
             setIsLoaded(true);
           })
           .catch(err => {
             console.log(err);
           });
-        }
-    }, [user, currentPage]);
-
-    const setPagination = (totalPages) => {
-      let pages = [];
-      pages.push(<button key='prev' className='page-button prev' onClick={changePage}>Prev</button>)
-      for (let index = 1; index <= totalPages; index++) {
-        index === currentPage ?
-        pages.push(<button key={index} className='page-button active' onClick={changePage}>{index}</button>) :
-        pages.push(<button key={index} className='page-button' onClick={changePage}>{index}</button>)
-      }
-      pages.push(<button key='next' className='page-button next' onClick={changePage}>Next</button>)
-      setPages(pages);
     }
 
     const changePage = (event) => {
-      let selectedButton = event.target,
-        pageSelected = selectedButton.innerText;
+      let pageSelected = event.target.innerText;
       switch (pageSelected) {
         case 'Next':
-          pageSelected = Math.ceil(count / 10) >= currentPage + 1 ? currentPage + 1 : currentPage;
-          selectedButton = selectedButton.parentElement.children[pageSelected];
+          setCurrentPage(currentPage + 1);
+          fetchPosts(lastPostId, pageSelected);
           break;
         case 'Prev':
-          pageSelected = currentPage - 1 || currentPage;
-          selectedButton = selectedButton.parentElement.children[pageSelected];
+          setCurrentPage(currentPage - 1);
+          fetchPosts(firstPostId, pageSelected);
           break;
         default:
           pageSelected = parseInt(pageSelected);
           break;
       }
-      if (pageSelected !== currentPage) {
-        selectedButton.classList.add('active');
-        selectedButton.parentElement.children[currentPage].classList.remove('active');
-        setCurrentPage(pageSelected);
-        scrollTop();
-      }
+      scrollTop();
     }
 
     const showNewPostMessage = () => {
@@ -119,10 +103,19 @@ function PostsByUser(props) {
       newPostMsgPanel.current.style.width = '0px';
     }
 
-    const addPost = (post) => {
-        const newPosts = posts;
-        newPosts.unshift(<li key={count + 1}><Post loggedIn={user ? true: false} post={post}/></li>);
-        setPosts(newPosts);
+    const addPost = () => {
+        fetchPosts(0,0);
+    }
+
+    const deletePost = (postId) => {
+        fetch('http://localhost:8088/posts/deletePost/' + postId)
+          .then(res => res.json())
+          .then(res => {
+              fetchPosts(0,0);
+          })
+          .catch(err => {
+              console.log(err);
+          });
     }
     
     if (props.username)
@@ -138,7 +131,12 @@ function PostsByUser(props) {
               </ul>
               <div className='page-control'>
                 <span>
-                  {pages}
+                  {count > 10 && currentPage !== 1 &&
+                    <button key='prev' className='page-button prev' onClick={changePage}>Prev</button>
+                  }
+                  {count > 10 && (Math.ceil(count / 10) >= currentPage + 1) &&
+                    <button key='next' className='page-button next' onClick={changePage}>Next</button>
+                  }
                 </span>
               </div>
             </div> :

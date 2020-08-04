@@ -11,6 +11,7 @@ function Profile(props) {
         [profileUsername, setProfileUsername] = useState(props.match.params.handle),
         [isUserProfile, setIsUserProfile] = useState(false),
         [showChangePassword, setShowChangePassword] = useState(false),
+        [progressUrl, setProgressUrl] = useState(''),
         currentPasswordRef = useRef(),
         newPasswordRef = useRef(),
         confirmPasswordRef = useRef(),
@@ -31,6 +32,20 @@ function Profile(props) {
             setBlogPostsHeader(profileUsername + `'s Blog Posts`);
         }
     }, [props.match.params]);
+
+    useEffect(() => {
+        if (isUserProfile) {
+            const userId = 'W4SnAlOXvMXYEKxOSx8C4Qq9chz2';
+            fetch('http://localhost:8088/user/webpage/' + userId)
+                .then(res => res.text())
+                .then(res => {
+                    setProgressUrl(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    }, [isUserProfile])
 
     const changePassword = (event) => {
         event.preventDefault();
@@ -106,6 +121,10 @@ function Profile(props) {
                             <button className='btn submit' onClick={() => setShowChangePassword(true)}>
                                 Change Password
                             </button>
+                            <br/>
+                            <a className='progress-page-link' href={progressUrl} target='_blank'>
+                                View Progress Page
+                            </a>
                             <Modal show={showChangePassword} onHide={() => setShowChangePassword(false)}
                                 data-backdrop="true">
                                 <Modal.Header className='new-post-modal-header' closeButton>
