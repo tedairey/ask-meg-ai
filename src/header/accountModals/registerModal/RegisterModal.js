@@ -6,28 +6,9 @@ import RegisterField from './registerField/RegisterField';
 import MediaQuery from 'react-responsive';
 import fire from '../../../config/Fire';
 
-class RegisterModal extends Component {
-    constructor(props){
-        super(props) 
-        this.state = {
-            
-        }
-        this.profile = {};
-    }
+function RegisterModal (props) {
 
-    // componentDidMount() {
-    //     this.onAuthListener();
-    // }
-
-    // onAuthListener = () => {
-    //     fire.auth().onAuthStateChanged((user) => {
-    //         if (user) {
-    //             console.log(user);
-    //         }
-    //     })
-    // }
-
-    validateField = (field, err, box) => {
+    const validateField = (field, err, box) => {
         if (!field) {
             err.style.display = 'block';
             box.style.borderColor = 'red';
@@ -36,49 +17,7 @@ class RegisterModal extends Component {
         return true;
     }
 
-    validateFirstName = (name, err, box) => {
-        if (this.validateField(name, err, box)) {
-            this.profile.firstName = name;
-        }
-    }
-
-    validateLastName = (name, err, box) => {
-        if (this.validateField(name, err, box)) {
-            this.profile.lastname = name;
-        }
-    }
-
-    validateEmail = (email, err, box) => {
-        if (!this.validateField(email, err, box)) {
-            this.setState({emailerr: 'Email is a required field'});
-        }
-        else {
-            this.profile.email = email;
-            return true;
-        }
-        // else {
-        //     fetch("http://localhost:8088/email/" + email)
-        //     .then(res => res.json())
-        //     .then(user => {
-        //         if (user) {
-        //             this.setState({emailerr: 'Email must be unique'})
-        //             err.style.display = 'block';
-        //             box.style.borderColor = 'red';
-        //             return false;
-        //         }
-        //         else {
-        //             this.profile.email = email;
-        //         }
-        //     })
-        //     .catch(err => {
-        //         err.style.display = 'block';
-        //         box.style.borderColor = 'purple';
-        //         return false;
-        //     });
-        // }
-    }
-
-    validateUsername = (username, err, box) => {
+    const validateUsername = (username, err, box) => {
         if (!this.validateField(username, err, box)) {
             this.setState({usernameerr: 'Username is a required field'});
         }
@@ -109,7 +48,7 @@ class RegisterModal extends Component {
         return true;
     }
 
-    validatePassword = (password, err, box) => {
+    const validatePassword = (password, err, box) => {
         if (!this.validateField(password, err, box)) {
             this.setState({passworderr: 'Password is a required field'});
         }
@@ -119,12 +58,12 @@ class RegisterModal extends Component {
         }
     }
 
-    validateConfirm = (confirm, err, box) => {
+    const validateConfirm = (confirm, err, box) => {
         this.setState({confirmbox: box});
         this.profile.confirm = confirm;
     }
 
-    confirmPasswords = () => {
+    const confirmPasswords = () => {
         const password=this.profile.password,
             confirm=this.profile.confirm,
             passwordref=this.state.passwordref,
@@ -147,12 +86,8 @@ class RegisterModal extends Component {
         }
     }
 
-    isEnabled = () => {
-        return Object.keys(this.profile).length === 6 ? true : false
-    }
-
-    handleCreate = () => {
-        if (this.isEnabled() && this.confirmPasswords()) {
+    const handleCreate = () => {
+        if (this.confirmPasswords()) {
             const newUser = {
                 email: this.profile.email,
                 username: this.profile.username,
@@ -185,62 +120,29 @@ class RegisterModal extends Component {
             //     .catch(console.log('error'));
         }
     }
-
-    render() {
-        return (
-            <span id="register-modal">
-                <MediaQuery minWidth={768}>
-                    <a id="register" href="#" onClick={this.props.showRegister}>
-                        Register
-                    </a>
-                </MediaQuery>
-
-                <Modal show={this.props.registerModal} onHide={this.props.closeRegister}>
-                    <Modal.Header closeButton>
-                    <Modal.Title>Create an Account</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <RegisterField
-                            placeholder="Email" errormsg={this.state.emailerr}
-                            validateField={this.validateEmail}
-                        />
-                        <RegisterField
-                            placeholder="First Name" errormsg="First Name is required"
-                            validateField={this.validateFirstName}
-                        />
-                        <RegisterField
-                            placeholder="Last Name" errormsg="Last Name is required"
-                            validateField={this.validateLastName}
-                        />
-                        <RegisterField
-                            placeholder="Username" errormsg={this.state.usernameerr}
-                            validateField={this.validateUsername}
-                        />
-                        <RegisterField
-                            placeholder="Password" errormsg={this.state.passworderr}
-                            validateField={this.validatePassword} isPassword='password'
-                        />
-                        <RegisterField
-                            placeholder="Confirm Password" errormsg=""
-                            validateField={this.validateConfirm} isPassword='password'
-                        />
-                    </Modal.Body>
-                    <Modal.Footer>
-                    <Button variant="secondary" onClick={this.props.closeRegister}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={this.handleCreate}>
-                        Create an Account
-                    </Button>
-                    </Modal.Footer>
-                </Modal>
-            </span>
-        );
-    }
+    return (
+        <span id="register-modal">
+            <Modal show={this.props.registerModal} onHide={this.props.closeRegister}>
+                <Modal.Header closeButton>
+                <Modal.Title>Create an Account</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <RegisterField
+                        placeholder="Username" errormsg={this.state.usernameerr}
+                        validateField={this.validateUsername}
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={this.props.closeRegister}>
+                    Close
+                </Button>
+                <Button variant="primary" onClick={this.handleCreate}>
+                    Create an Account
+                </Button>
+                </Modal.Footer>
+            </Modal>
+        </span>
+    );
 }
-
-RegisterModal.propTypes = {
-
-};
 
 export default RegisterModal

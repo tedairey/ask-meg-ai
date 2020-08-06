@@ -19,7 +19,7 @@
 .env.production.local
 
 # teamPhotos
-/public/teamPhotos/
+public/teamPhotos/
 
 #config
 **/config

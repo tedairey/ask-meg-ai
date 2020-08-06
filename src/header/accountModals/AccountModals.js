@@ -7,7 +7,6 @@ import MediaQuery, { useMediaQuery } from 'react-responsive';
 import { UserContext } from '../../context/UserContext';
 import AccountMenu from '../mobileHeader/accountMenu/AccountMenu';
 import fire from '../../config/Fire';
-import { FireContext } from '../../context/FireContext';
 
 function AccountModals(props) {
 
@@ -96,9 +95,6 @@ function AccountModals(props) {
                     closeRegister={closeRegister}
                     setLogin={setLogin}
                 />
-                <MediaQuery minWidth={768}>
-                    |
-                </MediaQuery>
                 <LogInModal
                     loginModal={loginModal}
                     showLogin={showLogin}
