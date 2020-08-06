@@ -2,14 +2,14 @@ import React, { useState, useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './LogInModal.scss';
+import fire from '../../../config/Fire';
 
 function LogInModal(props) {
     const [email, setEmail] = useState(''),
-        [password, setPassword] = useState('')
-
-    const errormsg = useRef();
-    const emailbox = useRef();
-    const passwordbox = useRef();
+        [password, setPassword] = useState(''),
+        errormsg = useRef(),
+        emailbox = useRef(),
+        passwordbox = useRef();
 
     const onEmailChange = (event) => {
         setEmail(event.target.value)
@@ -20,29 +20,32 @@ function LogInModal(props) {
     }
 
     const validateLogin = () => {
-        const loginFields = {
-                email: email,
-                password: password
-            },
-            requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(loginFields)
-            };
-        
-        fetch('http://localhost:8088/login', requestOptions)
-        //fetch("http://localhost:8088/" + email)
-            .then(res => res.json())
-            .then(user => {
-                if (!user.username) {
+        fire.auth().signInWithEmailAndPassword(email, password)
+            .then(res => {
+                if (!res) {
                     errormsg.current.style.display = 'block';
                     emailbox.current.style.borderColor = 'red';
                     passwordbox.current.style.borderColor = 'red';
                     return false;
                 }
                 else {
-                    props.closeLogin();
-                    props.setLogin(user);
+                    res.user.getIdToken(true)
+                        .then(idToken => {
+                        const requestOptions = {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: idToken
+                        };
+                        fetch('http://localhost:8088/user/', requestOptions)
+                            .then(res => res.json())
+                            .then(user => {
+                                user.username = user.blogname;
+                                props.setLogin(user);
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
+                        })
                 }
             })
             .catch(err => {

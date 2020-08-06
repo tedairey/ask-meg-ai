@@ -47,7 +47,7 @@ function HomePage(props) {
                 </h2>
             </div>
             <div className='col-lg-6 home-image'>
-                <img src={intro}/>
+                <img src={intro} alt='intro-gif'/>
             </div>
         </div>
         <hr/>
@@ -89,7 +89,7 @@ function HomePage(props) {
         </h2>}
         <div className='row section'>
             <div className='home-image col-lg-5'>
-                <img src={learn}/>
+                <img src={learn} alt='learn-gif'/>
             </div>
             <div className='col-lg-7 m-auto'>
                 {!isMedium && 

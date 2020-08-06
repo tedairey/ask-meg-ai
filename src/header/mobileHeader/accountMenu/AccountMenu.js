@@ -44,7 +44,7 @@ function AccountMenu(props) {
                 <div className='profile-icon' style={{color: '#21a1af'}}>
                     <RiAccountCircleLine size={'lg'} onClick={openMenu}/>
                 </div>
-                <Link to={`/profile/` + user.username} id='profile-name' className='title' onClick={closeMenu}>{user.name}</Link>
+                <Link to={`/profile/` + user.username} id='profile-name' className='title' onClick={closeMenu}>{user.username}</Link>
                 <Link to='/blog-posts/user' onClick={closeMenu}>Your Blog Posts</Link>
                 <Link to='/blog-posts/new' onClick={closeMenu}>New Blog Post</Link>
                 <a href='#' onClick={props.logout}>Logout</a>

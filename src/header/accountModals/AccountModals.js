@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom';
 import MediaQuery, { useMediaQuery } from 'react-responsive';
 import { UserContext } from '../../context/UserContext';
 import AccountMenu from '../mobileHeader/accountMenu/AccountMenu';
+import fire from '../../config/Fire';
+import { FireContext } from '../../context/FireContext';
 
 function AccountModals(props) {
 
@@ -14,13 +16,13 @@ function AccountModals(props) {
         [greeting, setGreeting] = useState(''),
         history = useHistory();
 
-    const { user, setUser } = useContext(UserContext);
+        const { user, setUser } = useContext(UserContext);
 
     const isSmall = useMediaQuery({ query: '(max-width: 768px)' });
 
     useEffect(() => {
         if (user && window.innerWidth > 767) {
-            setGreeting('Hello, ' + user.firstName);
+            setGreeting('Hello, ' + user.name);
         }
     },[user]);
 
@@ -46,15 +48,9 @@ function AccountModals(props) {
     }
     
     const setLogin = (newUser) => {
-        const profile = {
-            username: newUser.username,
-            firstName: newUser.firstName,
-            name: newUser.firstName + ' ' + newUser.lastName,
-            isAdmin: newUser.isAdmin
-        }
-        sessionStorage.setItem('user', JSON.stringify(profile));
-        setUser(profile);
-        setGreeting('Hello, ' + newUser.firstName);
+        sessionStorage.setItem('user', JSON.stringify(newUser));
+        setUser(newUser);
+        setGreeting('Hello, ' + newUser.name);
     }
 
     const showLogout = () => {
@@ -66,9 +62,15 @@ function AccountModals(props) {
     }
 
     const logout = () => {
-        history.push('/meet-meg');
-        setUser(null);
-        sessionStorage.clear();
+        fire.auth().signOut()
+            .then(function() {
+                setUser(null);
+                sessionStorage.clear();
+                history.push('/meet-meg');
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
     
     if (user) {

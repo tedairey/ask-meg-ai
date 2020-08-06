@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import './RegisterModal.scss';
 import RegisterField from './registerField/RegisterField';
 import MediaQuery from 'react-responsive';
+import fire from '../../../config/Fire';
 
 class RegisterModal extends Component {
     constructor(props){
@@ -13,6 +14,18 @@ class RegisterModal extends Component {
         }
         this.profile = {};
     }
+
+    // componentDidMount() {
+    //     this.onAuthListener();
+    // }
+
+    // onAuthListener = () => {
+    //     fire.auth().onAuthStateChanged((user) => {
+    //         if (user) {
+    //             console.log(user);
+    //         }
+    //     })
+    // }
 
     validateField = (field, err, box) => {
         if (!field) {
@@ -40,26 +53,29 @@ class RegisterModal extends Component {
             this.setState({emailerr: 'Email is a required field'});
         }
         else {
-            fetch("http://localhost:8088/email/" + email)
-            .then(res => res.json())
-            .then(user => {
-                if (user) {
-                    this.setState({emailerr: 'Email must be unique'})
-                    err.style.display = 'block';
-                    box.style.borderColor = 'red';
-                    return false;
-                }
-                else {
-                    this.profile.email = email;
-                }
-            })
-            .catch(err => {
-                err.style.display = 'block';
-                box.style.borderColor = 'purple';
-                return false;
-            });
+            this.profile.email = email;
+            return true;
         }
-        return true;
+        // else {
+        //     fetch("http://localhost:8088/email/" + email)
+        //     .then(res => res.json())
+        //     .then(user => {
+        //         if (user) {
+        //             this.setState({emailerr: 'Email must be unique'})
+        //             err.style.display = 'block';
+        //             box.style.borderColor = 'red';
+        //             return false;
+        //         }
+        //         else {
+        //             this.profile.email = email;
+        //         }
+        //     })
+        //     .catch(err => {
+        //         err.style.display = 'block';
+        //         box.style.borderColor = 'purple';
+        //         return false;
+        //     });
+        // }
     }
 
     validateUsername = (username, err, box) => {
@@ -67,25 +83,29 @@ class RegisterModal extends Component {
             this.setState({usernameerr: 'Username is a required field'});
         }
         else {
-            fetch("http://localhost:8088/user/" + username)
-            .then(res => res.json())
-            .then(user => {
-                if (user) {
-                    this.setState({usernameerr: 'Username must be unique'});
-                    err.style.display = 'block';
-                    box.style.borderColor = 'red';
-                    return false;
-                }
-                else {
-                    this.profile.username = username;
-                }
-            })
-            .catch(err => {
-                err.style.display = 'block';
-                box.style.borderColor = 'green';
-                return false;
-            });
+            this.profile.username = username;
+            return true;
         }
+        // else {
+        //     fetch("http://localhost:8088/user/" + username)
+        //     .then(res => res.json())
+        //     .then(user => {
+        //         if (user) {
+        //             this.setState({usernameerr: 'Username must be unique'});
+        //             err.style.display = 'block';
+        //             box.style.borderColor = 'red';
+        //             return false;
+        //         }
+        //         else {
+        //             this.profile.username = username;
+        //         }
+        //     })
+        //     .catch(err => {
+        //         err.style.display = 'block';
+        //         box.style.borderColor = 'green';
+        //         return false;
+        //     });
+        // }
         return true;
     }
 
@@ -146,13 +166,23 @@ class RegisterModal extends Component {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newUser)
             };
-            fetch('http://localhost:8088/newUser', requestOptions)
-                .then(response => response.json())
-                .then(data => {
-                    this.props.closeRegister();
-                    this.props.setLogin(newUser);
+            fire.auth().createUserWithEmailAndPassword(this.profile.email, this.profile.password)
+                .then(function(res) {
+                    console.log(res);
+                    console.log('success');
                 })
-                .catch(console.log('error'));
+                .catch(function(error) {
+                    // Handle Errors here.
+                    console.log(error.code);
+                    console.log(error.message);
+                });
+            // fetch('http://localhost:8088/newUser', requestOptions)
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         this.props.closeRegister();
+            //         this.props.setLogin(newUser);
+            //     })
+            //     .catch(console.log('error'));
         }
     }
 

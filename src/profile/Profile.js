@@ -4,10 +4,12 @@ import { Modal } from 'react-bootstrap';
 import { UserContext } from '../context/UserContext';
 import PostsByUser from '../blogPosts/postsByUser/PostsByUser';
 import { RiAccountCircleLine } from 'react-icons/ri';
+import firebase from 'firebase';
 
 function Profile(props) {
   
     const user = useContext(UserContext),
+        [authUser, setAuthUser] = useState(null),
         [profileUsername, setProfileUsername] = useState(props.match.params.handle),
         [isUserProfile, setIsUserProfile] = useState(false),
         [showChangePassword, setShowChangePassword] = useState(false),
@@ -35,8 +37,7 @@ function Profile(props) {
 
     useEffect(() => {
         if (isUserProfile) {
-            const userId = 'W4SnAlOXvMXYEKxOSx8C4Qq9chz2';
-            fetch('http://localhost:8088/user/webpage/' + userId)
+            fetch('http://localhost:8088/user/webpage/' + user.username)
                 .then(res => res.text())
                 .then(res => {
                     setProgressUrl(res);
@@ -67,28 +68,28 @@ function Profile(props) {
             confirmPasswordRef.current.style.borderColor = 'red';
         }
         else if (currentPassword) {
-            const updatedUser = {
-                    email: newPassword,
-                    username: user.username,
-                    password: currentPassword,
-                },
-                requestOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(updatedUser)
-                };
-            fetch('http://localhost:8088/user/changePassword/', requestOptions)
-                .then(res => res.json())
+            const user = firebase.auth().currentUser;
+            const credential = firebase.auth.EmailAuthProvider.credential(
+                user.email, 
+                currentPassword
+            );
+            user.reauthenticateWithCredential(credential)
                 .then(success => {
-                    if (success) {
-                        setShowChangePassword(false);
-                        //add success modal popup
-                    }
-                    else {
-                        setPasswordErr('Incorrect Password');
-                        currentPasswordRef.current.style.borderColor = 'red';
-                        passwordErrRef.current.style.display = 'block';
-                    }
+                    user.updatePassword(newPassword)
+                        .then(function() {
+                            setCurrentPassword('');
+                            setNewPassword('');
+                            setConfirmPassword('');
+                            setShowChangePassword(false);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                })
+                .catch(err => {
+                    setPasswordErr('Incorrect Password');
+                    currentPasswordRef.current.style.borderColor = 'red';
+                    passwordErrRef.current.style.display = 'block';
                 })
         }
     }
@@ -114,10 +115,6 @@ function Profile(props) {
                 <h1>{profileUsername}</h1>
                     <div>
                     { isUserProfile && <>
-                            <span className='profile-username'>
-                                {user.name}
-                            </span>
-                            <br/>
                             <button className='btn submit' onClick={() => setShowChangePassword(true)}>
                                 Change Password
                             </button>

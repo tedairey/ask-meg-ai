@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import './BlogPosts.scss';
 import AllPosts from './allPosts/AllPosts.js';
 import PostsByUser from './postsByUser/PostsByUser.js';

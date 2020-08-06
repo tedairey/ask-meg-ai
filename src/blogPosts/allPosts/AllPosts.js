@@ -6,7 +6,6 @@ import { scrollTop } from '../../Helpers';
 function AllPosts (props) {
 
   const [posts, setPosts] = useState([]),
-    [pages, setPages] = useState([]),
     spinner = useRef(),
     [count, setCount] = useState(0),
     [topic, setTopic] = useState(''),

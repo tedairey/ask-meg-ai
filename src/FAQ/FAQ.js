@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './FAQ.scss';
-import { BrowserRouter as Router, Switch, Route, Link, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import TipsAndHints from './tipsAndHints/TipsAndHints.js';
 import HowDoI from './howDoI/HowDoI.js';
 import DoYouOffer from './doYouOffer/DoYouOffer.js';

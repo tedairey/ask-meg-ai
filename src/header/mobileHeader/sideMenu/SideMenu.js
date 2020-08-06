@@ -76,7 +76,7 @@ function SideMenu(props) {
                         <RiAccountCircleLine size='150px' onClick={openMenu}/>
                     </div>
                     <Link to={`/profile/` + user.username} id='profile-link' onClick={closeMenu}>
-                        {user.name}
+                        {user.username}
                     </Link>
                 </> :
                     <Link to='/meet-meg' className='panel-title' onClick={closeMenu}>Meet Meg</Link>
