@@ -19,7 +19,7 @@ function HowItWorks() {
                     {yogurtTitle}
                 </h2>
                 <div className='col-lg-6 home-image'>
-                    <img src={yogurtGif}/>
+                    <img src={yogurtGif} alt='yogurt comparison gif'/>
                 </div>
                 <div className='col-lg-6 m-auto'>
                     <h2 className = 'title-text d-none d-lg-block'>
@@ -45,7 +45,7 @@ function HowItWorks() {
                     {anywhereTitle}
                 </h2>
                 <div className='col-lg-5 home-image order-lg-5 home-image'>
-                    <img src={anywhere}/>
+                    <img src={anywhere} alt='anywhere gif'/>
                 </div>
                 <div className='col-lg-7 order-lg-1 m-auto'>
                     <h2 className='title-text d-none d-lg-block'>
@@ -72,7 +72,7 @@ function HowItWorks() {
                     {feedbackTitle}
                 </h2>
                 <div className='col-lg-5 home-image m-auto'>
-                    <img src={feedback}/>
+                    <img src={feedback} alt='feedback gif'/>
                 </div>
                 <div className='col-lg-7 m-auto'>
                     <h2 className='title-text d-none d-lg-block'>
@@ -91,7 +91,7 @@ function HowItWorks() {
                     {comparisonTitle}
                 </h2>
                 <div className='col-lg-5 order-lg-5 home-image m-auto'>
-                    <img src={comparison}/>
+                    <img src={comparison} alt='comparison gif'/>
                 </div>
                 <div className='col-lg-7 m-auto'>
                     <h2 className='title-text d-none d-lg-block order-lg-1'>

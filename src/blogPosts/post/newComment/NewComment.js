@@ -22,11 +22,6 @@ function NewComment (props) {
                 body: comment,
                 username: user.username
             }
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newComment)
-            };
             props.addComment(newComment);
             setComment('');
         }

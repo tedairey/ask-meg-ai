@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useContext } from 'react';
+import React, { Component, useState, useEffect, useContext, useRef } from 'react';
 import './AccountModals.scss';
 import LogInModal from './logInModal/LogInModal.js';
 import RegisterModal from './registerModal/RegisterModal.js';
@@ -13,6 +13,7 @@ function AccountModals(props) {
     const [loginModal, setLoginModal] = useState(false),
         [registerModal, setRegisterModal] = useState(false),
         [greeting, setGreeting] = useState(''),
+        tempUser = useRef(),
         history = useHistory();
 
         const { user, setUser } = useContext(UserContext);
@@ -42,14 +43,25 @@ function AccountModals(props) {
         setLoginModal(false);
     }
 
-    const closeRegister = () => {
+    const closeRegister = (username) => {
         setRegisterModal(false);
+        tempUser.current.username = username || 'anonymous';
+        sessionStorage.setItem('user', JSON.stringify(tempUser.current));
+        setUser(tempUser.current);
+        setGreeting('Hello, ' + tempUser.current.name);
     }
     
     const setLogin = (newUser) => {
-        sessionStorage.setItem('user', JSON.stringify(newUser));
-        setUser(newUser);
-        setGreeting('Hello, ' + newUser.name);
+        if (newUser.username === '') {
+            setLoginModal(false);
+            setRegisterModal(true);
+            tempUser.current = newUser;
+        }
+        else {
+            sessionStorage.setItem('user', JSON.stringify(newUser));
+            setUser(newUser);
+            setGreeting('Hello, ' + newUser.name);
+        }
     }
 
     const showLogout = () => {
@@ -76,7 +88,13 @@ function AccountModals(props) {
         return (
             <span>
                 {isSmall ? <>
-                    <AccountMenu logout={logout}/>
+                    <AccountMenu 
+                        logout={logout}
+                        registerModal={registerModal}
+                        showRegister={showRegister}
+                        closeRegister={closeRegister}
+                        setLogin={setLogin}
+                    />
                 </> : <>
                     <span className='greeting' onMouseEnter={showLogout} onMouseLeave={showGreeting}
                             onClick={logout}>

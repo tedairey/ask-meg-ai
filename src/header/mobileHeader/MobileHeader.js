@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../../meglogo.png';
 import './MobileHeader.scss';
 import AccountModals from '../accountModals/AccountModals';
 import SideMenu from './sideMenu/SideMenu';
