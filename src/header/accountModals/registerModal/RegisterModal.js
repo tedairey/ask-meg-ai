@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './RegisterModal.scss';
 import firebase from '../../../config/Fire';
+import Endpoint from '../../../config/Endpoint';
 
 function RegisterModal (props) {
     const [username, setUsername] = useState(''),
@@ -33,7 +34,7 @@ function RegisterModal (props) {
                     body: idToken
                 };
                 const newUsername = username || 'anonymous';
-                fetch("http://localhost:8088/user/" + newUsername, requestOptions)
+                fetch(Endpoint + 'user/' + newUsername, requestOptions)
                     .then(res => res.json())
                     .then(res => {
                         if (res) {

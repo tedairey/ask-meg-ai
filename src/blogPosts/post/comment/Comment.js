@@ -7,6 +7,7 @@ import { BsPencil } from 'react-icons/bs';
 import { UserContext } from '../../../context/UserContext';
 import { Modal, Button } from 'react-bootstrap';
 import NewComment from '../newComment/NewComment';
+import Endpoint from '../../../config/Endpoint';
 
 function Comment (props) {
 
@@ -47,7 +48,7 @@ function Comment (props) {
     }
 
     const deleteComment = () => {
-        fetch('http://localhost:8088/comments/delete/' + props.postID + '/' + props.index)
+        fetch(Endpoint + 'comments/delete/' + props.postID + '/' + props.index)
             .then(res => res.json())
             .then(res => {
                 if (res) {

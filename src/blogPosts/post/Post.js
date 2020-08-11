@@ -11,6 +11,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { BsPencil } from 'react-icons/bs';
 import { Modal, Button } from 'react-bootstrap';
 import NewPost from '../newPost/NewPost.js';
+import Endpoint from '../../config/Endpoint';
 
 function Post (props){
     
@@ -110,7 +111,7 @@ function Post (props){
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newPost)
         };
-        fetch('http://localhost:8088/comments/save/' + index, requestOptions)
+        fetch(Endpoint + 'comments/save/' + index, requestOptions)
             .then(res => res.json())
             .then(res => {
                 fetchComments(res.comments);

@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './LogInModal.scss';
 import fire from '../../../config/Fire';
+import Endpoint from '../../../config/Endpoint';
 
 function LogInModal(props) {
     const [email, setEmail] = useState(''),
@@ -36,7 +37,7 @@ function LogInModal(props) {
                             headers: { 'Content-Type': 'application/json' },
                             body: idToken
                         };
-                        fetch('http://localhost:8088/user/', requestOptions)
+                        fetch(Endpoint + 'user/', requestOptions)
                             .then(res => res.json())
                             .then(user => {
                                 user.username = user.blogname;

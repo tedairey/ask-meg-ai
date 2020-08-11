@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './AllPosts.scss';
 import Post from '../post/Post';
 import { scrollTop } from '../../Helpers';
+import Endpoint from '../../config/Endpoint';
 
 function AllPosts (props) {
 
@@ -28,7 +29,7 @@ function AllPosts (props) {
 
   //posts count
   useEffect(() => {
-    fetch('http://localhost:8088/posts/count/')
+    fetch(Endpoint + 'posts/count/')
       .then(res => res.json())
       .then(res => {
         setCount(res);
@@ -41,7 +42,7 @@ function AllPosts (props) {
 
   const fetchPosts = (ref, direction) => {
     setIsLoaded(false);
-    fetch('http://localhost:8088/posts/page/' + ref + '/' + direction)
+    fetch(Endpoint + 'posts/page/' + ref + '/' + direction)
       .then(res => res.json())
       .then(res => {
         const posts = [];
@@ -70,7 +71,7 @@ function AllPosts (props) {
       setTopic(newTopic);
       setIsLoaded(false);
       const request = newTopic && ('topic/' + newTopic); 
-      fetch('http://localhost:8088/posts/' + request)
+      fetch(Endpoint + 'posts/' + request)
         .then(res => res.json())
         .then(res => {
           const posts = [];
@@ -111,7 +112,7 @@ function AllPosts (props) {
   }
 
   const deletePost = (postId) => {
-    fetch('http://localhost:8088/posts/deletePost/' + postId)
+    fetch(Endpoint + 'posts/deletePost/' + postId)
       .then(res => res.json())
       .then(res => {
           fetchPosts(0,0);

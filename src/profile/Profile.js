@@ -5,6 +5,7 @@ import { UserContext } from '../context/UserContext';
 import PostsByUser from '../blogPosts/postsByUser/PostsByUser';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import firebase from 'firebase';
+import Endpoint from '../config/Endpoint';
 
 function Profile(props) {
   
@@ -37,7 +38,7 @@ function Profile(props) {
 
     useEffect(() => {
         if (isUserProfile) {
-            fetch('http://localhost:8088/user/webpage/' + user.username)
+            fetch(Endpoint + 'user/webpage/' + user.username)
                 .then(res => res.text())
                 .then(res => {
                     setProgressUrl(res);

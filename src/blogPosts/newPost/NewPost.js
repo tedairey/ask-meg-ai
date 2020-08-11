@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import './NewPost.scss';
 import { UserContext } from '../../context/UserContext';
+import Endpoint from '../../config/Endpoint';
 
 function NewPost(props) {
     const [title, setTitle] = useState(''),
@@ -36,7 +37,7 @@ function NewPost(props) {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(newPost)
                 };
-                fetch('http://localhost:8088/posts/updatePost', requestOptions)
+                fetch(Endpoint + 'posts/updatePost', requestOptions)
                     .then(res => res.json())
                     .then(post => {
                         //success
@@ -59,7 +60,7 @@ function NewPost(props) {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(newPost)
                 };
-                fetch('http://localhost:8088/posts/newPost', requestOptions)
+                fetch(Endpoint + 'posts/newPost', requestOptions)
                     .then(res => res.json())
                     .then(post => {
                         if (props.addPost) {

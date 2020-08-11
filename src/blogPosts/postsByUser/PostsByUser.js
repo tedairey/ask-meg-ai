@@ -6,6 +6,7 @@ import Post from '../post/Post';
 import NewPost from '../newPost/NewPost';
 import { UserContext } from '../../context/UserContext';
 import { scrollTop } from '../../Helpers';
+import Endpoint from '../../config/Endpoint';
 
 function PostsByUser(props) {
     const [currentPage, setCurrentPage] = useState(1),
@@ -38,7 +39,7 @@ function PostsByUser(props) {
         if (user) {
           user.username === props.username && setIsUserPosts(true)
         };
-        fetch('http://localhost:8088/posts/count/user/' + props.username)
+        fetch(Endpoint + 'posts/count/user/' + props.username)
           .then(res => res.json())
           .then(res => {
             setCount(res);
@@ -53,7 +54,7 @@ function PostsByUser(props) {
     const fetchPosts = (ref, direction) => {
       setIsLoaded(false);
       const username = props.username;
-      fetch('http://localhost:8088/posts/' + username + '/' + ref + '/' + direction)
+      fetch(Endpoint + 'posts/' + username + '/' + ref + '/' + direction)
           .then(res => res.json())
           .then(res => {
             const posts = [];
@@ -108,7 +109,7 @@ function PostsByUser(props) {
     }
 
     const deletePost = (postId) => {
-        fetch('http://localhost:8088/posts/deletePost/' + postId)
+        fetch(Endpoint + 'posts/deletePost/' + postId)
           .then(res => res.json())
           .then(res => {
               fetchPosts(0,0);
