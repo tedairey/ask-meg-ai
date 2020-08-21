@@ -12,7 +12,6 @@ function AccountMenu(props) {
     const { user } = useContext(UserContext);
 
     useEffect(() => {
-        console.log(user.username);
         function handleClickOutside(event) {
             if (panel.current && !panel.current.contains(event.target)) {
                 if (panel.current.style.width !== '' && panel.current.style.width !=='0px') {

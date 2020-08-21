@@ -9,13 +9,13 @@ function SuccessModal(props) {
         isSmall = useMediaQuery({ query: '(max-width: 768px)'});
 
   //load timeout
-  useEffect(() => {
-    const modalTimer = setTimeout(() => {
-        setShowSuccessModal(false);
-    }, 2000);
+//   useEffect(() => {
+//     const modalTimer = setTimeout(() => {
+//         setShowSuccessModal(false);
+//     }, 1500);
     
-    return () => {clearTimeout(modalTimer)}
-  }, []);
+//     return () => {clearTimeout(modalTimer)}
+//   }, []);
 
   return (
     <div className='success-modal'>

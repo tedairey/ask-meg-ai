@@ -6,51 +6,18 @@ import firebase from '../../../config/Fire';
 
 function RegisterModal (props) {
     const [username, setUsername] = useState(''),
-        [authUser, setAuthUser] = useState(null),
         usernameerrRef = useRef(),
         usernamebox = useRef();
-    
-    useEffect(() =>{
-        const unlisten = firebase.auth().onAuthStateChanged(
-            authUser => {
-                authUser
-                ? setAuthUser(authUser)
-                : setAuthUser(null);
-            },
-        );
-        return (
-            unlisten
-        );
-    }, [setAuthUser]);
 
     const validateUsername = () => {
-        const user = authUser/*firebase.auth().currentUser*/;
-        user.getIdToken(true)
-            .then(idToken => {
-                const requestOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: idToken
-                };
-                const newUsername = username || 'anonymous';
-                fetch("http://localhost:8088/user/" + newUsername, requestOptions)
-                    .then(res => res.json())
-                    .then(res => {
-                        if (res) {
-                            props.closeRegister(username);
-                        }
-                        else { 
-                            usernameerrRef.current.style.display = 'block';
-                            usernamebox.current.style.borderColor = 'red';
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        const newUsername = username || 'anonymous';
+                if (newUsername) {
+                    props.closeRegister(username);
+                }
+                else { 
+                    usernameerrRef.current.style.display = 'block';
+                    usernamebox.current.style.borderColor = 'red';
+                }
     }
 
     const onUsernameChange = (event) => {

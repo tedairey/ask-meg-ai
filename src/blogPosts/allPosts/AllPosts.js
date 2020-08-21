@@ -2,17 +2,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import './AllPosts.scss';
 import Post from '../post/Post';
 import { scrollTop } from '../../Helpers';
+import firebase from '../../config/Fire';
 
 function AllPosts (props) {
 
   const [posts, setPosts] = useState([]),
     spinner = useRef(),
     [count, setCount] = useState(0),
-    [topic, setTopic] = useState(''),
+    [currentPage, setCurrentPage] = useState(0),
     [isLoaded, setIsLoaded] = useState(false),
     [firstPostId, setFirstPostId] = useState(''),
-    [lastPostId, setLastPostId] = useState(''),
-    [currentPage, setCurrentPage] = useState(1);
+    [lastPostId, setLastPostId] = useState('');
 
   //load timeout
   useEffect(() => {
@@ -28,97 +28,129 @@ function AllPosts (props) {
 
   //posts count
   useEffect(() => {
-    fetch('http://localhost:8088/posts/count/')
-      .then(res => res.json())
-      .then(res => {
-        setCount(res);
-        fetchPosts(0,0);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    fetchPosts();
   }, []);
 
-  const fetchPosts = (ref, direction) => {
+  const fetchPosts = () => {
     setIsLoaded(false);
-    fetch('http://localhost:8088/posts/page/' + ref + '/' + direction)
-      .then(res => res.json())
-      .then(res => {
+    let db = firebase.firestore();
+    let postRef = db.collection('Posts');
+
+    postRef.orderBy('timestamp', 'desc').limit(10)
+      .get()
+      .then(querySnapshot => {
         const posts = [];
-        if (res.length === 0) {
-          posts.push(<h4 className='blog-posts-header'>No Recent Posts</h4>);
-        }
-        else {
-          for (const [index, post] of res.entries()) {
+        let index = 0;
+        querySnapshot.forEach(doc => {
+            let post = doc.data();
+            post.id = doc.id;
             posts.push(<li key={index}>
               <Post post={post} index={index} deletePost={deletePost}/>
             </li>);
-          }
-        }
-        setFirstPostId(res[0].id);
-        setLastPostId(res[posts.length-1].id);
+            if (index === 0) {
+              setFirstPostId(doc);
+            }
+            if (index === querySnapshot.size - 1) {
+              setLastPostId(doc);
+            }
+            setCount(querySnapshot.size);
+            index++;
+        });
         setPosts(posts);
+        setCurrentPage(0);
         setIsLoaded(true);
-      })
+      })  
       .catch(err => {
-        console.log(err);
+        console.log("Error getting document:", err);
       });
   }
 
-  const onTopicChange = (event) => {
-      const newTopic = event.target.value
-      setTopic(newTopic);
-      setIsLoaded(false);
-      const request = newTopic && ('topic/' + newTopic); 
-      fetch('http://localhost:8088/posts/' + request)
-        .then(res => res.json())
-        .then(res => {
+  const prevPage = () => {
+    setIsLoaded(false);
+    let db = firebase.firestore();
+    let postRef = db.collection('Posts');
+
+    postRef.orderBy('timestamp', 'desc').endBefore(firstPostId).limit(10)
+      .get()
+      .then(querySnapshot => {
+        const posts = [];
+        let index = 0;
+        querySnapshot.forEach(doc => {
+            let post = doc.data();
+            post.id = doc.id;
+            posts.push(<li key={index}>
+              <Post post={post} index={index} deletePost={deletePost}/>
+            </li>);
+            if (index === 0) {
+              setFirstPostId(doc);
+            }
+            if (index === querySnapshot.size - 1) {
+              setLastPostId(doc);
+            }
+            setCount(querySnapshot.size);
+            index++;
+        });
+        setPosts(posts);
+        setCurrentPage(currentPage - 1);
+        setIsLoaded(true);
+        scrollTop();
+      })  
+      .catch(err => {
+        console.log("Error getting document:", err);
+      });
+  }
+
+  const nextPage = () => {
+    setIsLoaded(false);
+    let db = firebase.firestore();
+    let postRef = db.collection('Posts');
+
+    postRef.orderBy('timestamp', 'desc').startAfter(lastPostId).limit(10)
+      .get()
+      .then(querySnapshot => {
+        if (querySnapshot.size) {
           const posts = [];
-          if (res.length === 0) {
-            posts.push(<h4 className='blog-posts-header'>No Posts in this Topic</h4>);
-          }
-          else {
-            for (const [index, post] of res.entries()) {
+          let index = 0;
+          querySnapshot.forEach(doc => {
+              let post = doc.data();
+              post.id = doc.id;
               posts.push(<li key={index}>
                 <Post post={post} index={index} deletePost={deletePost}/>
               </li>);
-            }
-          }
+              if (index === 0) {
+                setFirstPostId(doc);
+              }
+              if (index === querySnapshot.size - 1) {
+                setLastPostId(doc);
+              }
+              setCount(querySnapshot.size);
+              index++;
+          });
           setPosts(posts);
+          setCurrentPage(currentPage + 1);
           setIsLoaded(true);
-        })
-        .catch(err => {
-          setPosts(<h4 className='blog-posts-header'>No User Posts</h4>);
-        });
-  }
-
-  const changePage = (event) => {
-    let pageSelected = event.target.innerText;
-    switch (pageSelected) {
-      case 'Next':
-        setCurrentPage(currentPage + 1);
-        fetchPosts(lastPostId, pageSelected);
-        break;
-      case 'Prev':
-        setCurrentPage(currentPage - 1);
-        fetchPosts(firstPostId, pageSelected);
-        break;
-      default:
-        pageSelected = parseInt(pageSelected);
-        break;
-    }
-    scrollTop();
+          scrollTop();
+        }
+        else {
+          fetchPosts();
+        }
+      })  
+      .catch(error => {
+        console.log("Error getting document:", error);
+      });
   }
 
   const deletePost = (postId) => {
-    fetch('http://localhost:8088/posts/deletePost/' + postId)
-      .then(res => res.json())
-      .then(res => {
-          fetchPosts(0,0);
+    setIsLoaded(false);
+    let db = firebase.firestore();
+
+    db.collection('Posts').doc(postId).delete()
+      .then(querySnapshot => {
+        fetchPosts();
       })
       .catch(err => {
-          console.log(err);
-      });
+        console.log(err);
+      })
   }
 
   return (
@@ -126,19 +158,6 @@ function AllPosts (props) {
       <h1 className='blog-posts-header'>
         Recent Posts
       </h1>
-      <div className='topic-container'>
-        Select A Topic:
-        <select className='topic-select' value={topic} onChange={onTopicChange}>
-            <option value=''>--</option>
-            <option value='Weight Loss'>Weight Loss</option>
-            <option value='Emotional Eating'>Emotional Eating</option>
-            <option value='Motivating Stories'>Motivating Stories</option>
-            <option value='Feedback to Meg'>Feedback to Meg</option>
-            <option value='Healthy Lifestyle'>Healthy Lifestyle</option>
-            <option value='Daily Exercise Challenge'>Daily Exercise Challenge</option>
-            <option value="Dietitian's Corner">Dietitian's Corner</option>
-        </select>
-      </div>
       { isLoaded ? 
         <div className='posts-body'>
           <ul className='posts-list'>
@@ -153,11 +172,11 @@ function AllPosts (props) {
       }
       <div className='page-control'>
         <span>
-          {count > 10 && currentPage !== 1 &&
-            <button key='prev' className='page-button prev' onClick={changePage}>Prev</button>
+          {currentPage !== 0 &&
+            <button key='prev' className='page-button prev' onClick={prevPage}>Prev</button>
           }
-          {count > 10 && (Math.ceil(count / 10) >= currentPage + 1) &&
-            <button key='next' className='page-button next' onClick={changePage}>Next</button>
+          {count >= 10 && 
+            <button key='next' className='page-button next' onClick={nextPage}>Next</button>
           }
         </span>
       </div> 

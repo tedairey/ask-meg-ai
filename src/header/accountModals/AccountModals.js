@@ -7,6 +7,7 @@ import MediaQuery, { useMediaQuery } from 'react-responsive';
 import { UserContext } from '../../context/UserContext';
 import AccountMenu from '../mobileHeader/accountMenu/AccountMenu';
 import fire from '../../config/Fire';
+import { logoutUser } from '../../config/service/UserService';
 
 function AccountModals(props) {
 
@@ -69,12 +70,12 @@ function AccountModals(props) {
     }
 
     const showGreeting = () => {
-        setGreeting('Hello, ' + user.firstName);
+        setGreeting('Hello, ' + user.name);
     }
 
     const logout = () => {
-        fire.auth().signOut()
-            .then(function() {
+        logoutUser()
+            .then(res => {
                 setUser(null);
                 sessionStorage.clear();
                 history.push('/meet-meg');

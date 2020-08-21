@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './BlogPosts.scss';
 import AllPosts from './allPosts/AllPosts.js';
@@ -6,28 +6,32 @@ import PostsByUser from './postsByUser/PostsByUser.js';
 import NewPost from './newPost/NewPost';
 import { UserContext } from '../context/UserContext';
 import SuccessModal from '../alertModals/SuccessModal';
-import searchIcon from '../searchicon.png';
 
 function BlogPosts() {
 
     const user = useContext(UserContext),
           [successModal, setSuccessModal] = useState(false),
-          [searchInput, setSearchInput] = useState('');
-          
+          [successModalMessage, setSuccessModalMessage] = useState('');
 
-    const showSuccessModal = () => {
+    const showSuccessModal = (message) => {
+        setSuccessModalMessage(message);
         setSuccessModal(true);
     }
+
+    useEffect(() => {
+      if (successModal) {
+        const modalTimer = setTimeout(() => {
+            setSuccessModal(false);
+        }, 1500);
+      
+        return () => {clearTimeout(modalTimer)}
+      }
+    }, [successModal]);
 
     return (
       <div className="blog-posts">
           {successModal && <>
-              <SuccessModal message='Successfully submitted post!'/>
-              <div className='FAQ-search'>
-                <img src={searchIcon} className='search-prompt' alt='searc'/> 
-                <input className='FAQ-search-input' placeholder='Search...' 
-                  value={searchInput} onChange={(event) => setSearchInput(event.target.value)}/>
-              </div>
+              <SuccessModal message={successModalMessage}/>
           </>}
           <Switch>
               <Route path="/blog-posts/all" 

@@ -5,15 +5,14 @@ import { UserContext } from '../context/UserContext';
 import PostsByUser from '../blogPosts/postsByUser/PostsByUser';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import firebase from 'firebase';
+import { scrollTop } from '../Helpers';
 
 function Profile(props) {
   
     const user = useContext(UserContext),
-        [authUser, setAuthUser] = useState(null),
         [profileUsername, setProfileUsername] = useState(props.match.params.handle),
         [isUserProfile, setIsUserProfile] = useState(false),
         [showChangePassword, setShowChangePassword] = useState(false),
-        [progressUrl, setProgressUrl] = useState(''),
         currentPasswordRef = useRef(),
         newPasswordRef = useRef(),
         confirmPasswordRef = useRef(),
@@ -26,27 +25,19 @@ function Profile(props) {
         [blogPostsHeader, setBlogPostsHeader] = useState('');
 
     useEffect(() => {
-        if (user && user.username === profileUsername) {
-            setIsUserProfile(true);
-            setBlogPostsHeader('Your Blog Posts');
-        }
-        else {
-            setBlogPostsHeader(profileUsername + `'s Blog Posts`);
+        if (props && props.match && props.match.params) {
+            let newProfile = props.match.params.handle;
+            if (user && user.username === newProfile) {
+                setIsUserProfile(true);
+                setBlogPostsHeader('Your Blog Posts');
+            }
+            else {
+                setBlogPostsHeader(newProfile + `'s Blog Posts`);
+            }
+            scrollTop();
+            setProfileUsername(newProfile);
         }
     }, [props.match.params]);
-
-    useEffect(() => {
-        if (isUserProfile) {
-            fetch('http://localhost:8088/user/webpage/' + user.username)
-                .then(res => res.text())
-                .then(res => {
-                    setProgressUrl(res);
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-        }
-    }, [isUserProfile])
 
     const changePassword = (event) => {
         event.preventDefault();
@@ -74,9 +65,9 @@ function Profile(props) {
                 currentPassword
             );
             user.reauthenticateWithCredential(credential)
-                .then(success => {
+                .then(res => {
                     user.updatePassword(newPassword)
-                        .then(function() {
+                        .then(res => {
                             setCurrentPassword('');
                             setNewPassword('');
                             setConfirmPassword('');
@@ -119,7 +110,7 @@ function Profile(props) {
                                 Change Password
                             </button>
                             <br/>
-                            <a className='progress-page-link' href={progressUrl} target='_blank'>
+                            <a className='progress-page-link' href={user.progresswebpage} target='_blank'>
                                 View Progress Page
                             </a>
                             <Modal show={showChangePassword} onHide={() => setShowChangePassword(false)}

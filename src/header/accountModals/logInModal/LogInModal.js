@@ -3,10 +3,12 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './LogInModal.scss';
 import fire from '../../../config/Fire';
+import BetaTestingModal from '../../../alertModals/BetaTestingModal';
 
 function LogInModal(props) {
     const [email, setEmail] = useState(''),
         [password, setPassword] = useState(''),
+        [betaTestingModal, setBetaTestingModal] = useState(false),
         errormsg = useRef(),
         emailbox = useRef(),
         passwordbox = useRef();
@@ -29,22 +31,25 @@ function LogInModal(props) {
                     return false;
                 }
                 else {
-                    res.user.getIdToken(true)
-                        .then(idToken => {
-                        const requestOptions = {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: idToken
-                        };
-                        fetch('http://localhost:8088/user/', requestOptions)
-                            .then(res => res.json())
-                            .then(user => {
-                                user.username = user.blogname;
+                    const db = fire.firestore();
+                    let docRef = db.collection('Users').doc(res.user.uid);
+                    docRef.get()
+                        .then(doc => {
+                            if (doc.exists) {
+                                const document = doc.data();
+                                const user = {
+                                    username: document.blogname,
+                                    name: document.name,
+                                    progresswebpage: document.progresswebpage
+                                }
                                 props.setLogin(user);
-                            })
-                            .catch(err => {
-                                console.log(err);
-                            })
+                            }
+                            else {
+                                console.log('you fucked up');
+                            }
+                        })
+                        .catch(err => {
+                            console.log('err');
                         })
                 }
             })
@@ -87,16 +92,19 @@ function LogInModal(props) {
                     </span>
                 </Modal.Body>
                 <Modal.Footer>
-                    Don't Have an Account?
-                    <button className='link' onClick={props.handleRegister}>
-                        Register
-                    </button>
+                    <div className='login-modal-footer'>
+                        Don't Have an Account?
+                        <button className='btn learn-more' onClick={()=>setBetaTestingModal(true)}>
+                            Learn More
+                        </button>
+                    </div>
                     <br/>
                     <Button variant="primary" onClick={validateLogin}>
                         Log In
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <BetaTestingModal showModal={betaTestingModal} setShowModal={setBetaTestingModal}/>
         </span>
     );
 }

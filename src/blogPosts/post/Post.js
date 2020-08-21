@@ -3,7 +3,7 @@ import './Post.scss';
 import NewComment from './newComment/NewComment';
 import Comment from './comment/Comment';
 import commenticon from '../../commenticon.png';
-import { formatDate } from '../../Helpers';
+import { formatDate, getTimestamp } from '../../Helpers';
 import { UserContext } from '../../context/UserContext';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { BsPencil } from 'react-icons/bs';
 import { Modal, Button } from 'react-bootstrap';
 import NewPost from '../newPost/NewPost.js';
+import fire from '../../config/Fire';
 
 function Post (props){
     
@@ -21,12 +22,11 @@ function Post (props){
         [editMenu, setEditMenu] = useState('edit-menu d-none'),
         [isUserPost, setIsUserPost] = useState(false),
         [showDeleteModal, setShowDeleteModal] = useState(false),
+        [showCommentSection, setShowCommentSection] = useState(false),
         [showEditModal, setShowEditModal] = useState(false),
         user = useContext(UserContext);
 
     let [commentSectionStyle, setCommentSectionStyle] = useState('comment-section d-none');
-    
-    const [showCommentSection, setShowCommentSection] = useState(false);
 
     const isSmall = useMediaQuery({ query: '(max-width: 768px)'})
 
@@ -94,34 +94,35 @@ function Post (props){
     }
 
     const addComment = (comment, index) => {
-        let newComments;
+        const newPost = props.post,
+            db = fire.firestore();
         if (index !== undefined) {
-            newComments = props.post.comments;
-            newComments[index] = comment; 
+            newPost.comments[index] = comment;
         }
         else {
-            newComments = props.post.comments.concat(comment);
-            index = -1;
+            comment.timestamp = getTimestamp();
+            newPost.comments = props.post.comments.concat(comment);
         }
-        let newPost = props.post;
-        newPost.comments = newComments;
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newPost)
-        };
-        fetch('http://localhost:8088/comments/save/' + index, requestOptions)
-            .then(res => res.json())
+        db.collection('Posts').doc(props.post.id).set(newPost)
             .then(res => {
-                fetchComments(res.comments);
+                fetchComments(newPost.comments);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    const deleteComment = (index) => {
+        const db = fire.firestore(),
+            newPost = props.post;
+        newPost.comments.splice(index, 1);
+        db.collection('Posts').doc(props.post.id).set(newPost)
+            .then(res => {
+                fetchComments(newPost.comments);
             })
             .catch(err => {
                 console.log(err);
             })
-    }
-
-    const deleteComment = (newComments) => {
-        fetchComments(newComments);
     }
 
     const showEditMenu = () => {

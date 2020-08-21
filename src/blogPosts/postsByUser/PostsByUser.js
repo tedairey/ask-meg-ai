@@ -6,6 +6,7 @@ import Post from '../post/Post';
 import NewPost from '../newPost/NewPost';
 import { UserContext } from '../../context/UserContext';
 import { scrollTop } from '../../Helpers';
+import firebase from '../../config/Fire';
 
 function PostsByUser(props) {
     const [currentPage, setCurrentPage] = useState(1),
@@ -38,61 +39,107 @@ function PostsByUser(props) {
         if (user) {
           user.username === props.username && setIsUserPosts(true)
         };
-        fetch('http://localhost:8088/posts/count/user/' + props.username)
-          .then(res => res.json())
-          .then(res => {
-            setCount(res);
-            fetchPosts(0,0);
-          })
-          .catch(err => {
-            console.log(err);
-          })
+        fetchPosts();
       }
     }, [props.username, user])
 
-    const fetchPosts = (ref, direction) => {
+    const fetchPosts = () => {
       setIsLoaded(false);
-      const username = props.username;
-      fetch('http://localhost:8088/posts/' + username + '/' + ref + '/' + direction)
-          .then(res => res.json())
-          .then(res => {
-            const posts = [];
-            if (res.length === 0) {
-              posts.push(<h4 className='blog-posts-header'>No User Posts</h4>);
-            }
-            else {
-              for (const [index, post] of res.entries()) {
-                posts.push(<li key={index}>
-                  <Post post={post} deletePost={deletePost}/>
-                </li>);
+      let db = firebase.firestore();
+      let postRef = db.collection('Posts');
+
+      postRef.where('username', '==', props.username).orderBy('timestamp', 'desc').limit(10)
+        .get()
+        .then(querySnapshot => {
+          const posts = [];
+          let index = 0;
+          querySnapshot.forEach(doc => {
+              let post = doc.data();
+              post.id = doc.id;
+              posts.push(<li key={index}>
+                <Post post={post} index={index} deletePost={deletePost}/>
+              </li>);
+              if (index === 0) {
+                setFirstPostId(doc);
               }
-            }
-            setFirstPostId(res[0].id);
-            setLastPostId(res[posts.length-1].id);
-            setPosts(posts);
-            setIsLoaded(true);
-          })
-          .catch(err => {
-            console.log(err);
+              if (index === querySnapshot.size - 1) {
+                setLastPostId(doc);
+              }
+              setCount(querySnapshot.size);
+              index++;
           });
+          setPosts(posts);
+          setIsLoaded(true);
+        })  
+        .catch(err => {
+          console.log("Error getting document:", err);
+        });
     }
 
-    const changePage = (event) => {
-      let pageSelected = event.target.innerText;
-      switch (pageSelected) {
-        case 'Next':
-          setCurrentPage(currentPage + 1);
-          fetchPosts(lastPostId, pageSelected);
-          break;
-        case 'Prev':
-          setCurrentPage(currentPage - 1);
-          fetchPosts(firstPostId, pageSelected);
-          break;
-        default:
-          pageSelected = parseInt(pageSelected);
-          break;
-      }
-      scrollTop();
+    const prevPage = () => {
+      setIsLoaded(false);
+      let db = firebase.firestore();
+      let postRef = db.collection('Posts');
+  
+      postRef.where('username', '==', props.username).orderBy('timestamp', 'desc').endBefore(firstPostId).limit(10)
+        .get()
+        .then(querySnapshot => {
+          const posts = [];
+          let index = 0;
+          querySnapshot.forEach(doc => {
+              let post = doc.data();
+              post.id = doc.id;
+              posts.push(<li key={index}>
+                <Post post={post} index={index} deletePost={deletePost}/>
+              </li>);
+              if (index === 0) {
+                setFirstPostId(doc);
+              }
+              if (index === querySnapshot.size - 1) {
+                setLastPostId(doc);
+              }
+              setCount(querySnapshot.size);
+              index++;
+          });
+          setPosts(posts);
+          setIsLoaded(true);
+        })  
+        .catch(err => {
+          console.log("Error getting document:", err);
+        });
+    }
+  
+    const nextPage = () => {
+      setIsLoaded(false);
+      let db = firebase.firestore();
+      let postRef = db.collection('Posts');
+  
+      postRef.where('username', '==', props.username).orderBy('timestamp', 'desc').startAfter(lastPostId).limit(10)
+        .get()
+        .then(querySnapshot => {
+          const posts = [];
+          let index = 0;
+          querySnapshot.forEach(doc => {
+              let post = doc.data();
+              post.id = doc.id;
+              posts.push(<li key={index}>
+                <Post post={post} index={index} deletePost={deletePost}/>
+              </li>);
+              if (index === 0) {
+                setFirstPostId(doc);
+              }
+              if (index === querySnapshot.size - 1) {
+                setLastPostId(doc);
+              }
+              setCount(querySnapshot.size);
+              index++;
+          });
+          setPosts(posts);
+          setIsLoaded(true);
+        })  
+        .catch(err => {
+          console.log("Error getting document:", err);
+        });
     }
 
     const showNewPostMessage = () => {
@@ -104,18 +151,22 @@ function PostsByUser(props) {
     }
 
     const addPost = () => {
+        props.showSuccessModal('Post Submitted Successfully');
         fetchPosts(0,0);
     }
 
     const deletePost = (postId) => {
-        fetch('http://localhost:8088/posts/deletePost/' + postId)
-          .then(res => res.json())
-          .then(res => {
-              fetchPosts(0,0);
-          })
-          .catch(err => {
-              console.log(err);
-          });
+      setIsLoaded(false);
+      let db = firebase.firestore();
+  
+      db.collection('Posts').doc(postId).delete()
+        .then(res => {
+          props.showSuccessModal('Deleted Post Successfully');
+          fetchPosts();
+        })
+        .catch(err => {
+          console.log('hello');
+        })
     }
     
     if (props.username)
@@ -132,10 +183,10 @@ function PostsByUser(props) {
               <div className='page-control'>
                 <span>
                   {count > 10 && currentPage !== 1 &&
-                    <button key='prev' className='page-button prev' onClick={changePage}>Prev</button>
+                    <button key='prev' className='page-button prev' onClick={prevPage}>Prev</button>
                   }
                   {count > 10 && (Math.ceil(count / 10) >= currentPage + 1) &&
-                    <button key='next' className='page-button next' onClick={changePage}>Next</button>
+                    <button key='next' className='page-button next' onClick={nextPage}>Next</button>
                   }
                 </span>
               </div>
@@ -152,7 +203,7 @@ function PostsByUser(props) {
                 New Post
               </Modal.Header>
               <Modal.Body>   
-                <NewPost showModal={setShowNewPostModal} showSuccessModal={props.showSuccessModal} addPost={addPost}/> 
+                <NewPost showModal={setShowNewPostModal} addPost={addPost}/> 
               </Modal.Body>
             </Modal> : isUserPosts &&
             <div onMouseLeave={hideNewPostMessage} 

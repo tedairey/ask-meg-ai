@@ -47,16 +47,8 @@ function Comment (props) {
     }
 
     const deleteComment = () => {
-        fetch('http://localhost:8088/comments/delete/' + props.postID + '/' + props.index)
-            .then(res => res.json())
-            .then(res => {
-                if (res) {
-                    setShowDeleteModal(false);
-                    props.deleteComment(res.comments);
-                    //successfully deleted comment
-                    //updatecomment
-                }
-            })
+        setShowDeleteModal(false);
+        props.deleteComment(props.index);
     }
 
     return (
