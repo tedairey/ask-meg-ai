@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import './NewPost.scss';
 import { UserContext } from '../../context/UserContext';
-import firebase from '../../config/Fire';
 import { getTimestamp } from '../../Helpers';
+import { updatePost, addPost } from '../../config/service/PostService';
 
 function NewPost(props) {
     const [title, setTitle] = useState(''),
@@ -22,12 +22,11 @@ function NewPost(props) {
 
     const submitPost = () => {
         if (title && body) {
-            const db = firebase.firestore();
             if (isEditingPost && (body !== props.currentPost.body || title !== props.currentPost.title)) {
                 let newPost = props.currentPost;
                 newPost.title = title;
                 newPost.body = body;
-                db.collection('Posts').doc(props.currentPost.id).set(newPost)
+                updatePost(props.currentPost.id, newPost)
                     .then(res => {
                         props.close();
                     })
@@ -46,7 +45,7 @@ function NewPost(props) {
                         comments: []
                     };
 
-                db.collection('Posts').add(newPost)
+                addPost(newPost)
                     .then(docRef => {
                         if (props.addPost) {
                             props.addPost(docRef.id);

@@ -1,12 +1,11 @@
-import React, { Component, useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import './AccountModals.scss';
 import LogInModal from './logInModal/LogInModal.js';
 import RegisterModal from './registerModal/RegisterModal.js';
 import { useHistory } from 'react-router-dom';
-import MediaQuery, { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from 'react-responsive';
 import { UserContext } from '../../context/UserContext';
 import AccountMenu from '../mobileHeader/accountMenu/AccountMenu';
-import fire from '../../config/Fire';
 import { logoutUser } from '../../config/service/UserService';
 
 function AccountModals(props) {

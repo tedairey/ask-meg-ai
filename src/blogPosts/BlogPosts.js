@@ -29,22 +29,20 @@ function BlogPosts() {
     }, [successModal]);
 
     return (
-      <div className="blog-posts">
-          {successModal && <>
-              <SuccessModal message={successModalMessage}/>
-          </>}
+      <div className='blog-posts'>
+          <SuccessModal message={successModalMessage}/>
           <Switch>
-              <Route path="/blog-posts/all" 
+              <Route path='/blog-posts/all' 
                 render={(props) => <AllPosts {...props} 
                 showSuccessModal={showSuccessModal}/>}
               />
-              <Route path="/blog-posts/user" 
+              <Route path='/blog-posts/user' 
                 render={(props) => <PostsByUser {...props} 
                 username={user ? user.username: ''} 
                 showSuccessModal={showSuccessModal}
                 header='Your Posts'/> }
               />
-              <Route path="/blog-posts/new" 
+              <Route path='/blog-posts/new' 
                 render={(props) => <NewPost {...props} 
                     showSuccessModal={showSuccessModal} 
                     fullPage='true'/> }

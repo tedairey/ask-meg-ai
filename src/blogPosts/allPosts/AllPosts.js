@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './AllPosts.scss';
 import Post from '../post/Post';
 import { scrollTop } from '../../Helpers';
-import firebase from '../../config/Fire';
+import { getRecentPosts, getPrevPosts, getNextPosts, removePost } from '../../config/service/PostService';
 
 function AllPosts (props) {
 
@@ -33,11 +33,7 @@ function AllPosts (props) {
 
   const fetchPosts = () => {
     setIsLoaded(false);
-    let db = firebase.firestore();
-    let postRef = db.collection('Posts');
-
-    postRef.orderBy('timestamp', 'desc').limit(10)
-      .get()
+    getRecentPosts()
       .then(querySnapshot => {
         const posts = [];
         let index = 0;
@@ -67,11 +63,7 @@ function AllPosts (props) {
 
   const prevPage = () => {
     setIsLoaded(false);
-    let db = firebase.firestore();
-    let postRef = db.collection('Posts');
-
-    postRef.orderBy('timestamp', 'desc').endBefore(firstPostId).limit(10)
-      .get()
+    getPrevPosts(firstPostId)
       .then(querySnapshot => {
         const posts = [];
         let index = 0;
@@ -102,11 +94,7 @@ function AllPosts (props) {
 
   const nextPage = () => {
     setIsLoaded(false);
-    let db = firebase.firestore();
-    let postRef = db.collection('Posts');
-
-    postRef.orderBy('timestamp', 'desc').startAfter(lastPostId).limit(10)
-      .get()
+    getNextPosts(lastPostId)
       .then(querySnapshot => {
         if (querySnapshot.size) {
           const posts = [];
@@ -142,9 +130,7 @@ function AllPosts (props) {
 
   const deletePost = (postId) => {
     setIsLoaded(false);
-    let db = firebase.firestore();
-
-    db.collection('Posts').doc(postId).delete()
+    removePost(postId)
       .then(querySnapshot => {
         fetchPosts();
       })

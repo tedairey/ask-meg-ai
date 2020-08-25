@@ -41,7 +41,7 @@ function AccountMenu(props) {
                 <RiAccountCircleLine size='50px' onClick={openMenu}/>
             </div>
             <div id='account-panel' className='menu' ref={panel}>
-                <a href='#' id="closebtn" onClick={closeMenu}>&times;</a>
+                <button className='menu-link' id="closebtn" onClick={closeMenu}>&times;</button>
                 { user.username !== 'anonymous' ? <> 
                     <div className='profile-icon' style={{color: '#21a1af'}}>
                         <RiAccountCircleLine size={'lg'} onClick={openMenu}/>
@@ -49,8 +49,12 @@ function AccountMenu(props) {
                     <Link to={`/profile/` + user.username} id='profile-name' className='title' onClick={closeMenu}>{user.username}</Link>
                     <Link to='/blog-posts/user' onClick={closeMenu}>Your Blog Posts</Link>
                     <Link to='/blog-posts/new' onClick={closeMenu}>New Blog Post</Link>
+                    <a href={user.progresswebpage} target='_blank'
+                            rel="noopener noreferrer">
+                        View Progress Page
+                    </a>
                 </> : <>
-                    <a href='#' onClick={props.showRegister}>Choose a Username</a>
+                    <button className='menu-link' onClick={props.showRegister}>Choose a Username</button>
                     <RegisterModal
                         registerModal={props.registerModal}
                         showRegister={props.showRegister}
@@ -58,7 +62,7 @@ function AccountMenu(props) {
                         setLogin={props.setLogin}
                     /> 
                 </>}
-                <a href='#' onClick={props.logout}>Logout</a>
+                <button className='menu-link' onClick={props.logout}>Logout</button>
             </div>
         </div>
     );

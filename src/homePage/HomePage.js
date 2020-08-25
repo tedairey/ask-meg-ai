@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { scrollTop } from '../Helpers';
 import { useMediaQuery } from 'react-responsive';
 import intro from '../homePageImages/intro.gif';
-import BetaTestingModal from '../alertModals/BetaTestingModal';
 import learn from '../homePageImages/learn-share.jpeg';
 
 function HomePage(props) {
@@ -14,7 +13,6 @@ function HomePage(props) {
     const requestedPage = props.match.params.handle,
         isSmall = useMediaQuery({query: '(max-width: 768px)'}),
         isMedium = useMediaQuery({query: '(max-width: 991px)'}),
-        [betaTestingModal, setBetaTestingModal] = useState(false),
         howItWorksRef = useRef(),
         tryItForFreeRef = useRef(),
         testimonialsRef = useRef();
@@ -60,11 +58,10 @@ function HomePage(props) {
                 causes weight gain.
             </div>
             <div className='get-the-app'>
-                <button className='btn get-started' onClick={()=>setBetaTestingModal(true)}>
+                <a className='btn get-started' href='https://testflight.apple.com/join/bYiSDeWg'>
                     Get Started With Meg
-                </button>
+                </a>
             </div>
-            <BetaTestingModal showModal={betaTestingModal} setShowModal={setBetaTestingModal}/>
         </div>
         <hr ref={howItWorksRef}/>
         <HowItWorks/>
@@ -78,9 +75,9 @@ function HomePage(props) {
                 Just cancel your subscription within 14 days. No hassle. And please tell us why so we can improve. 
             </div>
             <div className='get-the-app'>
-                <button className='btn get-started' onClick={()=>setBetaTestingModal(true)}>
+                <a className='btn get-started' href='https://testflight.apple.com/join/bYiSDeWg'>
                     Get Started With Meg
-                </button>
+                </a>
             </div>
         </div>
         <hr/>
@@ -114,9 +111,9 @@ function HomePage(props) {
                 </Link>
             </div>
             <div className='get-the-app'>
-                <button className='btn get-started' onClick={()=>setBetaTestingModal(true)}>
+                <a className='btn get-started' href='https://testflight.apple.com/join/bYiSDeWg'>
                     Get Started With Meg
-                </button>
+                </a>
             </div>
         </div>
     </div>

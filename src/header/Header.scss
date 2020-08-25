@@ -2,6 +2,7 @@
 
 #website-title {
     color: $megBlue;
+    font-weight: bold;
 }
 
 @media (max-width: 768px) {
@@ -62,6 +63,8 @@
     float: right;
     margin-right: 10px;
     cursor: pointer;
+    border: none;
+    background: transparent;
 }
 
 .log-in-menu {

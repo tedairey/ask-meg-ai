@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Post.scss';
 import NewComment from './newComment/NewComment';
 import Comment from './comment/Comment';
@@ -11,7 +11,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { BsPencil } from 'react-icons/bs';
 import { Modal, Button } from 'react-bootstrap';
 import NewPost from '../newPost/NewPost.js';
-import fire from '../../config/Fire';
+import { updatePost } from '../../config/service/PostService';
 
 function Post (props){
     
@@ -94,8 +94,7 @@ function Post (props){
     }
 
     const addComment = (comment, index) => {
-        const newPost = props.post,
-            db = fire.firestore();
+        const newPost = props.post;
         if (index !== undefined) {
             newPost.comments[index] = comment;
         }
@@ -103,7 +102,7 @@ function Post (props){
             comment.timestamp = getTimestamp();
             newPost.comments = props.post.comments.concat(comment);
         }
-        db.collection('Posts').doc(props.post.id).set(newPost)
+        updatePost(props.post.id, newPost)
             .then(res => {
                 fetchComments(newPost.comments);
             })
@@ -113,10 +112,9 @@ function Post (props){
     }
 
     const deleteComment = (index) => {
-        const db = fire.firestore(),
-            newPost = props.post;
+        const newPost = props.post;
         newPost.comments.splice(index, 1);
-        db.collection('Posts').doc(props.post.id).set(newPost)
+        updatePost(props.post.id, newPost)
             .then(res => {
                 fetchComments(newPost.comments);
             })
@@ -195,7 +193,7 @@ function Post (props){
                 <br/>
                 <div className='post-footer'>
                     <span className='comment-section' onClick={toggleComments}>
-                        <img className='comment-icon' src={commenticon}/>
+                        <img className='comment-icon' src={commenticon} alt='comment icon'/>
                         Comments ({commentCount})
                     </span>
                     <span className='post-date'>{date}</span>

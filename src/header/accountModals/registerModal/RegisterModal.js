@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './RegisterModal.scss';
-import firebase from '../../../config/Fire';
 
 function RegisterModal (props) {
     const [username, setUsername] = useState(''),

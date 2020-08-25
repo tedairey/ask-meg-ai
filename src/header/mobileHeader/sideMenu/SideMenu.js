@@ -5,7 +5,6 @@ import { scrollTop } from '../../../Helpers';
 import { UserContext } from '../../../context/UserContext';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import { useMediaQuery } from 'react-responsive';
-import BetaTestingModal from '../../../alertModals/BetaTestingModal';
 
 function SideMenu(props) {
     
@@ -13,7 +12,6 @@ function SideMenu(props) {
         blogs = useRef(),
         blogLink = useRef(),
         user = useContext(UserContext).user,
-        [showBetaTesting, setShowBetaTesting] = useState(false),
         isLarge = useMediaQuery({ query: '(min-width: 768px)' });
 
     useEffect(() => {
@@ -63,14 +61,14 @@ function SideMenu(props) {
     return (
         <div className="side-menu">
             <div className='mobile-menu'>
-                <a name='no-scroll' className="menu-toggle" id="menu-toggle" onClick={openMenu} tabIndex="0">
+                <button name='no-scroll' className="menu-toggle" id="menu-toggle" onClick={openMenu} tabIndex="0">
                     <div className="hamburger"></div>
                     <div className="hamburger"></div>
                     <div className="hamburger"></div>
-                </a>
+                </button>
             </div>
             <div id='nav-menu' className='menu' ref={panel}>
-                <a href='#' id='closebtn' className="close-x" onClick={closeMenu}>&times;</a>
+                <button id='closebtn' className="close-x" onClick={closeMenu}>&times;</button>
                 {user && isLarge ? <>
                     <div className='profile-icon' style={{color: '#21a1af'}}>
                         <RiAccountCircleLine size='150px' onClick={openMenu}/>
@@ -86,9 +84,9 @@ function SideMenu(props) {
                 <Link name='no-scroll' to='/meet-meg/testimonials' onClick={closeMenu}>Testimonials</Link>
                 <Link to='/FAQ/tips-and-hints' onClick={closeMenu}>FAQ</Link>
                 {user ? <>
-                    <a ref={blogLink} name='no-scroll' id='blog-link' href='#' onClick={toggleBlogMenu}>
+                    <button ref={blogLink} name='no-scroll' id='blog-link' className='menu-link' onClick={toggleBlogMenu}>
                         Blog Posts
-                    </a>
+                    </button>
                     <div className='blog-menu' ref={blogs}>
                         <Link to='/blog-posts/all' onClick={closeMenu}>Recent Posts</Link>
                         <Link to={'/blog-posts/user'} onClick={closeMenu}>Your Posts</Link>
@@ -98,14 +96,13 @@ function SideMenu(props) {
                         Community
                     </Link>
                 </>}
-                <a name='no-scroll' href='#' onClick={() => setShowBetaTesting(true)}>
+                <Link name='no-scroll' className='menu-link' to='/landing-page-a'>
                     Beta Testing
-                </a>
+                </Link>
                 <Link to='/about' onClick={closeMenu}>About</Link>
                 <Link name='no-scroll' to='/about/contact-us' onClick={closeMenu}>Contact Us</Link>
                 <Link to='/conduct' onClick={closeMenu}>Conduct</Link>
             </div>
-            <BetaTestingModal showModal={showBetaTesting} setShowModal={setShowBetaTesting}/>
         </div>
     );
 }

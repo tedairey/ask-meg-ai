@@ -3,11 +3,8 @@ import './About.scss';
 import OurTeam from './ourTeam/OurTeam';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../Helpers';
-import BetaTestingModal from '../alertModals/BetaTestingModal';
 
 function About() {
-
-    const [betaTestingModal, setBetaTestingModal] = useState(false);
 
     useEffect(() => {
         let urlEnd = window.location.href;
@@ -78,12 +75,11 @@ function About() {
                     </Link>
                 </div>
                 <div className='get-the-app'>
-                    <button className='btn get-started' onClick={()=>setBetaTestingModal(true)}>
+                    <a className='btn get-started' href='https://testflight.apple.com/join/bYiSDeWg'>
                         Get Started With Meg
-                    </button>
+                    </a>
                 </div>
             </div>
-            <BetaTestingModal showModal={betaTestingModal} setShowModal={setBetaTestingModal}/>
             <hr/>
             <div className='contact-us'>
                 <h2 className = 'contact-us-header'>

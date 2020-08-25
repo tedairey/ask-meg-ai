@@ -4,8 +4,8 @@ import { Modal } from 'react-bootstrap';
 import { UserContext } from '../context/UserContext';
 import PostsByUser from '../blogPosts/postsByUser/PostsByUser';
 import { RiAccountCircleLine } from 'react-icons/ri';
-import firebase from 'firebase';
 import { scrollTop } from '../Helpers';
+import { changeUserPassword } from '../config/service/UserService';
 
 function Profile(props) {
   
@@ -59,23 +59,12 @@ function Profile(props) {
             confirmPasswordRef.current.style.borderColor = 'red';
         }
         else if (currentPassword) {
-            const user = firebase.auth().currentUser;
-            const credential = firebase.auth.EmailAuthProvider.credential(
-                user.email, 
-                currentPassword
-            );
-            user.reauthenticateWithCredential(credential)
+            changeUserPassword(currentPassword, newPassword)
                 .then(res => {
-                    user.updatePassword(newPassword)
-                        .then(res => {
-                            setCurrentPassword('');
-                            setNewPassword('');
-                            setConfirmPassword('');
-                            setShowChangePassword(false);
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });
+                    setCurrentPassword('');
+                    setNewPassword('');
+                    setConfirmPassword('');
+                    setShowChangePassword(false);
                 })
                 .catch(err => {
                     setPasswordErr('Incorrect Password');
@@ -105,12 +94,13 @@ function Profile(props) {
                 <div className='profile-body col-md-8'>
                 <h1>{profileUsername}</h1>
                     <div>
-                    { isUserProfile && <>
+                    { isUserProfile && user && <>
                             <button className='btn submit' onClick={() => setShowChangePassword(true)}>
                                 Change Password
                             </button>
                             <br/>
-                            <a className='progress-page-link' href={user.progresswebpage} target='_blank'>
+                            <a className='progress-page-link' href={user.progresswebpage} target='_blank'
+                                    rel="noopener noreferrer">
                                 View Progress Page
                             </a>
                             <Modal show={showChangePassword} onHide={() => setShowChangePassword(false)}
@@ -148,9 +138,9 @@ function Profile(props) {
                                 </div>
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <a href='#' onClick={() => setShowChangePassword(false)}>
+                                    <button className='link' onClick={() => setShowChangePassword(false)}>
                                         Cancel
-                                    </a>
+                                    </button>
                                     <button className="btn submit" onClick={changePassword}>
                                         Change Password
                                     </button>

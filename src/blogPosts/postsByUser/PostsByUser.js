@@ -5,8 +5,7 @@ import './PostsByUser.scss';
 import Post from '../post/Post';
 import NewPost from '../newPost/NewPost';
 import { UserContext } from '../../context/UserContext';
-import { scrollTop } from '../../Helpers';
-import firebase from '../../config/Fire';
+import { getRecentUserPosts, getPrevUserPosts, getNextUserPosts, removePost } from '../../config/service/PostService';
 
 function PostsByUser(props) {
     const [currentPage, setCurrentPage] = useState(1),
@@ -45,11 +44,7 @@ function PostsByUser(props) {
 
     const fetchPosts = () => {
       setIsLoaded(false);
-      let db = firebase.firestore();
-      let postRef = db.collection('Posts');
-
-      postRef.where('username', '==', props.username).orderBy('timestamp', 'desc').limit(10)
-        .get()
+      getRecentUserPosts(props.username)
         .then(querySnapshot => {
           const posts = [];
           let index = 0;
@@ -69,6 +64,7 @@ function PostsByUser(props) {
               index++;
           });
           setPosts(posts);
+          setCurrentPage(0);
           setIsLoaded(true);
         })  
         .catch(err => {
@@ -78,11 +74,7 @@ function PostsByUser(props) {
 
     const prevPage = () => {
       setIsLoaded(false);
-      let db = firebase.firestore();
-      let postRef = db.collection('Posts');
-  
-      postRef.where('username', '==', props.username).orderBy('timestamp', 'desc').endBefore(firstPostId).limit(10)
-        .get()
+      getPrevUserPosts(props.username, firstPostId)
         .then(querySnapshot => {
           const posts = [];
           let index = 0;
@@ -101,6 +93,7 @@ function PostsByUser(props) {
               setCount(querySnapshot.size);
               index++;
           });
+          setCurrentPage(currentPage - 1);
           setPosts(posts);
           setIsLoaded(true);
         })  
@@ -111,11 +104,7 @@ function PostsByUser(props) {
   
     const nextPage = () => {
       setIsLoaded(false);
-      let db = firebase.firestore();
-      let postRef = db.collection('Posts');
-  
-      postRef.where('username', '==', props.username).orderBy('timestamp', 'desc').startAfter(lastPostId).limit(10)
-        .get()
+      getNextUserPosts(props.username, lastPostId)
         .then(querySnapshot => {
           const posts = [];
           let index = 0;
@@ -134,6 +123,7 @@ function PostsByUser(props) {
               setCount(querySnapshot.size);
               index++;
           });
+          setCurrentPage(currentPage + 1);
           setPosts(posts);
           setIsLoaded(true);
         })  
@@ -157,9 +147,7 @@ function PostsByUser(props) {
 
     const deletePost = (postId) => {
       setIsLoaded(false);
-      let db = firebase.firestore();
-  
-      db.collection('Posts').doc(postId).delete()
+      removePost(postId)
         .then(res => {
           props.showSuccessModal('Deleted Post Successfully');
           fetchPosts();
@@ -212,7 +200,7 @@ function PostsByUser(props) {
                 Create New Post
               </div>
               <div className='new-post-button'>
-                <img src={pen} className='show-new-post' onMouseEnter={showNewPostMessage}/>
+                <img src={pen} className='show-new-post' onMouseEnter={showNewPostMessage} alt='create new post'/>
               </div>
             </div>
           }

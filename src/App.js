@@ -11,6 +11,8 @@ import Profile from './profile/Profile';
 import { UserContext } from './context/UserContext.js';
 import Conduct from './conduct/Conduct.js';
 import UseOfApplication from './useOfApplication/UseOfApplication.js';
+import LandingPageA from './landingPages/LandingPageA.js';
+import LandingPageB from './landingPages/LandingPageB.js';
 
 function App() {
 
@@ -34,6 +36,8 @@ function App() {
             <Route path='/conduct' component={Conduct}/>
             <Route path='/terms-of-use' component={UseOfApplication}/>
             <Route path='/privacy-policy' component={UseOfApplication}/>
+            <Route path='/landing-page-a' component={LandingPageA}/>
+            <Route path='/landing-page-b' component={LandingPageB}/>
             <UserContext.Provider value={user}>
               <Route path='/blog-posts' component={BlogPosts}/>
               <Route path='/profile/:handle' component={Profile}/>

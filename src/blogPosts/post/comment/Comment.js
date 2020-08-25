@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import './Comment.scss';
 import { formatDate } from '../../../Helpers';
 import { Link } from 'react-router-dom';
@@ -10,7 +10,7 @@ import NewComment from '../newComment/NewComment';
 
 function Comment (props) {
 
-    const [date, setDate] = useState(formatDate(props.comment.timestamp)),
+    const date = useRef(formatDate(props.comment.timestamp)),
         [editMenu, setEditMenu] = useState('edit-menu d-none'),
         [isUserComment, setIsUserComment] = useState(false),
         [isEditingComment, setIsEditingComment] = useState(false),
@@ -76,7 +76,7 @@ function Comment (props) {
                         <Link to={`/profile/` + props.comment.username}>{props.comment.username}</Link>
                     </div>
                     <div className='comment-date'>
-                        {date} 
+                        {date.current} 
                         <span className={editMenu}>
                             {isUserComment &&
                                 <BsPencil size='20px' onClick={editComment}/>
