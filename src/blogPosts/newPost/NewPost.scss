@@ -18,6 +18,25 @@
         color: red;
         display: none;
     }
+    .blog-title {
+        padding: 3px 5px;
+        font-size: 20px;
+        width: 80%;
+        resize: none;
+        height: 38px;
+        margin-bottom: 15px;
+    }
+    
+    .blog-authors {
+        width: 80%;
+        height: 38px;
+        margin-bottom: 15px;
+    }
+    
+    .blog-body {
+        width: 100%;
+        margin-bottom: 15px;
+    }
 }
 
 .modal-body { 
@@ -43,20 +62,6 @@
         border: 1px solid black;
         border-radius: 5px;
     }
-}
-
-.blog-title {
-    padding: 3px 5px;
-    font-size: 20px;
-    width: 80%;
-    resize: none;
-    height: 38px;
-    margin-bottom: 20px;
-}
-
-.blog-body {
-    width: 100%;
-    margin-bottom: 20px;
 }
 
 .submit-post {

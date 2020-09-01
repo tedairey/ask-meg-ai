@@ -63,7 +63,7 @@ function PostsByUser(props) {
               setCount(querySnapshot.size);
               index++;
           });
-          setPosts(posts);
+          index ? setPosts(posts) : setPosts(<h4 className='text-center'>No User Posts</h4>);
           setCurrentPage(0);
           setIsLoaded(true);
         })  

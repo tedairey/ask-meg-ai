@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { UserContext } from '../../context/UserContext';
 import AccountMenu from '../mobileHeader/accountMenu/AccountMenu';
-import { logoutUser } from '../../config/service/UserService';
+import { logoutUser, getUserProfile, addNewUsername } from '../../config/service/UserService';
 
 function AccountModals(props) {
 
@@ -14,6 +14,7 @@ function AccountModals(props) {
         [registerModal, setRegisterModal] = useState(false),
         [greeting, setGreeting] = useState(''),
         tempUser = useRef(),
+        tempProfile = useRef(),
         history = useHistory();
 
         const { user, setUser } = useContext(UserContext);
@@ -34,34 +35,52 @@ function AccountModals(props) {
         setRegisterModal(true);
     }
 
-    const handleRegister = () => {
-        setLoginModal(false);
-        setRegisterModal(true);
-    }
-
     const closeLogin = () => {
         setLoginModal(false);
     }
 
     const closeRegister = (username) => {
         setRegisterModal(false);
-        tempUser.current.username = username || 'anonymous';
-        sessionStorage.setItem('user', JSON.stringify(tempUser.current));
-        setUser(tempUser.current);
-        setGreeting('Hello, ' + tempUser.current.name);
+        if (username) {
+            addNewUsername(tempUser.current, username)
+                .then(res => {
+                    tempProfile.current.username = username;
+                    sessionStorage.setItem('user', JSON.stringify(tempProfile.current));
+                    setUser(tempProfile.current);
+                    setGreeting('Hello, ' + tempProfile.current.name);
+                    tempUser.current = null;
+                })
+                .catch(err => {
+                    tempUser.current = null;
+                    console.log(err);
+                })
+        }
+        
     }
     
     const setLogin = (newUser) => {
-        if (newUser.username === '') {
-            setLoginModal(false);
-            setRegisterModal(true);
-            tempUser.current = newUser;
-        }
-        else {
-            sessionStorage.setItem('user', JSON.stringify(newUser));
-            setUser(newUser);
-            setGreeting('Hello, ' + newUser.name);
-        }
+        getUserProfile(newUser)
+            .then(res => {
+                const newProfile = {
+                    username: res.blogname,
+                    name: res.name,
+                    progresswebpage: res.progresswebpage
+                }
+                if (res.blogname === '') {
+                    tempUser.current = newUser;
+                    tempProfile.current = newProfile;
+                    setLoginModal(false);
+                    setRegisterModal(true);
+                }
+                else {
+                    sessionStorage.setItem('user', JSON.stringify(newProfile));
+                    setUser(newProfile);
+                    setGreeting('Hello, ' + newProfile.name);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     const showLogout = () => {
@@ -116,7 +135,6 @@ function AccountModals(props) {
                 <LogInModal
                     loginModal={loginModal}
                     showLogin={showLogin}
-                    handleRegister={handleRegister}
                     closeLogin={closeLogin}
                     setLogin={setLogin}
                 />

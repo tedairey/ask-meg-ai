@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './HomePage.scss';
 import HowItWorks from '../howItWorks/HowItWorks';
 import Testimonials from './testimonials/Testimonials';
@@ -19,7 +19,7 @@ function HomePage(props) {
 
     useEffect(() => {
         if (requestedPage) {
-            let headerOffset = isSmall ? 60 : 138;
+            let headerOffset = isSmall ? 60 : 81;
             switch (requestedPage) {
                 case 'how-it-works' :
                     window.scrollTo(0, howItWorksRef.current.offsetTop - headerOffset);

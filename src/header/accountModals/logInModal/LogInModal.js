@@ -22,13 +22,7 @@ function LogInModal(props) {
     const validateLogin = () => {
         loginUser(email, password)
             .then(res => {
-                const document = res.data();
-                const user = {
-                    username: document.blogname,
-                    name: document.name,
-                    progresswebpage: document.progresswebpage
-                }
-                props.setLogin(user);
+                props.setLogin(res);
             })
             .catch(err => {
                 errormsg.current.style.display = 'block';

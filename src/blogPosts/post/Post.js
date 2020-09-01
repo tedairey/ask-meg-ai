@@ -138,6 +138,12 @@ function Post (props){
     const closeEditModal = () => {
         setShowEditModal(false);
     }
+
+    const formatAuthors = (authors) => {
+        if (authors) {
+            return isSmall ? (', ' + authors) : (', with: ' + authors) 
+        }
+    }
         
     const post = props.post;
     return (
@@ -176,13 +182,17 @@ function Post (props){
                     }
                 </span>
                 <div className='post-header'>
-                    {!isSmall && <>
-                        <Link to={'/profile/' + post.username} className='author'>{post.username}</Link>
-                    </>}
                     <h4 className='post-title'><strong>{post.title}</strong></h4>
+                    {!isSmall && <>
+                        <div className='authors'>
+                            By: <Link to={'/profile/' + post.username} className='author'>{post.username}</Link>
+                            {formatAuthors(post.authors)}
+                        </div>
+                    </>}
                     {isSmall && <>
-                        <div className='author'>
-                            <Link to={'/profile/' + post.username}>{post.username}</Link>
+                        <div className='authors'>
+                            <Link to={'/profile/' + post.username} className='author'>{post.username}</Link>
+                            {formatAuthors(post.authors)}
                         </div>
                     </>}
                 </div>

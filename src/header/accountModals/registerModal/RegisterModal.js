@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './RegisterModal.scss';
+import { verifyUsername } from '../../../config/service/UserService';
 
 function RegisterModal (props) {
     const [username, setUsername] = useState(''),
@@ -9,14 +10,25 @@ function RegisterModal (props) {
         usernamebox = useRef();
 
     const validateUsername = () => {
-        const newUsername = username || 'anonymous';
-                if (newUsername) {
-                    props.closeRegister(username);
-                }
-                else { 
+        if (username) {
+            verifyUsername(username)
+                .then(res => {
+                    if (res) {
+                        props.closeRegister(username);
+                    }
+                    else { 
+                        usernameerrRef.current.style.display = 'block';
+                        usernamebox.current.style.borderColor = 'red';
+                    }
+                })
+                .catch(res => {
                     usernameerrRef.current.style.display = 'block';
                     usernamebox.current.style.borderColor = 'red';
-                }
+                });
+        }
+        else {
+            //figure out what to do if they don't do email
+        }
     }
 
     const onUsernameChange = (event) => {

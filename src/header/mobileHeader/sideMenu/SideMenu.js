@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useEffect, useState } from 'react';
+import React, { useRef, useContext, useEffect } from 'react';
 import './SideMenu.scss';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../../../Helpers';
@@ -96,9 +96,7 @@ function SideMenu(props) {
                         Community
                     </Link>
                 </>}
-                <Link name='no-scroll' className='menu-link' to='/landing-page-a'>
-                    Beta Testing
-                </Link>
+                <Link to='/landing-page-a' onClick={closeMenu}>Beta Testing</Link>
                 <Link to='/about' onClick={closeMenu}>About</Link>
                 <Link name='no-scroll' to='/about/contact-us' onClick={closeMenu}>Contact Us</Link>
                 <Link to='/conduct' onClick={closeMenu}>Conduct</Link>

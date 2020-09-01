@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './About.scss';
 import OurTeam from './ourTeam/OurTeam';
 import { Link } from 'react-router-dom';

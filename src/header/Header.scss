@@ -67,6 +67,12 @@
     background: transparent;
 }
 
+@media (min-width: '768px') {
+    #menu-toggle {
+        margin-right: 0px;
+    }
+}
+
 .log-in-menu {
     margin: auto;
     text-align: right;
@@ -75,6 +81,12 @@
 .accounts {
     margin-right: 15px;
     font-size: 20px;
+}
+
+@media (min-width: '768px') {
+    .accounts {
+        margin-right: 10px;
+    }
 }
 
 .hamburger {
