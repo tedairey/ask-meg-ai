@@ -23,7 +23,7 @@ function AccountModals(props) {
 
     useEffect(() => {
         if (user && window.innerWidth > 767) {
-            setGreeting('Hello, ' + user.name);
+            user.name ? setGreeting('Hello, ' + user.name) : setGreeting('Welcome');
         }
     },[user]);
 
@@ -55,7 +55,10 @@ function AccountModals(props) {
                     console.log(err);
                 })
         }
-        
+        else {
+            setUser('anon');
+            setGreeting('Welcome!');
+        }
     }
     
     const setLogin = (newUser) => {
@@ -88,7 +91,7 @@ function AccountModals(props) {
     }
 
     const showGreeting = () => {
-        setGreeting('Hello, ' + user.name);
+        user.name ? setGreeting('Hello, ' + user.name) : setGreeting('Welcome');
     }
 
     const logout = () => {

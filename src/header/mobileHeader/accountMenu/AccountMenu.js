@@ -27,7 +27,9 @@ function AccountMenu(props) {
     })
 
     const openMenu = () => {
-        panel.current.style.width = '250px';
+        if (user !== 'anon') {
+            panel.current.style.width = '250px';
+        }
     }
 
     const closeMenu = (event) => {

@@ -5,7 +5,6 @@ import Comment from './comment/Comment';
 import commenticon from '../../commenticon.png';
 import { formatDate, getTimestamp } from '../../Helpers';
 import { UserContext } from '../../context/UserContext';
-import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsPencil } from 'react-icons/bs';
@@ -27,8 +26,6 @@ function Post (props){
         user = useContext(UserContext);
 
     let [commentSectionStyle, setCommentSectionStyle] = useState('comment-section d-none');
-
-    const isSmall = useMediaQuery({ query: '(max-width: 768px)'})
 
     useEffect(() => {
         setDate(formatDate(props.post.timestamp));
@@ -138,12 +135,6 @@ function Post (props){
     const closeEditModal = () => {
         setShowEditModal(false);
     }
-
-    const formatAuthors = (authors) => {
-        if (authors) {
-            return isSmall ? (', ' + authors) : (', with: ' + authors) 
-        }
-    }
         
     const post = props.post;
     return (
@@ -183,18 +174,12 @@ function Post (props){
                 </span>
                 <div className='post-header'>
                     <h4 className='post-title'><strong>{post.title}</strong></h4>
-                    {!isSmall && <>
-                        <div className='authors'>
-                            By: <Link to={'/profile/' + post.username} className='author'>{post.username}</Link>
-                            {formatAuthors(post.authors)}
-                        </div>
-                    </>}
-                    {isSmall && <>
-                        <div className='authors'>
-                            <Link to={'/profile/' + post.username} className='author'>{post.username}</Link>
-                            {formatAuthors(post.authors)}
-                        </div>
-                    </>}
+                    <div className='authors'>
+                        {'By: ' + (post.authors ? 
+                            post.authors :
+                            <Link to={'/profile/' + post.username} className='author'>{post.username}</Link>)   
+                        }
+                    </div>
                 </div>
                 <hr className='post-divider'/>
                 <p className='post-body'>
@@ -210,7 +195,7 @@ function Post (props){
                 </div>
             </div>
             <div className={commentSectionStyle}>
-                {user &&
+                {user && user.blogname &&
                     <NewComment postID={post.id} addComment={addComment}/>
                 }  
                 {isLoaded ?

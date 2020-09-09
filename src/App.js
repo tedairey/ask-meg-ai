@@ -13,6 +13,7 @@ import Conduct from './conduct/Conduct.js';
 import UseOfApplication from './useOfApplication/UseOfApplication.js';
 import LandingPageA from './landingPages/LandingPageA.js';
 import LandingPageB from './landingPages/LandingPageB.js';
+import Tutorials from './tutorials/Tutorials.js';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
             <Route path='/privacy-policy' component={UseOfApplication}/>
             <Route path='/landing-page-a' component={LandingPageA}/>
             <Route path='/landing-page-b' component={LandingPageB}/>
+            <Route path='/tutorials' component={Tutorials}/>
             <UserContext.Provider value={user}>
               <Route path='/blog-posts' component={BlogPosts}/>
               <Route path='/profile/:handle' component={Profile}/>

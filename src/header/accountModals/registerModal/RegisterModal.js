@@ -6,33 +6,58 @@ import { verifyUsername } from '../../../config/service/UserService';
 
 function RegisterModal (props) {
     const [username, setUsername] = useState(''),
+        [errorMsg, setErrorMsg] = useState(''),
         usernameerrRef = useRef(),
         usernamebox = useRef();
 
-    const validateUsername = () => {
-        if (username) {
+    const submitUsername = () => {
+        if (validateUsername()) {
             verifyUsername(username)
                 .then(res => {
                     if (res) {
                         props.closeRegister(username);
                     }
-                    else { 
+                    else {
+                        setErrorMsg('Username must be unique!')
                         usernameerrRef.current.style.display = 'block';
                         usernamebox.current.style.borderColor = 'red';
                     }
                 })
-                .catch(res => {
+                .catch(err => {
+                    console.log(err);
+                    setErrorMsg('Username must be unique!')
                     usernameerrRef.current.style.display = 'block';
                     usernamebox.current.style.borderColor = 'red';
                 });
         }
         else {
-            //figure out what to do if they don't do email
+            usernameerrRef.current.style.display = 'block';
+            usernamebox.current.style.borderColor = 'red';
         }
+    }
+
+    const validateUsername = () => {
+        if (!username) {
+            setErrorMsg('Please enter a username');
+        }
+        else if (username.includes(' ')) {
+            setErrorMsg('Username cannot contain spaces');
+        }
+        else if (username.length > 12) {
+            setErrorMsg('Username must be less than 12 characters');
+        }
+        else {
+            return true;
+        }
+        return false;
     }
 
     const onUsernameChange = (event) => {
         setUsername(event.target.value);
+    }
+
+    const stayAnonymous = (event) => {
+        props.closeRegister();
     }
 
     const clearError = (event) => {
@@ -56,7 +81,7 @@ function RegisterModal (props) {
                             your personal progress page. You can also choose to remain anonymous.
                         </div>
                         <span className='error-msg' ref={usernameerrRef}>
-                            Username must be unique!
+                            {errorMsg}
                         </span>
                         <span ref={usernamebox} className='account-input'>
                             <input value={username} placeholder="Username" onChange={onUsernameChange}
@@ -65,10 +90,10 @@ function RegisterModal (props) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={validateUsername}>
+                    <Button variant="secondary" onClick={stayAnonymous}>
                         Stay Anonymous
                     </Button>
-                    <Button variant="primary" onClick={validateUsername}>
+                    <Button variant="primary" onClick={submitUsername}>
                         Create Username
                     </Button>
                 </Modal.Footer>

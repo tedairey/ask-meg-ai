@@ -10,13 +10,22 @@ export function scrollTop() {
 //     return check;
 // }
 
+export function findLink(text) {
+    var urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, function(url) {
+        return '<a href="' + url + '">' + url + '</a>';
+    })
+    // or alternatively
+    // return text.replace(urlRegex, '<a href="$1">$1</a>')
+}
+
 export function formatDate(submitted) {
     if (submitted) {
         let year = submitted.substring(2,4),
             month = submitted.substring(5,7),
             day = submitted.substring(8,10);
-        if (day[0] === '0') {
-            day = day.slice(1);
+        if (day[1] === ' ') {
+            day = day.trimEnd();
         }
         if (month[0] === '0') {
             month = month.substring(1);

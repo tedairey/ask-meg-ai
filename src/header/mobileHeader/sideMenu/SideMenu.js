@@ -34,7 +34,7 @@ function SideMenu(props) {
     }
 
     const closeMenu = (event) => {
-        if (user) {
+        if (user && user !== 'anon') {
             toggleBlogMenu();
             blogs.current.style.height = '0px';
             blogLink.current.style.borderTop = '0';
@@ -69,7 +69,7 @@ function SideMenu(props) {
             </div>
             <div id='nav-menu' className='menu' ref={panel}>
                 <button id='closebtn' className="close-x" onClick={closeMenu}>&times;</button>
-                {user && isLarge ? <>
+                {user && user.name && isLarge ? <>
                     <div className='profile-icon' style={{color: '#21a1af'}}>
                         <RiAccountCircleLine size='150px' onClick={openMenu}/>
                     </div>
@@ -83,7 +83,8 @@ function SideMenu(props) {
                 <Link name='no-scroll' to='/meet-meg/try-it-for-free' onClick={closeMenu}>Try It For Free</Link>
                 <Link name='no-scroll' to='/meet-meg/testimonials' onClick={closeMenu}>Testimonials</Link>
                 <Link to='/FAQ/tips-and-hints' onClick={closeMenu}>FAQ</Link>
-                {user ? <>
+                <Link to='/tutorials' onClick={closeMenu}>Tutorials</Link>
+                {(user && user !== 'anon') ? <>
                     <button ref={blogLink} name='no-scroll' id='blog-link' className='menu-link' onClick={toggleBlogMenu}>
                         Blog Posts
                     </button>
