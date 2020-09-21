@@ -2,6 +2,12 @@ body {
     background: #0C6284;
 }
 
+@media (max-width: 767px) {
+    body {
+        background-color: white;
+    }
+}
+
 .page-content {
     padding: 60px 15px 0px;
     margin-left: auto;

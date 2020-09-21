@@ -16,4 +16,9 @@
         font-style: italic;
         font-size: 18px;
     }
+    @media (max-width: '767px') {
+        .testimonials-image {
+            border: none;
+        }
+    }
 }

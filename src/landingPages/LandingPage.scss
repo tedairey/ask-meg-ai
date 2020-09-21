@@ -1,9 +1,14 @@
 .landing-page {
-    color: white;
     margin-top: 20px;
     .footnote {
         margin-top: 10px;
         text-align: center;
         font-weight: bold;
+    }
+}
+
+@media (min-width: 768px) {
+    .landing-page {
+        color: white;
     }
 }

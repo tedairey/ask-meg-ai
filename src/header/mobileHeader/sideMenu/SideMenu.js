@@ -84,6 +84,7 @@ function SideMenu(props) {
                 <Link name='no-scroll' to='/meet-meg/testimonials' onClick={closeMenu}>Testimonials</Link>
                 <Link to='/FAQ/tips-and-hints' onClick={closeMenu}>FAQ</Link>
                 <Link to='/tutorials' onClick={closeMenu}>Tutorials</Link>
+                <Link to='/healthy-options' onClick={closeMenu}>Today's Healthy Foods</Link>
                 {(user && user !== 'anon') ? <>
                     <button ref={blogLink} name='no-scroll' id='blog-link' className='menu-link' onClick={toggleBlogMenu}>
                         Blog Posts

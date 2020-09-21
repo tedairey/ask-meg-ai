@@ -1,6 +1,5 @@
 .home-page {
     margin: auto;
-    color: white;
     .home-image {
         img {
             border-radius: 10px;
@@ -28,17 +27,18 @@
         .buttons {
             display: block;
         }
-        // hr {
-        //     visibility: hidden;
-        //     margin-bottom: 0;
-        // }
     }
 }
-
 
 .text {
     font-size: 20px;
     margin: auto;
+}
+
+@media (min-width: '768px') {
+    .home-page {
+        color: white;
+    }
 }
 
 @media (max-width: '767px') {

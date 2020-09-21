@@ -1,5 +1,4 @@
 .how-it-works {
-    color: white;
     .section {
         .section-text {
             font-size: 20px;
@@ -15,5 +14,11 @@
         .person {
             font-style: italic;
         }
+    }
+}
+
+@media (min-width: '768px') {
+    .how-it-works {
+        color: white;
     }
 }
