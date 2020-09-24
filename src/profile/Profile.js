@@ -6,6 +6,7 @@ import PostsByUser from '../blogPosts/postsByUser/PostsByUser';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import { scrollTop } from '../Helpers';
 import { changeUserPassword } from '../config/service/UserService';
+import { Link } from 'react-router-dom';
 
 function Profile(props) {
   
@@ -103,6 +104,10 @@ function Profile(props) {
                                     rel="noopener noreferrer">
                                 View Progress Page
                             </a>
+                            <br/>
+                            <div className='link-container'>
+                                <Link className='shopping-link' to='/shopping-list'>View Shopping List</Link>
+                            </div>
                             <Modal show={showChangePassword} onHide={() => setShowChangePassword(false)}
                                 data-backdrop="true">
                                 <Modal.Header className='new-post-modal-header' closeButton>

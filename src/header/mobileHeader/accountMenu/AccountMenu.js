@@ -39,7 +39,7 @@ function AccountMenu(props) {
 
     return (
         <div className='account-menu'>
-            <div className='account-icon' style={{color: '#21a1af'}}>
+            <div className='account-icon' style={{color: 'white'}}>
                 <RiAccountCircleLine size='50px' onClick={openMenu}/>
             </div>
             <div id='account-panel' className='menu' ref={panel}>
@@ -51,10 +51,12 @@ function AccountMenu(props) {
                     <Link to={`/profile/` + user.username} id='profile-name' className='title' onClick={closeMenu}>{user.username}</Link>
                     <Link to='/blog-posts/user' onClick={closeMenu}>Your Blog Posts</Link>
                     <Link to='/blog-posts/new' onClick={closeMenu}>New Blog Post</Link>
+                    <Link to='/healthy-options' onClick={closeMenu}>Today's Healthy Foods</Link>
                     <a href={user.progresswebpage} target='_blank'
                             rel="noopener noreferrer">
                         View Progress Page
                     </a>
+                    <Link to='/shopping-list' onClick={closeMenu}>Your Shopping List</Link>
                 </> : <>
                     <button className='menu-link' onClick={props.showRegister}>Choose a Username</button>
                     <RegisterModal

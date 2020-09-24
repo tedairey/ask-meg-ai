@@ -7,13 +7,15 @@ import { justVegan } from './dummycode';
 import { glutenFree } from './dummycode';
 import { useMediaQuery } from 'react-responsive';
 import { FooterContext } from '../context/UserContext';
+import { getTableData } from '../config/service/FoodService';
 
 function HealthyOptions(props) {
 
     const currentOption = useRef(),
         [tableData, setTableData] = useState(justHealthy),
         isSmall = useMediaQuery({query: '(max-width: 768px)'}),
-        { showFooter, setShowFooter } = useContext(FooterContext);
+        [userToken, setUserToken] = useState(props.match.params.handle),
+        { setShowFooter } = useContext(FooterContext);
 
     useEffect(() => {
         setShowFooter(false);
@@ -21,13 +23,33 @@ function HealthyOptions(props) {
 
         return () => {
             setShowFooter(true);
-            !isSmall && (document.body.style.backgroundColor = '');
+            document.body.style.backgroundColor = '';
         }
     }, []);
 
+    // useEffect(() => {
+    //     fetchTable('Healthy');
+    // }, []);
+
+    useEffect(() => {
+        if (props && props.match && props.match.params && props.match.params.handle) {
+            setUserToken(props.match.params.handle);
+        }
+    }, [props.match.params]);
+
+    const fetchTable = (option) => {
+        getTableData(option)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
     const activateTab = (selectedTab) => {
-        currentOption.current.parentElement.classList.remove('active');
-        selectedTab.parentElement.classList.add('active');
+        currentOption.current.classList.remove('active');
+        selectedTab.classList.add('active');
         currentOption.current = selectedTab;
     }
 
@@ -59,12 +81,12 @@ function HealthyOptions(props) {
     return (
         <div className='healthy-options'>
             <div className='page-content'>
-                <div className='title-text text-center'>
-                    <h1>Thoughtful Thursdays</h1>
+                <div className='text-center'>
+                    <h3>Thoughtful Thursdays</h3>
                     <h4>September 10, 2020</h4>
                 </div>
                 <div className='options-bubbles'>
-                    <button id='just-healthy' ref={currentOption} onClick={switchOptions} className='bubble' aria-controls='just-healthy'>
+                    <button id='just-healthy' ref={currentOption} onClick={switchOptions} className='bubble active' aria-controls='just-healthy'>
                         Just <br/> Healthy
                     </button>
                     <button id='just-vegetarian' onClick={switchOptions} className='bubble' aria-controls='just-vegetarian'>
@@ -78,7 +100,7 @@ function HealthyOptions(props) {
                         Gluten <br/> Free
                     </button>
                 </div>
-                <FoodsTable data={tableData}/>
+                <FoodsTable data={tableData} userToken={userToken}/>
             </div>
         </div>
     );

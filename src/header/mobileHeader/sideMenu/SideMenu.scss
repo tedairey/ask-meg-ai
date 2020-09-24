@@ -30,7 +30,7 @@ button.menu-link {
     z-index: 1;
     top: 0;
     background: rgba(255, 255, 255, 0.863);
-    overflow: hidden;
+    overflow-x: hidden;
     transition: 0.5s;
     .panel-title {
         font-weight: bold;

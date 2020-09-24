@@ -47,6 +47,11 @@ ul {
     padding-left: 0px;
 }
 
+.spinner-grow {
+    height: 5rem;
+    width: 5rem;
+}
+
 .submit {
     background-color: #222;
     border: 1px white solid;

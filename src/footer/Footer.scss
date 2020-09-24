@@ -30,10 +30,12 @@
 }
 
 @media (min-width: '768px') {
-    .site-info-text {
-        color: white;
-        a {
+    .footer {
+        .site-info-text {
             color: white;
+            a {
+                color: white;
+            }
         }
     }
     li {

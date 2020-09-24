@@ -23,7 +23,7 @@ function FAQ (props) {
 			style = lastActive.parentElement.style;
 
 		lastActive.style.color = 'white';
-		style.backgroundColor = '#464040';
+		style.backgroundColor = '#000';
 		style.borderColor = 'white';
 		setActive(event.target);
 		activate(event.target);

@@ -1,10 +1,16 @@
 .foods-table {
     .table {
         border: 1px solid #ddd;
+        margin: auto;
+        .shopping-list {
+            width: 175px;
+            text-align: right;   
+        }
     }
     .add-remove {
         padding: none;
         cursor: pointer;
+        float: right;
         button {
             border: none;
             background: transparent;
@@ -18,17 +24,21 @@
             font-weight: bold;
             font-size: 20px;
             color: red;
-            display: none;
         }
     }
-    @media screen and (max-width: 768px) {
+    @media (max-width: 767px) {
         .table>thead>tr>th { 
             padding: 2px;
-            vertical-align: auto; 
+            vertical-align: middle; 
         }
         .table>tbody>tr>td { 
             padding: 2px;
-            vertical-align: auto; 
+            vertical-align: middle; 
+        }
+    }
+    @media (min-width: 768px) {
+        .table {
+            width: 660px;
         }
     }
 }

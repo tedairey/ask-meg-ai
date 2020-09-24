@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect} from 'react';
+import React, {useState, useMemo} from 'react';
 import Header from './header/Header.js';
 import HomePage from './homePage/HomePage.js';
 import FAQ from './FAQ/FAQ.js';
@@ -15,6 +15,7 @@ import LandingPageA from './landingPages/LandingPageA.js';
 import LandingPageB from './landingPages/LandingPageB.js';
 import Tutorials from './tutorials/Tutorials.js';
 import HealthyOptions from './healthyOptions/HealthyOptions.js';
+import ShoppingList from './healthyOptions/shoppingList/ShoppingList.js';
 
 function App() {
 
@@ -32,7 +33,8 @@ function App() {
         </UserContext.Provider>
         <FooterContext.Provider value={footerValue}>
           <Switch>
-            <Route path='/healthy-options' component={HealthyOptions}/>
+            <Route path='/healthy-options' exact component={HealthyOptions}/>
+            <Route path='/healthy-options/:handle' component={HealthyOptions}/>
           </Switch>
           <div className='page-content'>
             <Switch>
@@ -47,6 +49,8 @@ function App() {
               <Route path='/landing-page-a' component={LandingPageA}/>
               <Route path='/landing-page-b' component={LandingPageB}/>
               <Route path='/tutorials' component={Tutorials}/>
+              <Route path='/shopping-list' exact component={ShoppingList}/>
+              <Route path='/shopping-list/:handle' component={ShoppingList}/>
               <UserContext.Provider value={user}>
                 <Route path='/blog-posts' component={BlogPosts}/>
                 <Route path='/profile/:handle' component={Profile}/>
