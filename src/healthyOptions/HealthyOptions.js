@@ -1,20 +1,18 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import './HealthyOptions.scss';
 import FoodsTable from './foodsTable/FoodsTable';
-import { justHealthy } from './dummycode.js';
-import { justVegetarian } from './dummycode';
-import { justVegan } from './dummycode';
-import { glutenFree } from './dummycode';
 import { useMediaQuery } from 'react-responsive';
 import { FooterContext } from '../context/UserContext';
-import { getTableData } from '../config/service/FoodService';
+import { getTableData, getHeader } from '../config/service/FoodService';
 
 function HealthyOptions(props) {
 
     const currentOption = useRef(),
-        [tableData, setTableData] = useState(justHealthy),
+        [tableData, setTableData] = useState(null),
         isSmall = useMediaQuery({query: '(max-width: 768px)'}),
         [userToken, setUserToken] = useState(props.match.params.handle),
+        [header, setHeader] = useState(''),
+        [date, setDate] = useState(''),
         { setShowFooter } = useContext(FooterContext);
 
     useEffect(() => {
@@ -27,9 +25,24 @@ function HealthyOptions(props) {
         }
     }, []);
 
-    // useEffect(() => {
-    //     fetchTable('Healthy');
-    // }, []);
+    useEffect(() => {
+        getHeader()
+            .then(res => {
+                setHeader(res);
+                const date = new Date();
+                setDate(
+                    date.toLocaleString('default', { month: 'long' }) + ' ' + date.getDate() + ', ' 
+                        + date.getFullYear()
+                );
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, [])
+
+    useEffect(() => {
+        fetchTable('Healthy');
+    }, []);
 
     useEffect(() => {
         if (props && props.match && props.match.params && props.match.params.handle) {
@@ -40,7 +53,7 @@ function HealthyOptions(props) {
     const fetchTable = (option) => {
         getTableData(option)
             .then(res => {
-                console.log(res);
+                setTableData(res);
             })
             .catch(err => {
                 console.log(err);
@@ -58,19 +71,19 @@ function HealthyOptions(props) {
             switch (event.target.id) {
                 case 'just-healthy' :
                     activateTab(event.target);
-                    setTableData(justHealthy);
+                    fetchTable('Healthy');
                     break;
                 case 'just-vegetarian' :
                     activateTab(event.target);
-                    setTableData(justVegetarian);
+                    fetchTable('Vegetarian');
                     break;
                 case 'just-vegan' :
                     activateTab(event.target);
-                    setTableData(justVegan)
+                    fetchTable('Vegan');
                     break;
                 case 'gluten-free' :
                     activateTab(event.target);
-                    setTableData(glutenFree)
+                    fetchTable('GlutenFree');
                     break;
                 default :
                     break;
@@ -80,10 +93,9 @@ function HealthyOptions(props) {
 
     return (
         <div className='healthy-options'>
-            <div className='page-content'>
                 <div className='text-center'>
-                    <h3>Thoughtful Thursdays</h3>
-                    <h4>September 10, 2020</h4>
+                    <h3>{header.day}</h3>
+                    <h4>{date}</h4>
                 </div>
                 <div className='options-bubbles'>
                     <button id='just-healthy' ref={currentOption} onClick={switchOptions} className='bubble active' aria-controls='just-healthy'>
@@ -101,7 +113,6 @@ function HealthyOptions(props) {
                     </button>
                 </div>
                 <FoodsTable data={tableData} userToken={userToken}/>
-            </div>
         </div>
     );
 }

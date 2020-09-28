@@ -99,7 +99,7 @@ function NewPost(props) {
                 <h2 className='blog-posts-header'>
                     New Post
                 </h2>
-                <div className='new-post-container'>
+                <div className={props.fullPage ? 'new-post-container page' : 'new-post-container'}>
                     <span className='title-box'>
                         <textarea className='blog-title' value={title} onChange={onTitleChange} 
                             placeholder="Title" ref={titleBox}/>

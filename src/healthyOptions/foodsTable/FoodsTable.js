@@ -1,61 +1,81 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './FoodsTable.scss';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { addToShoppingList, removeFromShoppingList, getShoppingList } from '../../config/service/FoodService';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 
 function FoodsTable (props) {
 
     const [tableData, setTableData] = useState(null),
-        [isLoaded, setIsLoaded] = useState(false);
+        [isLoaded, setIsLoaded] = useState(false),
+        user = useContext(UserContext);
     
     useEffect(() => {
-        getShoppingList(props.userToken)
-            .then(list => {
-                const tempTableData = [];
-                let index = 0;
-                for (const meal in props.data) {
+        if (props.data) {
+            setIsLoaded(false);
+            if (user || props.userToken) {
+                getShoppingList(props.userToken)
+                    .then(list => {
+                        formatTable(list);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    }) 
+            } 
+            else {
+                formatTable();
+            }
+        }   
+    }, [props.data, user])
+
+    const formatTable = (list) => {
+        const tempTableData = [];
+        let index = 0;
+        for (const meal in props.data) {
+            tempTableData.push(
+                <tr key={index} grouplength={props.data[meal].length}>
+                    <td>
+                        <strong>{meal}</strong>
+                    </td>
+                    {list &&
+                        <td className='shopping-list'>
+                            Add to shopping list?
+                        </td>
+                    }
+                </tr>
+            );
+            index++;
+            props.data[meal].forEach(food => {
+                if (food.description) {
                     tempTableData.push(
-                        <tr key={index} grouplength='5'>
+                        <tr key={index}>
                             <td>
-                                <strong>{meal}</strong>
+                                <span>
+                                    {food.description}
+                                </span>
                             </td>
-                            <td className='shopping-list'>
-                                Add to shopping list?
-                            </td>
-                        </tr>
-                    );
-                    index++;
-                    for (const food in props.data[meal]) {
-                        tempTableData.push(
-                            <tr key={index}>
-                                <td>
-                                    <span data-toggle='popover' data-trigger='hover' data-placement='bottom' data-content='Protein 5.0gm, Fats 1.0gm, Carbs 33.0gm, 160 Cals, Serving 45g' data-original-title='' title=''>
-                                        {food}
-                                    </span>
-                                </td>
+                            {list &&
                                 <td className='add-remove'>
-                                    <button className={'add' + (list.includes(food) ? ' d-none' : '')} 
+                                    <button className={'add' + (list.includes(food.description) ? ' d-none' : '')} 
                                         onClick={addItem}>
                                         <FaPlus/>
                                     </button>
-                                    <button className={'remove' + (list.includes(food) ? '' : ' d-none')} 
+                                    <button className={'remove' + (list.includes(food.description) ? '' : ' d-none')} 
                                         onClick={removeItem}>
                                         <FaMinus/>
                                     </button>
                                 </td>
-                            </tr>
-                        );
-                        index++;
-                    }
+                            }
+                        </tr>
+                    );
+                    index++;
                 }
-                setTableData(tempTableData);
-                setIsLoaded(true);
-            })
-            .catch(err => {
-                console.log(err);
-            })    
-    }, [props])
+            });
+        }
+        setTableData(tempTableData);
+        setIsLoaded(true);
+    }
 
     const addItem = (event) => {
         let tab = event.target.parentElement;
@@ -107,11 +127,13 @@ function FoodsTable (props) {
                             <th>
                                 Hover over foods for nutrients
                             </th>
-                            <th className='text-right'>
-                                <Link to={'/shopping-list' + (props.userToken ? ('/' + props.userToken) : '')}>
-                                    Go to shopping list
-                                </Link>
-                            </th>
+                            {user &&
+                                <th className='text-right'>
+                                    <Link to={'/shopping-list' + (props.userToken ? ('/' + props.userToken) : '')}>
+                                        Go to shopping list
+                                    </Link>
+                                </th>
+                            }
                         </tr>
                     </thead>
                     <tbody>

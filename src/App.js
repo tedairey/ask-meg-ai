@@ -32,10 +32,6 @@ function App() {
           <Header/>
         </UserContext.Provider>
         <FooterContext.Provider value={footerValue}>
-          <Switch>
-            <Route path='/healthy-options' exact component={HealthyOptions}/>
-            <Route path='/healthy-options/:handle' component={HealthyOptions}/>
-          </Switch>
           <div className='page-content'>
             <Switch>
               <Route path='/' exact component={HomePage}/>
@@ -49,9 +45,11 @@ function App() {
               <Route path='/landing-page-a' component={LandingPageA}/>
               <Route path='/landing-page-b' component={LandingPageB}/>
               <Route path='/tutorials' component={Tutorials}/>
-              <Route path='/shopping-list' exact component={ShoppingList}/>
-              <Route path='/shopping-list/:handle' component={ShoppingList}/>
-              <UserContext.Provider value={user}>
+              <UserContext.Provider value={user}>   
+                <Route path='/healthy-options' exact component={HealthyOptions}/>
+                <Route path='/healthy-options/:handle' component={HealthyOptions}/>
+                <Route path='/shopping-list' exact component={ShoppingList}/>
+                <Route path='/shopping-list/:handle' component={ShoppingList}/>
                 <Route path='/blog-posts' component={BlogPosts}/>
                 <Route path='/profile/:handle' component={Profile}/>
               </UserContext.Provider>
