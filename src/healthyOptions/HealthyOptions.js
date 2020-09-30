@@ -13,14 +13,13 @@ function HealthyOptions(props) {
         [userToken, setUserToken] = useState(props.match.params.handle),
         [header, setHeader] = useState(''),
         [date, setDate] = useState(''),
+        healthyOptionsRef = useRef(),
         { setShowFooter } = useContext(FooterContext);
 
     useEffect(() => {
-        setShowFooter(false);
         document.body.style.backgroundColor = 'white';
 
         return () => {
-            setShowFooter(true);
             document.body.style.backgroundColor = '';
         }
     }, []);
@@ -47,6 +46,10 @@ function HealthyOptions(props) {
     useEffect(() => {
         if (props && props.match && props.match.params && props.match.params.handle) {
             setUserToken(props.match.params.handle);
+            setShowFooter(false);
+            healthyOptionsRef.current.style.marginTop = '-25px';
+
+            return () => {setShowFooter(true)};
         }
     }, [props.match.params]);
 
@@ -92,27 +95,27 @@ function HealthyOptions(props) {
     }
 
     return (
-        <div className='healthy-options'>
-                <div className='text-center'>
-                    <h3>{header.day}</h3>
-                    <h4>{date}</h4>
-                </div>
-                <div className='options-bubbles'>
-                    <button id='just-healthy' ref={currentOption} onClick={switchOptions} className='bubble active' aria-controls='just-healthy'>
-                        Just <br/> Healthy
-                    </button>
-                    <button id='just-vegetarian' onClick={switchOptions} className='bubble' aria-controls='just-vegetarian'>
-                        Just <br/> Vegetarian
-                    </button>
-                    {isSmall && <br/>}
-                    <button id='just-vegan' onClick={switchOptions} className='bubble' aria-controls='just-vegan'>
-                        Just <br/> Vegan
-                    </button>
-                    <button id='gluten-free' onClick={switchOptions} className='bubble' aria-controls='gluten-free'>
-                        Gluten <br/> Free
-                    </button>
-                </div>
-                <FoodsTable data={tableData} userToken={userToken}/>
+        <div className='healthy-options' ref={healthyOptionsRef}>
+            <div className='text-center'>
+                <h3>{header.day}</h3>
+                <h4>{date}</h4>
+            </div>
+            <div className='options-bubbles'>
+                <button id='just-healthy' ref={currentOption} onClick={switchOptions} className='bubble active' aria-controls='just-healthy'>
+                    Just <br/> Healthy
+                </button>
+                <button id='just-vegetarian' onClick={switchOptions} className='bubble' aria-controls='just-vegetarian'>
+                    Just <br/> Vegetarian
+                </button>
+                {isSmall && <br/>}
+                <button id='just-vegan' onClick={switchOptions} className='bubble' aria-controls='just-vegan'>
+                    Just <br/> Vegan
+                </button>
+                <button id='gluten-free' onClick={switchOptions} className='bubble' aria-controls='gluten-free'>
+                    Gluten <br/> Free
+                </button>
+            </div>
+            <FoodsTable data={tableData} userToken={userToken}/>
         </div>
     );
 }

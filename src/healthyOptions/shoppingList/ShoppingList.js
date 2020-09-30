@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import './ShoppingList.scss';
 import { getShoppingList, removeFromShoppingList, addToShoppingList } from '../../config/service/FoodService';
 import { useMediaQuery } from 'react-responsive';
-import { FooterContext } from '../../context/UserContext';
+import { FooterContext, UserContext } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
 
 function ShoppingList(props) {
@@ -12,29 +12,31 @@ function ShoppingList(props) {
         [isLoaded, setIsLoaded] = useState(false),
         isSmall = useMediaQuery({query: '(max-width: 767px)'}),
         [userToken, setUserToken] = useState(''),
+        user = useContext(UserContext),
+        shoppingListRef = useRef(),
         { setShowFooter } = useContext(FooterContext);
 
     useEffect(() => {
-        fetchShoppingList();
-    }, [userToken]);
-
-    useEffect(() => {
-        setShowFooter(false);
-
-        return () => {
-            setShowFooter(true);
+        if (userToken || user) {
+            fetchShoppingList();
         }
-    }, []);
+    }, [userToken]);
 
     useEffect(() => {
         if (props && props.match && props.match.params && props.match.params.handle) {
             setUserToken(props.match.params.handle);
+            setShowFooter(false);
+            shoppingListRef.current.style.marginTop = '-25px';
+
+            return () => {
+                setShowFooter(true);
+            }
         }
     }, [props.match.params]);
 
     const fetchShoppingList = () => {
         setIsLoaded(false);
-        getShoppingList(userToken)
+        getShoppingList((user && user.shoppingId) || userToken)
             .then(res => {
                 formatList(res);
             })
@@ -65,7 +67,7 @@ function ShoppingList(props) {
     }
 
     const addItem = (event) => {
-        addToShoppingList(newItem, userToken)
+        addToShoppingList(newItem, (user && user.shoppingId) || userToken)
             .then(res => {
                 setNewItem('');
                 fetchShoppingList();
@@ -77,7 +79,7 @@ function ShoppingList(props) {
 
     const removeItem = (event) => {
         const listItem = event.target.parentElement.parentElement;
-        removeFromShoppingList(listItem.innerText, userToken)
+        removeFromShoppingList(listItem.innerText, (user && user.shoppingId) || userToken)
             .then(res => {
                 setTimeout(() => {
                     listItem.style.display = 'none';
@@ -93,7 +95,7 @@ function ShoppingList(props) {
     }
 
     return (
-        <div className='shopping-list'>
+        <div className='shopping-list' ref={shoppingListRef}>
             <h3 className='shopping-list-title'>Your Shopping List</h3>
             {isLoaded ?
                 <ul className='list-container'>

@@ -64,10 +64,12 @@ function AccountModals(props) {
     const setLogin = (newUser) => {
         getUserProfile(newUser)
             .then(res => {
+                const url = res.healthyfoodswebpage.split('/');
                 const newProfile = {
                     username: res.blogname,
                     name: res.name,
-                    progresswebpage: res.progresswebpage
+                    progresswebpage: res.progresswebpage,
+                    shoppingId: url[url.length - 1]
                 }
                 if (res.blogname === '') {
                     tempUser.current = newUser;

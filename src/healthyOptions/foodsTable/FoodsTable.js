@@ -15,7 +15,7 @@ function FoodsTable (props) {
         if (props.data) {
             setIsLoaded(false);
             if (user || props.userToken) {
-                getShoppingList(props.userToken)
+                getShoppingList((user && user.shoppingId) || props.userToken)
                     .then(list => {
                         formatTable(list);
                     })
@@ -35,14 +35,14 @@ function FoodsTable (props) {
         for (const meal in props.data) {
             tempTableData.push(
                 <tr key={index} grouplength={props.data[meal].length}>
-                    <td>
+                    <td colSpan='2'>
                         <strong>{meal}</strong>
+                        {list &&
+                            <span className='shopping-list-link'>
+                                Add to shopping list?
+                            </span>
+                        }
                     </td>
-                    {list &&
-                        <td className='shopping-list'>
-                            Add to shopping list?
-                        </td>
-                    }
                 </tr>
             );
             index++;
@@ -85,7 +85,7 @@ function FoodsTable (props) {
         tab.children[1].classList.remove('d-none');
         tab.children[0].classList.add('d-none');
         const foodName = tab.parentElement.children[0].children[0].innerHTML;
-        addToShoppingList(foodName, props.userToken)
+        addToShoppingList(foodName, (user && user.shoppingId) || props.userToken)
             .then(res => {
                 //success
             })
@@ -102,7 +102,7 @@ function FoodsTable (props) {
         tab.children[1].classList.add('d-none');
         tab.children[0].classList.remove('d-none');
         const foodName = tab.parentElement.children[0].children[0].innerHTML;
-        removeFromShoppingList(foodName, props.userToken)
+        removeFromShoppingList(foodName, (user && user.shoppingId) || props.userToken)
             .then(res => {
                 //success
             })
@@ -124,21 +124,26 @@ function FoodsTable (props) {
                             </th>
                         </tr>
                         <tr>
-                            <th>
+                            <th colSpan={'2'}>
                                 Hover over foods for nutrients
                             </th>
-                            {user &&
-                                <th className='text-right'>
-                                    <Link to={'/shopping-list' + (props.userToken ? ('/' + props.userToken) : '')}>
-                                        Go to shopping list
-                                    </Link>
-                                </th>
-                            }
                         </tr>
                     </thead>
                     <tbody>
                         {tableData}
                     </tbody>
+                    
+                    {(user || props.userToken) &&
+                        <tfoot>
+                            <tr>
+                                <td colSpan='2'>
+                                    <Link to={'/shopping-list' + (props.userToken ? ('/' + props.userToken) : '')}>
+                                        Go to shopping list
+                                    </Link>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    }
                 </table> :
                 <div className='text-center'>
                     <div className='spinner-grow' role='status'>

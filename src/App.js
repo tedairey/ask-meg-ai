@@ -28,9 +28,11 @@ function App() {
   return (
     <div className="page">
       <Router>
-        <UserContext.Provider value={value}>
-          <Header/>
-        </UserContext.Provider>
+        {showFooter && 
+          <UserContext.Provider value={value}>
+            <Header/>
+          </UserContext.Provider>
+        }
         <FooterContext.Provider value={footerValue}>
           <div className='page-content'>
             <Switch>
