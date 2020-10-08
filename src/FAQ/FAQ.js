@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import './FAQ.scss';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import TipsAndHints from './tipsAndHints/TipsAndHints.js';
@@ -7,16 +7,31 @@ import DoYouOffer from './doYouOffer/DoYouOffer.js';
 import HowDoWe from './howDoWe/HowDoWe.js';
 import SafetyAndSecurity from './safetyAndSecurity/SafetyAndSecurity.js';
 import Glossary from './glossary/Glossary.js';
+import { AppUserContext } from '../context/UserContext';
 
 function FAQ (props) {
 	
 	const tipsTab = useRef(),
+		{ setIsAppUser } = useContext(AppUserContext),
+		FAQref = useRef(),
 		[active, setActive] = useState(null);
 
 	useEffect(() => {
 		setActive(tipsTab.current);
 		activate(tipsTab.current);
 	}, []);
+
+	useEffect(() => {
+		const urlEnd = window.location.pathname;
+		if (urlEnd.substring(urlEnd.length-8, urlEnd.length) === 'app-user') {
+			setIsAppUser(true);
+			FAQref.current.style.marginTop = '-50px';
+
+			return () => {
+				setIsAppUser(false);
+			}
+		}
+	}, [])
 
 	const activateTab = (event) => {
 		let lastActive = active,
@@ -38,7 +53,7 @@ function FAQ (props) {
 	}
 
 	return (
-		<div className="FAQs">
+		<div className="FAQs" ref={FAQref}>
 		<Router>
 			<div className='FAQs-header'>
 				<h2>Welcome</h2>

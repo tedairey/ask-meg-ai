@@ -40,7 +40,7 @@ export function formatDate(submitted) {
 export function getTimestamp() {
     const d = new Date();
     let timestamp = d.getFullYear() + '-';
-    if (d.getMonth() < 10) {
+    if (d.getMonth() < 9) {
         timestamp += ('0' + (d.getMonth() + 1));
     }
     else {

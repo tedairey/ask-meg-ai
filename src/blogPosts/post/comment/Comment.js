@@ -15,7 +15,7 @@ function Comment (props) {
         [isUserComment, setIsUserComment] = useState(false),
         [isEditingComment, setIsEditingComment] = useState(false),
         [showDeleteModal, setShowDeleteModal] = useState(false),
-        user = useContext(UserContext);
+        { user } = useContext(UserContext);
 
     useEffect(() => {
         if (user) {

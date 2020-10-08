@@ -56,7 +56,9 @@ function AccountMenu(props) {
                             rel="noopener noreferrer">
                         View Progress Page
                     </a>
-                    <Link to='/shopping-list' onClick={closeMenu}>Your Shopping List</Link>
+                    {user.shoppingId &&
+                        <Link to='/shopping-list' onClick={closeMenu}>Your Shopping List</Link>
+                    }
                 </> : <>
                     <button className='menu-link' onClick={props.showRegister}>Choose a Username</button>
                     <RegisterModal

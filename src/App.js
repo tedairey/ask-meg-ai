@@ -8,7 +8,7 @@ import About from './about/About.js';
 import Footer from './footer/Footer.js';
 import BlogPosts from './blogPosts/BlogPosts.js';
 import Profile from './profile/Profile';
-import { UserContext, FooterContext } from './context/UserContext.js';
+import { UserContext, AppUserContext } from './context/UserContext.js';
 import Conduct from './conduct/Conduct.js';
 import UseOfApplication from './useOfApplication/UseOfApplication.js';
 import LandingPageA from './landingPages/LandingPageA.js';
@@ -20,20 +20,20 @@ import ShoppingList from './healthyOptions/shoppingList/ShoppingList.js';
 function App() {
 
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user'))),
-        [showFooter, setShowFooter] = useState(true);
+        [isAppUser, setIsAppUser] = useState(false);
 
   const value = useMemo(() => ({user, setUser}), [user, setUser]);
-  const footerValue = useMemo(() => ({showFooter, setShowFooter}), [showFooter, setShowFooter]);
+  const appUserValue = useMemo(() => ({isAppUser, setIsAppUser}), [isAppUser, setIsAppUser]);
   
   return (
     <div className="page">
       <Router>
-        {showFooter && 
+        {!isAppUser && 
           <UserContext.Provider value={value}>
             <Header/>
           </UserContext.Provider>
         }
-        <FooterContext.Provider value={footerValue}>
+        <AppUserContext.Provider value={appUserValue}>
           <div className='page-content'>
             <Switch>
               <Route path='/' exact component={HomePage}/>
@@ -47,7 +47,7 @@ function App() {
               <Route path='/landing-page-a' component={LandingPageA}/>
               <Route path='/landing-page-b' component={LandingPageB}/>
               <Route path='/tutorials' component={Tutorials}/>
-              <UserContext.Provider value={user}>   
+              <UserContext.Provider value={value}>   
                 <Route path='/healthy-options' exact component={HealthyOptions}/>
                 <Route path='/healthy-options/:handle' component={HealthyOptions}/>
                 <Route path='/shopping-list' exact component={ShoppingList}/>
@@ -56,11 +56,11 @@ function App() {
                 <Route path='/profile/:handle' component={Profile}/>
               </UserContext.Provider>
             </Switch>
-            {showFooter &&
+            {!isAppUser &&
               <Footer/>
             }
           </div>
-        </FooterContext.Provider>
+        </AppUserContext.Provider>
       </Router>
     </div>
   );

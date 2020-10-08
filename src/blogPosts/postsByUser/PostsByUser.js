@@ -4,7 +4,8 @@ import pen from '../../pen.png';
 import './PostsByUser.scss';
 import Post from '../post/Post';
 import NewPost from '../newPost/NewPost';
-import { UserContext } from '../../context/UserContext';
+import { AppUserContext, UserContext } from '../../context/UserContext';
+import { Link } from 'react-router-dom';
 import { getRecentUserPosts, getPrevUserPosts, getNextUserPosts, removePost } from '../../config/service/PostService';
 
 function PostsByUser(props) {
@@ -15,7 +16,8 @@ function PostsByUser(props) {
         [firstPostId, setFirstPostId] = useState(''),
         [lastPostId, setLastPostId] = useState(''),
         newPostMsgPanel = useRef(),
-        user = useContext(UserContext),
+        { user } = useContext(UserContext),
+        { isAppUser } = useContext(AppUserContext),
         spinner = useRef(),
         [count, setCount] = useState(0),
         [isUserPosts, setIsUserPosts] = useState(false);
@@ -163,6 +165,11 @@ function PostsByUser(props) {
           <h1 className='blog-posts-header'>
             {props.header}
           </h1>
+          { isAppUser &&  
+            <div className='blog-links'>
+              <Link to={'/blog-posts/all/app-user'}>Recent Posts</Link> | <Link to={'/blog-posts/new/app-user'}>New Post</Link>
+            </div>
+          }
           { isLoaded ?
             <div className='posts-body'> 
               <ul className='posts-list'>

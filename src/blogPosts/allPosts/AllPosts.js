@@ -1,12 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './AllPosts.scss';
 import Post from '../post/Post';
+import { Link } from 'react-router-dom';
 import { scrollTop } from '../../Helpers';
 import { getRecentPosts, getPrevPosts, getNextPosts, removePost } from '../../config/service/PostService';
+import AccountModals from '../../header/accountModals/AccountModals';
+import { AppUserContext, UserContext } from '../../context/UserContext';
 
 function AllPosts (props) {
 
   const [posts, setPosts] = useState([]),
+    {user} = useContext(UserContext),
+    {isAppUser} = useContext(AppUserContext),
     spinner = useRef(),
     [count, setCount] = useState(0),
     [currentPage, setCurrentPage] = useState(0),
@@ -18,8 +23,8 @@ function AllPosts (props) {
   useEffect(() => {
     const loadingTimer = setTimeout(() => {
       if (!isLoaded) {
-          setIsLoaded(true);
-          setPosts('Error Loading Posts. Please try again later');
+        setIsLoaded(true);
+        setPosts('Error Loading Posts. Please try again later');
       }
     }, 10000);
     
@@ -144,6 +149,14 @@ function AllPosts (props) {
       <h1 className='blog-posts-header'>
         Recent Posts
       </h1>
+      { isAppUser && (user ? 
+        <div className='blog-links'>
+          <Link to={'/blog-posts/user/app-user'}>Your Posts</Link> | <Link to={'/blog-posts/new/app-user'}>New Post</Link>
+        </div> :
+        <div className='text-center'>
+          Want to Post? <AccountModals isAppUser={isAppUser}/>
+        </div>)
+      }
       { isLoaded ? 
         <div className='posts-body'>
           <ul className='posts-list'>

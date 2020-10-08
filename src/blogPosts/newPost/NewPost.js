@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import './NewPost.scss';
-import { UserContext } from '../../context/UserContext';
+import { AppUserContext, UserContext } from '../../context/UserContext';
 import { getTimestamp } from '../../Helpers';
+import { Link } from 'react-router-dom';
 import { updatePost, addPost } from '../../config/service/PostService';
 
 function NewPost(props) {
@@ -12,7 +13,8 @@ function NewPost(props) {
         [body, setBody] = useState(''),
         bodyBox = useRef(),
         [isEditingPost, setIsEditingPost] = useState(false),
-        user = useContext(UserContext);
+        { user } = useContext(UserContext),
+        { isAppUser } = useContext(AppUserContext);
 
     useEffect(() => {
         if (props && props.currentPost) {
@@ -99,6 +101,11 @@ function NewPost(props) {
                 <h2 className='blog-posts-header'>
                     New Post
                 </h2>
+                { isAppUser &&
+                    <div className='blog-links'>
+                        <Link to={'/blog-posts/all/app-user'}>Recent Posts</Link> | <Link to={'/blog-posts/user/app-user'}>Your Posts</Link>
+                    </div>
+                }
                 <div className={props.fullPage ? 'new-post-container page' : 'new-post-container'}>
                     <span className='title-box'>
                         <textarea className='blog-title' value={title} onChange={onTitleChange} 

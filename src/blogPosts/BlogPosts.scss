@@ -4,6 +4,15 @@
         text-align: center;
         margin: 20px 0px;
     }
+    .blog-links {
+        text-align: center;
+        a {
+            color: black;
+            border: 1px solid grey;
+            padding: 3px 5px;
+            border-radius: 5px;
+        }
+    }
     .spinner-grow {
         height: 5rem;
         width: 5rem;

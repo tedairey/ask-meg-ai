@@ -56,10 +56,6 @@ function RegisterModal (props) {
         setUsername(event.target.value);
     }
 
-    const stayAnonymous = (event) => {
-        props.closeRegister();
-    }
-
     const clearError = (event) => {
         usernameerrRef.current.style.display = 'none';
         usernamebox.current.style.borderColor = 'grey';
@@ -68,7 +64,7 @@ function RegisterModal (props) {
     return (
         <span id="register-modal">
             <Modal show={props.registerModal} onHide={props.closeRegister}>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Create a Username</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -78,7 +74,7 @@ function RegisterModal (props) {
                             This username will be displayed on public blog posts and comments
                             you make throughout the website, and on your profile where you
                             can manage your account by changing your password, or viewing
-                            your personal progress page. You can also choose to remain anonymous.
+                            your personal progress page.
                         </div>
                         <span className='error-msg' ref={usernameerrRef}>
                             {errorMsg}
@@ -90,9 +86,6 @@ function RegisterModal (props) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={stayAnonymous}>
-                        Stay Anonymous
-                    </Button>
                     <Button variant="primary" onClick={submitUsername}>
                         Create Username
                     </Button>

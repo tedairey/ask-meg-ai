@@ -64,12 +64,14 @@ function AccountModals(props) {
     const setLogin = (newUser) => {
         getUserProfile(newUser)
             .then(res => {
-                const url = res.healthyfoodswebpage.split('/');
                 const newProfile = {
                     username: res.blogname,
                     name: res.name,
-                    progresswebpage: res.progresswebpage,
-                    shoppingId: url[url.length - 1]
+                    progresswebpage: res.progresswebpage
+                }
+                if (!res.healthyfoodswebpage.includes('_')) {
+                    const url = res.healthyfoodswebpage.split('/');
+                    newProfile.shoppingId = url[url.length - 1];
                 }
                 if (res.blogname === '') {
                     tempUser.current = newUser;
@@ -142,6 +144,7 @@ function AccountModals(props) {
                     showLogin={showLogin}
                     closeLogin={closeLogin}
                     setLogin={setLogin}
+                    isAppUser={props.isAppUser}
                 />
             </span>
         );

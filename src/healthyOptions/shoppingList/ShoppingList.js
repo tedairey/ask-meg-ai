@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import './ShoppingList.scss';
 import { getShoppingList, removeFromShoppingList, addToShoppingList } from '../../config/service/FoodService';
 import { useMediaQuery } from 'react-responsive';
-import { FooterContext, UserContext } from '../../context/UserContext';
+import { AppUserContext, UserContext } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
 
 function ShoppingList(props) {
@@ -12,9 +12,9 @@ function ShoppingList(props) {
         [isLoaded, setIsLoaded] = useState(false),
         isSmall = useMediaQuery({query: '(max-width: 767px)'}),
         [userToken, setUserToken] = useState(''),
-        user = useContext(UserContext),
+        { user } = useContext(UserContext),
         shoppingListRef = useRef(),
-        { setShowFooter } = useContext(FooterContext);
+        { setIsAppUser } = useContext(AppUserContext);
 
     useEffect(() => {
         if (userToken || user) {
@@ -25,11 +25,11 @@ function ShoppingList(props) {
     useEffect(() => {
         if (props && props.match && props.match.params && props.match.params.handle) {
             setUserToken(props.match.params.handle);
-            setShowFooter(false);
+            setIsAppUser(true);
             shoppingListRef.current.style.marginTop = '-25px';
 
             return () => {
-                setShowFooter(true);
+                setIsAppUser(false);
             }
         }
     }, [props.match.params]);
@@ -101,7 +101,7 @@ function ShoppingList(props) {
                 <ul className='list-container'>
                     {currentList}
                     <input placeholder='Add an item...' className='add-item' value={newItem} onChange={onItemChange}/>
-                    <button className='btn submit' onClick={addItem}>{isSmall ? 'Add' : 'Add Item'}</button>
+                    <button className='btn add-item-button' onClick={addItem}>{isSmall ? 'Add' : 'Add Item'}</button>
                     <Link to={'/healthy-options' + (userToken ? ('/' + userToken) : '')} className='healthy-link'>
                         Go to healthy foods
                     </Link>

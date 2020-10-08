@@ -4,7 +4,7 @@ import NewComment from './newComment/NewComment';
 import Comment from './comment/Comment';
 import commenticon from '../../commenticon.png';
 import { formatDate, getTimestamp } from '../../Helpers';
-import { UserContext } from '../../context/UserContext';
+import { AppUserContext, UserContext } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsPencil } from 'react-icons/bs';
@@ -23,7 +23,8 @@ function Post (props){
         [showDeleteModal, setShowDeleteModal] = useState(false),
         [showCommentSection, setShowCommentSection] = useState(false),
         [showEditModal, setShowEditModal] = useState(false),
-        user = useContext(UserContext);
+        { user } = useContext(UserContext),
+        { isAppUser } = useContext(AppUserContext);
 
     let [commentSectionStyle, setCommentSectionStyle] = useState('comment-section d-none');
 
@@ -175,9 +176,12 @@ function Post (props){
                 <div className='post-header'>
                     <h4 className='post-title'><strong>{post.title}</strong></h4>
                     <div className='authors'>
-                        {'By: ' + (post.authors ? 
+                        By: {post.authors ? 
                             post.authors :
-                            <Link to={'/profile/' + post.username} className='author'>{post.username}</Link>)   
+                            (isAppUser ? 
+                                post.username : 
+                                <Link to={'/profile/' + post.username}>{post.username}</Link>)
+                            
                         }
                     </div>
                 </div>
@@ -195,7 +199,7 @@ function Post (props){
                 </div>
             </div>
             <div className={commentSectionStyle}>
-                {user && user.blogname &&
+                {user && user.username &&
                     <NewComment postID={post.id} addComment={addComment}/>
                 }  
                 {isLoaded ?

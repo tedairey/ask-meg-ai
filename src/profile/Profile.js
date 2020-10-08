@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 function Profile(props) {
   
-    const user = useContext(UserContext),
+    const { user } = useContext(UserContext),
         [profileUsername, setProfileUsername] = useState(props.match.params.handle),
         [isUserProfile, setIsUserProfile] = useState(false),
         [showChangePassword, setShowChangePassword] = useState(false),

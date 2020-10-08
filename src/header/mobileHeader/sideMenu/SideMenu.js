@@ -11,7 +11,7 @@ function SideMenu(props) {
     const panel = useRef(),
         blogs = useRef(),
         blogLink = useRef(),
-        user = useContext(UserContext).user,
+        { user } = useContext(UserContext),
         isLarge = useMediaQuery({ query: '(min-width: 768px)' });
 
     useEffect(() => {

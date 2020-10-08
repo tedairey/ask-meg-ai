@@ -63,13 +63,15 @@ function LogInModal(props) {
                     </span>
                 </Modal.Body>
                 <Modal.Footer>
-                    <div className='login-modal-footer'>
-                        Don't Have an Account?
-                        <a className='btn learn-more' href='https://testflight.apple.com/join/bYiSDeWg'>
-                            Get The App
-                        </a>
-                    </div>
-                    <br/>
+                    {!props.isAppUser && <>
+                        <div className='login-modal-footer'>
+                            Don't Have an Account?
+                            <a className='btn learn-more' href='https://testflight.apple.com/join/bYiSDeWg'>
+                                Get The App
+                            </a>
+                        </div>
+                        <br/>
+                    </>}
                     <Button variant="primary" onClick={validateLogin}>
                         Log In
                     </Button>

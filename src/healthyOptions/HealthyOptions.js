@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import './HealthyOptions.scss';
 import FoodsTable from './foodsTable/FoodsTable';
 import { useMediaQuery } from 'react-responsive';
-import { FooterContext } from '../context/UserContext';
+import { AppUserContext } from '../context/UserContext';
 import { getTableData, getHeader } from '../config/service/FoodService';
 
 function HealthyOptions(props) {
@@ -14,7 +14,7 @@ function HealthyOptions(props) {
         [header, setHeader] = useState(''),
         [date, setDate] = useState(''),
         healthyOptionsRef = useRef(),
-        { setShowFooter } = useContext(FooterContext);
+        { setIsAppUser } = useContext(AppUserContext);
 
     useEffect(() => {
         document.body.style.backgroundColor = 'white';
@@ -45,11 +45,13 @@ function HealthyOptions(props) {
 
     useEffect(() => {
         if (props && props.match && props.match.params && props.match.params.handle) {
-            setUserToken(props.match.params.handle);
-            setShowFooter(false);
-            healthyOptionsRef.current.style.marginTop = '-25px';
+            if (!props.match.params.handle.includes('_')) {
+                setUserToken(props.match.params.handle);
+                setIsAppUser(true);
+                healthyOptionsRef.current.style.marginTop = '-25px';
 
-            return () => {setShowFooter(true)};
+                return () => {setIsAppUser(false)};
+            }
         }
     }, [props.match.params]);
 

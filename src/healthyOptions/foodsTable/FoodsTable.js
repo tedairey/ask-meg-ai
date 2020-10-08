@@ -9,12 +9,12 @@ function FoodsTable (props) {
 
     const [tableData, setTableData] = useState(null),
         [isLoaded, setIsLoaded] = useState(false),
-        user = useContext(UserContext);
+        { user } = useContext(UserContext);
     
     useEffect(() => {
         if (props.data) {
             setIsLoaded(false);
-            if (user || props.userToken) {
+            if ((user && user.shoppingId) || props.userToken) {
                 getShoppingList((user && user.shoppingId) || props.userToken)
                     .then(list => {
                         formatTable(list);
@@ -133,7 +133,7 @@ function FoodsTable (props) {
                         {tableData}
                     </tbody>
                     
-                    {(user || props.userToken) &&
+                    {((user && user.shoppingId) || props.userToken) &&
                         <tfoot>
                             <tr>
                                 <td colSpan='2'>

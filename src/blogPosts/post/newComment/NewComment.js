@@ -4,7 +4,7 @@ import { UserContext } from '../../../context/UserContext';
 
 function NewComment (props) {
 
-    const user = useContext(UserContext),
+    const { user } = useContext(UserContext),
         [comment, setComment] = useState(('' || props.currentComment) && props.currentComment.body),
         newComment=useRef(),
         [submitText, setSubmitText] = useState('Submit');
