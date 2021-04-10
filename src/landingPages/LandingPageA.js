@@ -1,99 +1,109 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
+import { AppUserContext } from '../context/UserContext';
+import iphoneImage from '../homePageImages/iphone-image.png';
 import './LandingPage.scss';
 
 function LandingPageA() {
 
+    const { setIsAppUser } = useContext(AppUserContext);
+
+    useEffect(() => {
+        setIsAppUser(true);
+        document.body.style.backgroundColor='#fff'
+
+        return () => {
+            setIsAppUser(false);
+            document.body.style.backgroundColor='initial'
+        }
+    }, []);
+
     return (
         <div className='landing-page'>
-            <div className='text'>
-                <h2 className='title-text text-center'>Be an Early Tester and Get Paid to Lose Weight!</h2>
-                <p>
-                    Developed with leading weight loss doctors and dietitians using the latest proven
-                    science, Meg is an artificial intelligence powered app providing a completely new
-                    way to look at food and learn healthy habits.
-                </p>
-                <p>
-                    No fads. Proven science. Learn more about your eating habits. Learn how to
-                    change them in a healthy way. Available to test now.
-                </p>
-                <p>
-                    You can get Meg in advance of everybody else, completely free of charge and
-                    earn a gift card each week!
-                </p>
+            <div className='title row'>
+                <div className='col-xs-12 col-md-6 left-column'>
+                    <h2>Beta Test Meg.AI and Discover a Revolutionary New Weight Loss Science</h2>
+                    <h5 className='subheader'>Track what you eat effortlessly and watch your excess weight melt away with an expert dietitian in the palm of your hand.</h5>
+                    <div className='get-the-app'>
+                        <a className='btn get-started' href='https://testflight.apple.com/join/bYiSDeWg'>
+                            Become a Beta Tester
+                        </a>
+                    </div>
+                </div>
+                <div className='col-xs-12 col-md-6 right-column'>
+                    <div className='iphone-container'>
+                        {/* <img src="//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/megai/10t54uc-premia-iphone-front_10az0k60a50ds00f000028.png"/> */}
+                        <img className='iphone-image' src="//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/megai/2b46a715-img-4130_108b0hz08b0bo000035028.PNG"/>
+                    </div>
+                </div>
             </div>
-            <div className='get-the-app'>
-                <a className='btn get-started' href='https://testflight.apple.com/join/bYiSDeWg'>
-                    Get Started With Meg
-                </a>
-            </div>
-            <hr/>
-            <h2 className='title-text text-center'>"It's Super Easy"</h2>
-            <div className='text'>
+            <div className='landing-page-text'>
+                <h3 className='landing-page-header'>What is Meg AI?</h3>
                 <p>
-                    Meg has been designed to be super easy to use. Tell her what you eat, your weight and any
-                    exercise. It’s logged. She’s been designed from the ground up to be voice-capable.
+                    Meg.AI is an animated, human-like artificial intelligence agent, that works as your personal dietitian. Using weight-loss science developed by the National Institutes of Health and leading experts, Meg.AI is your friend and guide on your weight loss journey.
                 </p>
                 <p>
-                    Then, as Meg learns your behaviors, she applies the success lessons from other people to help
-                    you learn new habits and succeed with your weight loss.
+                    As your guide, Meg.AI uses revolutionary voice interaction to make recording what you eat and finding healthier alternatives easier.
+                </p>
+                <hr/>
+                <h3 className='landing-page-header'>How Meg.AI Works</h3>
+                <p>
+                    Using artificial intelligence, Meg.AI evaluates what you eat and offers healthier alternatives to foods known to cause weight gain.
                 </p>
                 <p>
-                    We think she’s amazing and hope you will too. Work with Meg and we’ll send you a $5 Amazon
-                    gift card each week.
-                </p>
-                <h2 className='title-text text-center'>Getting Started</h2>
-                <p>
-                    To get started, click “Get Started With Meg” to download TestFlight, Apple’s beta testing App,
-                    and install a test version of AskMeg. Meg will help you create your weight loss plan, answer
-                    questions, log your meals and provide guidance 24/7 to keep you on track!
-                </p>
-                <h2 className='title-text text-center'>How You Can Help</h2>
-                <p>
-                    Companies use testing to evaluate new features and functionality prior to a general release of
-                    their product. Our team has worked hard to develop Meg and ensure she works as designed.
-                    Now we want your help to test Meg before she goes on general release.
-                </p>
-                <h2 className='title-text text-center'>Don’t Worry. No Obligation!</h2>
-                <p>
-                    No obligation. No credit card required. No hidden fees. Nothing. If you don’t wish to continue
-                    for any reason, just stop. Delete the app, or not. We’d like you to tell us why so we can learn,
-                    but you have no obligation to do this.
+                    And don’t worry. With over 100,000 food alternatives, Meg.AI won’t suggest a kale salad every time.
                 </p>
                 <p>
-                    After The Test. Join Team Meg and you can continue to get the inside track on new features
-                    before they go on general release. Our promise: Meg will always be affordable and available for
-                    about the price of a cup of coffee each month.
+                    Struggling with motivation? We use the same technology as self-driving cars to keep your weight loss on-track!
                 </p>
-
-                <h2 className='title-text text-center'>The Fine Print</h2>
                 <p>
-                    iPhone only. Sorry, we don’t have our Android app ready yet. Please check back again soon.
-                </p>
-                <p>    
-                    No obligation means no obligation. Free means no charge. You need to enter your email address to create an
-                    account with Meg. We will not sell or rent your email address. We won’t email you unless you give us
-                    permission. Please see our privacy statement for further details.
-                </p>    
-                    To receive a gift card each week, log 3 or more meals a day, 5 or more days per week and answer a 3
-                    question in-App survey about your experience. Limited to the first 100 users. Applicable to the first 4 weeks
-                    after you receive an invitation from us to test Meg.
-                <p>    
-                    The test lasts 4 weeks. After this period, you are free to use Meg for the remaining period the test App is
-                    valid.
-                </p>
-                <h2 className='title-text text-center'>Ready To Join Team Meg?</h2>
-                <p>
-                    Interested in losing weight? Want to learn a new way to look at food? Have an iPhone? Want to
-                    become part of team Meg and test her?
+                    Ready to try Meg.AI?
                 </p>
                 <div className='get-the-app'>
                     <a className='btn get-started' href='https://testflight.apple.com/join/bYiSDeWg'>
-                        Get Started With Meg
+                        Become a Beta Tester
                     </a>
                 </div>
-                <p className='footnote'>
-                    Come join us!
-                </p>
+                <hr/>
+                <h3 className='landing-page-header'>Beta Test Meg.AI For FREE</h3>
+                <div className='iphone-message'>
+                    <h3 className='iphone-header'>
+                        If you have an iPhone and you’re ready to lose weight, this is your perfect opportunity to experience a much better alternative to traditional weight loss programs.
+                    </h3>
+                    <div className='steps'>
+                        <div className='step'>
+                            Step 1: Click On the "Become a Beta Tester" button
+                        </div>
+                        <hr/>
+                        <div className='step'>
+                            Step 2: Download Testflight on your smartphone
+                        </div>
+                        <hr/>
+                        <div className='step'>
+                            Step 3: Download the beta version of the app.
+                        </div>
+                        <hr/>
+                        <div className='step'>
+                            Step 4: Create an Account on Meg AI
+                        </div>
+                        <hr/>
+                        <div className='step'>
+                            Step 5: Try the App
+                        </div>
+                    </div>
+                    <div className='get-the-app'>
+                        <a className='btn get-started' href='https://testflight.apple.com/join/bYiSDeWg'>
+                            Become a Beta Tester
+                        </a>
+                    </div>
+                </div>
+                <div className='grid'>
+                    <h3 className='landing-page-header'>A Snapshot</h3>
+                    <h5 className='landing-page-header'>Download and Install Meg.AI</h5>
+                    <h5 className='landing-page-header'>Create an Account with Meg.AI</h5>
+                    <h5 className='landing-page-header'>Meet Meg</h5>
+                    <h5 className='landing-page-header'>Get Started</h5>
+                    <h5 className='landing-page-header'>Learn</h5>
+                </div>
             </div>
         </div>
     );

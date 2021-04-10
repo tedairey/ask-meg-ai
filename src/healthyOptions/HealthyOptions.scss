@@ -2,17 +2,19 @@
     background-color: white;
     margin-top: 20px;
     margin-bottom: 50px;
-    #just-healthy { 
-        background-color:#05F509; 
-    }   
-    #just-vegetarian { 
-        background-color:#0FE913;
+    #just-healthy-image {
+        background-image: url('./Thumb-24.png');
     }
-    #just-vegan { 
-        background-color:#1BD71E;
+    #vegetarian-image {
+        background-image: url('./Circle-24.png');
+        background-size: 75px;
+        background-position: -5px -5px;
     }
-    #gluten-free { 
-        background-color:#2BB92D;
+    #vegan-image {
+        background-image: url('./V-24.png');
+    }
+    #gluten-free-image {
+        background-image: url('./GF-24.png');
     }
     .options-bubbles {
         margin-top: 20px;
@@ -23,10 +25,28 @@
             font-size: 25px;
             text-align: center;
             margin: 0px 5px 20px;
-            border-radius: 50%;
+            border-radius: 10%;
             line-height: normal;
-            border: 2px solid grey;
-            color:#fff; 
+            border: none;
+            color:#fff;
+            position: relative;
+            background-color: #cefcd1;
+            .healthy-text {
+                color: #000;
+                text-align: left;
+                position: relative;
+                bottom: 32px;
+                left: 2px;
+            } 
+            .healthy-image {
+                background-size: 65px;
+                background-repeat: no-repeat;
+                position: absolute;
+                height: 65px;
+                width: 65px;
+                bottom: 3px;
+                left: 80px;
+            }
             &:hover {
                 font-weight: bold;
             }
@@ -43,6 +63,10 @@
             height: 125px;
             width: 125px;
             font-size: 20px;
+            .healthy-image {
+                bottom: 3px;
+                left: 55px;
+            }
         }
     }
 }

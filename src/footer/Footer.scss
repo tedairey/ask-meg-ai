@@ -17,6 +17,9 @@
         a {
             font-weight: bold;
             font-size: 20px;
+            &:hover {
+                color: #fff
+            }
         }
     }
     .site-info-text {

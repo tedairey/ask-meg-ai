@@ -1,9 +1,9 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import Header from './header/Header.js';
 import HomePage from './homePage/HomePage.js';
 import FAQ from './FAQ/FAQ.js';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import About from './about/About.js';
 import Footer from './footer/Footer.js';
 import BlogPosts from './blogPosts/BlogPosts.js';
@@ -16,18 +16,30 @@ import LandingPageB from './landingPages/LandingPageB.js';
 import Tutorials from './tutorials/Tutorials.js';
 import HealthyOptions from './healthyOptions/HealthyOptions.js';
 import ShoppingList from './healthyOptions/shoppingList/ShoppingList.js';
+import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history';
+import { trackingId } from './config/Fire'
+
+ReactGA.initialize(trackingId);
+
+const history = createBrowserHistory();
+
+history.listen(location => {
+  ReactGA.set({ page: location.pathname }); // Update the user's current page
+  ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});
 
 function App() {
 
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('user'))),
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user'))),
         [isAppUser, setIsAppUser] = useState(false);
 
   const value = useMemo(() => ({user, setUser}), [user, setUser]);
   const appUserValue = useMemo(() => ({isAppUser, setIsAppUser}), [isAppUser, setIsAppUser]);
-  
+
   return (
     <div className="page">
-      <Router>
+      <Router history={history}>
         {!isAppUser && 
           <UserContext.Provider value={value}>
             <Header/>

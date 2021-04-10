@@ -4,16 +4,16 @@ import { FaPlus, FaMinus } from 'react-icons/fa';
 import { addToShoppingList, removeFromShoppingList, getShoppingList } from '../../config/service/FoodService';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 function FoodsTable (props) {
 
     const [tableData, setTableData] = useState(null),
-        [isLoaded, setIsLoaded] = useState(false),
         { user } = useContext(UserContext);
     
     useEffect(() => {
         if (props.data) {
-            setIsLoaded(false);
+            props.setIsLoaded(false);
             if ((user && user.shoppingId) || props.userToken) {
                 getShoppingList((user && user.shoppingId) || props.userToken)
                     .then(list => {
@@ -52,7 +52,17 @@ function FoodsTable (props) {
                         <tr key={index}>
                             <td>
                                 <span>
-                                    {food.description}
+                                    <OverlayTrigger
+                                        key={'tooltip-' + food.nutrients}
+                                        placement={'top'}
+                                        overlay={
+                                            <Tooltip>
+                                                {food.nutrients}
+                                            </Tooltip>
+                                        }
+                                    >
+                                        <span>{food.description}</span>
+                                    </OverlayTrigger>
                                 </span>
                             </td>
                             {list &&
@@ -74,7 +84,7 @@ function FoodsTable (props) {
             });
         }
         setTableData(tempTableData);
-        setIsLoaded(true);
+        props.setIsLoaded(true);
     }
 
     const addItem = (event) => {
@@ -113,7 +123,7 @@ function FoodsTable (props) {
     
     return (
         <div className='foods-table'>
-            {isLoaded ?
+            {props.isLoaded ?
                 <table className='table table-striped'>
                     <thead>
                         <tr>

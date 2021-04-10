@@ -12,8 +12,8 @@ function HealthyOptions(props) {
         isSmall = useMediaQuery({query: '(max-width: 768px)'}),
         [userToken, setUserToken] = useState(props.match.params.handle),
         [header, setHeader] = useState(''),
-        [date, setDate] = useState(''),
         healthyOptionsRef = useRef(),
+        [isLoaded, setIsLoaded] = useState(false),
         { setIsAppUser } = useContext(AppUserContext);
 
     useEffect(() => {
@@ -28,11 +28,6 @@ function HealthyOptions(props) {
         getHeader()
             .then(res => {
                 setHeader(res);
-                const date = new Date();
-                setDate(
-                    date.toLocaleString('default', { month: 'long' }) + ' ' + date.getDate() + ', ' 
-                        + date.getFullYear()
-                );
             })
             .catch(err => {
                 console.log(err);
@@ -59,6 +54,7 @@ function HealthyOptions(props) {
         getTableData(option)
             .then(res => {
                 setTableData(res);
+                setIsLoaded(true);
             })
             .catch(err => {
                 console.log(err);
@@ -72,22 +68,27 @@ function HealthyOptions(props) {
     }
 
     const switchOptions = (event) => {
-        if (currentOption.current !== event.target) {
-            switch (event.target.id) {
+        let target = event.target;
+        while (target.nodeName !== 'BUTTON') {
+            target = target.parentElement;
+        }
+        if (currentOption.current !== target) {
+            setIsLoaded(false);
+            switch (target.id) {
                 case 'just-healthy' :
-                    activateTab(event.target);
+                    activateTab(target);
                     fetchTable('Healthy');
                     break;
                 case 'just-vegetarian' :
-                    activateTab(event.target);
+                    activateTab(target);
                     fetchTable('Vegetarian');
                     break;
                 case 'just-vegan' :
-                    activateTab(event.target);
+                    activateTab(target);
                     fetchTable('Vegan');
                     break;
                 case 'gluten-free' :
-                    activateTab(event.target);
+                    activateTab(target);
                     fetchTable('GlutenFree');
                     break;
                 default :
@@ -98,26 +99,29 @@ function HealthyOptions(props) {
 
     return (
         <div className='healthy-options' ref={healthyOptionsRef}>
-            <div className='text-center'>
-                <h3>{header.day}</h3>
-                <h4>{date}</h4>
-            </div>
             <div className='options-bubbles'>
                 <button id='just-healthy' ref={currentOption} onClick={switchOptions} className='bubble active' aria-controls='just-healthy'>
-                    Just <br/> Healthy
+                    <div className='healthy-text'>Just <br/> Healthy</div>
+                    <div id='just-healthy-image' className='healthy-image'></div>
                 </button>
                 <button id='just-vegetarian' onClick={switchOptions} className='bubble' aria-controls='just-vegetarian'>
-                    Just <br/> Vegetarian
+                    <div className='healthy-text'>Just <br/> Vegetarian</div>
+                    <div id='vegetarian-image' className='healthy-image'></div>
                 </button>
                 {isSmall && <br/>}
                 <button id='just-vegan' onClick={switchOptions} className='bubble' aria-controls='just-vegan'>
-                    Just <br/> Vegan
+                    <div className='healthy-text'>Just <br/> Vegan</div>
+                    <div id='vegan-image' className='healthy-image'></div>
                 </button>
                 <button id='gluten-free' onClick={switchOptions} className='bubble' aria-controls='gluten-free'>
-                    Gluten <br/> Free
+                    <div className='healthy-text'>Gluten <br/> Free</div>
+                    <div id='gluten-free-image' className='healthy-image'></div>
                 </button>
             </div>
-            <FoodsTable data={tableData} userToken={userToken}/>
+            <div>
+                <h5>{header.day}</h5>
+            </div>
+            <FoodsTable data={tableData} userToken={userToken} isLoaded={isLoaded} setIsLoaded={setIsLoaded}/>
         </div>
     );
 }

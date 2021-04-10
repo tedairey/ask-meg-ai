@@ -45,7 +45,7 @@ function AccountModals(props) {
             addNewUsername(tempUser.current, username)
                 .then(res => {
                     tempProfile.current.username = username;
-                    sessionStorage.setItem('user', JSON.stringify(tempProfile.current));
+                    localStorage.setItem('user', JSON.stringify(tempProfile.current));
                     setUser(tempProfile.current);
                     setGreeting('Hello, ' + tempProfile.current.name);
                     tempUser.current = null;
@@ -80,7 +80,7 @@ function AccountModals(props) {
                     setRegisterModal(true);
                 }
                 else {
-                    sessionStorage.setItem('user', JSON.stringify(newProfile));
+                    localStorage.setItem('user', JSON.stringify(newProfile));
                     setUser(newProfile);
                     setGreeting('Hello, ' + newProfile.name);
                 }
@@ -102,7 +102,7 @@ function AccountModals(props) {
         logoutUser()
             .then(res => {
                 setUser(null);
-                sessionStorage.clear();
+                localStorage.clear();
                 history.push('/meet-meg');
             })
             .catch(err => {
