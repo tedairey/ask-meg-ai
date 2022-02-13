@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './HomePage.scss';
+import AppleBadge from '../App_Store_Badge.svg';
 import HowItWorks from '../howItWorks/HowItWorks';
 import Testimonials from './testimonials/Testimonials';
 import { Link } from 'react-router-dom';
@@ -58,8 +59,8 @@ function HomePage(props) {
                 causes weight gain.
             </div>
             <div className='get-the-app'>
-                <a className='btn get-started' href='https://testflight.apple.com/join/bYiSDeWg'>
-                    Get Started With Meg
+                <a href="https://apps.apple.com/us/app/meg-ai/id1575765342">
+                    <img className='apple-badge' src={AppleBadge}/>
                 </a>
             </div>
         </div>
@@ -75,8 +76,8 @@ function HomePage(props) {
                 Just cancel your subscription within 14 days. No hassle. And please tell us why so we can improve. 
             </div>
             <div className='get-the-app'>
-                <a className='btn get-started' href='https://testflight.apple.com/join/bYiSDeWg'>
-                    Get Started With Meg
+                <a href="https://apps.apple.com/us/app/meg-ai/id1575765342">
+                    <img className='apple-badge' src={AppleBadge}/>
                 </a>
             </div>
         </div>
@@ -111,8 +112,8 @@ function HomePage(props) {
                 </Link>
             </div>
             <div className='get-the-app'>
-                <a className='btn get-started' href='https://testflight.apple.com/join/bYiSDeWg'>
-                    Get Started With Meg
+                <a href="https://apps.apple.com/us/app/meg-ai/id1575765342">
+                    <img className='apple-badge' src={AppleBadge}/>
                 </a>
             </div>
         </div>

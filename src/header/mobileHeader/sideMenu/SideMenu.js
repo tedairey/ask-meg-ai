@@ -5,6 +5,7 @@ import { scrollTop } from '../../../Helpers';
 import { UserContext } from '../../../context/UserContext';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import { useMediaQuery } from 'react-responsive';
+import UseOfApplication from '../../../useOfApplication/UseOfApplication';
 
 function SideMenu(props) {
     
@@ -34,28 +35,11 @@ function SideMenu(props) {
     }
 
     const closeMenu = (event) => {
-        if (user && user !== 'anon') {
-            toggleBlogMenu();
-            blogs.current.style.height = '0px';
-            blogLink.current.style.borderTop = '0';
-        }
         if (event.target.name !== 'no-scroll') {
             scrollTop();
         }
         panel.current.style.width = '0px';
         return false;
-    }
-
-    const toggleBlogMenu = () => {
-        let height = blogs.current.style.height;
-        if (height === '' || height === '0px') {
-            blogs.current.style.height = '141px';
-            blogLink.current.style.borderTop = '.3em solid';
-        }
-        else {
-            blogs.current.style.height = '0px';
-            blogLink.current.style.borderTop = '0';
-        }
     }
     
     return (
@@ -85,23 +69,10 @@ function SideMenu(props) {
                 <Link to='/FAQ/tips-and-hints' onClick={closeMenu}>FAQ</Link>
                 <Link to='/tutorials' onClick={closeMenu}>Tutorials</Link>
                 <Link to='/healthy-options' onClick={closeMenu}>Today's Healthy Foods</Link>
-                {(user && user !== 'anon') ? <>
-                    <button ref={blogLink} name='no-scroll' id='blog-link' className='menu-link' onClick={toggleBlogMenu}>
-                        Blog Posts
-                    </button>
-                    <div className='blog-menu' ref={blogs}>
-                        <Link to='/blog-posts/all' onClick={closeMenu}>Recent Posts</Link>
-                        <Link to={'/blog-posts/user'} onClick={closeMenu}>Your Posts</Link>
-                        <Link to='/blog-posts/new' onClick={closeMenu}>New Post</Link>
-                    </div> </> : <>
-                    <Link name='no-scroll' to='/blog-posts/all' onClick={closeMenu}>
-                        Community
-                    </Link>
-                </>}
-                <Link to='/landing-page-a' onClick={closeMenu}>Beta Testing</Link>
+                <Link to='/terms-of-use' onClick={closeMenu}>Terms of Use</Link>
+                <Link to='/privacy-policy' onClick={closeMenu}>Privacy Policy</Link>
                 <Link to='/about' onClick={closeMenu}>About</Link>
                 <Link name='no-scroll' to='/about/contact-us' onClick={closeMenu}>Contact Us</Link>
-                <Link to='/conduct' onClick={closeMenu}>Conduct</Link>
             </div>
         </div>
     );

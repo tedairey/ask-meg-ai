@@ -68,11 +68,11 @@ function FoodsTable (props) {
                             {list &&
                                 <td className='add-remove'>
                                     <button className={'add' + (list.includes(food.description) ? ' d-none' : '')} 
-                                        onClick={addItem}>
+                                        onClick={(e) => addItem(e, food.description)}>
                                         <FaPlus/>
                                     </button>
                                     <button className={'remove' + (list.includes(food.description) ? '' : ' d-none')} 
-                                        onClick={removeItem}>
+                                        onClick={(e) => removeItem(e, food.description)}>
                                         <FaMinus/>
                                     </button>
                                 </td>
@@ -87,15 +87,14 @@ function FoodsTable (props) {
         props.setIsLoaded(true);
     }
 
-    const addItem = (event) => {
+    const addItem = (event, description) => {
         let tab = event.target.parentElement;
         while (tab.nodeName !== 'TD') {
             tab = tab.parentElement;
         }
         tab.children[1].classList.remove('d-none');
         tab.children[0].classList.add('d-none');
-        const foodName = tab.parentElement.children[0].children[0].innerHTML;
-        addToShoppingList(foodName, (user && user.shoppingId) || props.userToken)
+        addToShoppingList(description, (user && user.shoppingId) || props.userToken)
             .then(res => {
                 //success
             })
@@ -104,15 +103,14 @@ function FoodsTable (props) {
             });
     }
 
-    const removeItem = (event) => {
+    const removeItem = (event, description) => {
         let tab = event.target.parentElement;
         while (tab.nodeName !== 'TD') {
             tab = tab.parentElement;
         }
         tab.children[1].classList.add('d-none');
         tab.children[0].classList.remove('d-none');
-        const foodName = tab.parentElement.children[0].children[0].innerHTML;
-        removeFromShoppingList(foodName, (user && user.shoppingId) || props.userToken)
+        removeFromShoppingList(description, (user && user.shoppingId) || props.userToken)
             .then(res => {
                 //success
             })

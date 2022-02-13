@@ -10,7 +10,7 @@ function UseOfApplication() {
     useEffect(() => {
         let endpoint = window.location.href;
         if (endpoint.substring(endpoint.length-14, endpoint.length) === 'privacy-policy') {
-            let headerOffset = isSmall ? 60 : 138;
+            let headerOffset = isSmall ? 60 : 100;
             window.scrollTo(0, privacyPolicyRef.current.offsetTop - headerOffset);
         }
     })

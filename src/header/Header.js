@@ -25,7 +25,7 @@ class Header extends Component {
             <MediaQuery minWidth={768}>
                 <div className='banner row'>
                     <div className='col-auto col-md-4'>
-                        <a href="https://askmeg.ai">
+                        <a className='header-logo' href="https://askmeg.ai">
                             <img src={logo} className="logo" alt="logo" />
                         </a>
                         <Link id="website-title" to='/meet-meg'>
