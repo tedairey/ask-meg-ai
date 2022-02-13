@@ -101,20 +101,16 @@ function HealthyOptions(props) {
         <div className='healthy-options' ref={healthyOptionsRef}>
             <div className='options-bubbles'>
                 <button id='just-healthy' ref={currentOption} onClick={switchOptions} className='bubble active' aria-controls='just-healthy'>
-                    <div className='healthy-text'>Just <br/> Healthy</div>
                     <div id='just-healthy-image' className='healthy-image'></div>
                 </button>
                 <button id='just-vegetarian' onClick={switchOptions} className='bubble' aria-controls='just-vegetarian'>
-                    <div className='healthy-text'>Just <br/> Vegetarian</div>
                     <div id='vegetarian-image' className='healthy-image'></div>
                 </button>
                 {isSmall && <br/>}
                 <button id='just-vegan' onClick={switchOptions} className='bubble' aria-controls='just-vegan'>
-                    <div className='healthy-text'>Just <br/> Vegan</div>
                     <div id='vegan-image' className='healthy-image'></div>
                 </button>
                 <button id='gluten-free' onClick={switchOptions} className='bubble' aria-controls='gluten-free'>
-                    <div className='healthy-text'>Gluten <br/> Free</div>
                     <div id='gluten-free-image' className='healthy-image'></div>
                 </button>
             </div>

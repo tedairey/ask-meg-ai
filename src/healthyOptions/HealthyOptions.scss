@@ -7,8 +7,6 @@
     }
     #vegetarian-image {
         background-image: url('./Circle-24.png');
-        background-size: 75px;
-        background-position: -5px -5px;
     }
     #vegan-image {
         background-image: url('./V-24.png');
@@ -17,35 +15,23 @@
         background-image: url('./GF-24.png');
     }
     .options-bubbles {
-        margin-top: 20px;
-        text-align: center;
+        margin: 20px 0px;
+        display: flex;
+        justify-content: center;
+        gap: 0.25em;
         .bubble {
             height: 150px;
             width: 150px;
-            font-size: 25px;
-            text-align: center;
-            margin: 0px 5px 20px;
             border-radius: 10%;
-            line-height: normal;
             border: none;
             color:#fff;
-            position: relative;
-            background-color: #cefcd1;
-            .healthy-text {
-                color: #000;
-                text-align: left;
-                position: relative;
-                bottom: 32px;
-                left: 2px;
-            } 
+            background-color: transparent;
             .healthy-image {
-                background-size: 65px;
+                background-size: 100px;
+                background-position: 0px 15px;
                 background-repeat: no-repeat;
-                position: absolute;
-                height: 65px;
-                width: 65px;
-                bottom: 3px;
-                left: 80px;
+                height: 100%;
+                width: 100%;
             }
             &:hover {
                 font-weight: bold;
@@ -64,8 +50,8 @@
             width: 125px;
             font-size: 20px;
             .healthy-image {
-                bottom: 3px;
-                left: 55px;
+                background-position: 0px 5px;
+                background-size: 100%;
             }
         }
     }
