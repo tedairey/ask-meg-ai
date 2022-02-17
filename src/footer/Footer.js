@@ -19,16 +19,16 @@ function Footer() {
                             </Link>
                         </li>
                     </MediaQuery>
-                    <li style={{color: 'white'}}>
+                    <li className='media-logo'>
                         <FaFacebookSquare size='30px' href="http://www.facebook.com"/>
                     </li>
-                    <li style={{color: 'white'}}>
+                    <li className='media-logo'>
                         <FaLinkedin size='30px' href="http://www.linkedin.com"/>
                     </li>
-                    <li style={{color: 'white'}}>
+                    <li className='media-logo'>
                         <FaTwitterSquare size='30px' href="http://www.twitter.com"/>
                     </li>
-                    <li style={{color: 'white'}}>
+                    <li className='media-logo'>
                         <FaVimeoSquare size='30px' href="http://www.vimeo.com"/>
                     </li>
                 </ul>
@@ -37,7 +37,7 @@ function Footer() {
         <br/>
         <div className="site-info-text">
             <Link to='/terms-of-use' onClick={scrollTop}>Terms of Use</Link> | <Link to='/privacy-policy'>Privacy Policy</Link><br/>
-            © 2020 Tonbridgehealth LLC
+            © 2021 Tonbridgehealth LLC
         </div>
     </div>
   );

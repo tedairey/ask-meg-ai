@@ -1,0 +1,44 @@
+.foods-table {
+    .table {
+        border: 1px solid #ddd;
+        margin: auto;
+        .shopping-list-link {
+            width: 155px;
+            float: right;   
+        }
+    }
+    .add-remove {
+        padding: none;
+        cursor: pointer;
+        float: right;
+        button {
+            border: none;
+            background: transparent;
+        }
+        .add {
+            font-weight: bold;
+            font-size: 20px;
+            color: green;
+        }
+        .remove {
+            font-weight: bold;
+            font-size: 20px;
+            color: red;
+        }
+    }
+    @media (max-width: 767px) {
+        .table>thead>tr>th { 
+            padding: 2px;
+            vertical-align: middle; 
+        }
+        .table>tbody>tr>td { 
+            padding: 2px;
+            vertical-align: middle; 
+        }
+    }
+    @media (min-width: 768px) {
+        .table {
+            width: 660px;
+        }
+    }
+}

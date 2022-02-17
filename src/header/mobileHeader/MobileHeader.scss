@@ -1,18 +1,24 @@
 @import '../../variables.scss';
 
 .mobile-header {
-    background-color: #fff;
+    background-color: $megBlue;
     border-bottom: 1px solid grey;
     z-index: 5;
+    color: white;
     .mobile-title {
         font-weight: bold;
         font-size: 25px;
-        color: $megBlue;
         margin: 10px auto;
     }
     .mobile-login {
         margin: auto 20px auto 10px;
         width: 80px;
         text-align: right;
+    }
+    #log-in {
+        color: white;
+    }
+    .hamburger {
+        background-color: white;
     }
 }

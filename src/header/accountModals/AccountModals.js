@@ -1,12 +1,12 @@
-import React, { Component, useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import './AccountModals.scss';
 import LogInModal from './logInModal/LogInModal.js';
 import RegisterModal from './registerModal/RegisterModal.js';
 import { useHistory } from 'react-router-dom';
-import MediaQuery, { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from 'react-responsive';
 import { UserContext } from '../../context/UserContext';
 import AccountMenu from '../mobileHeader/accountMenu/AccountMenu';
-import fire from '../../config/Fire';
+import { logoutUser, getUserProfile, addNewUsername } from '../../config/service/UserService';
 
 function AccountModals(props) {
 
@@ -14,6 +14,7 @@ function AccountModals(props) {
         [registerModal, setRegisterModal] = useState(false),
         [greeting, setGreeting] = useState(''),
         tempUser = useRef(),
+        tempProfile = useRef(),
         history = useHistory();
 
         const { user, setUser } = useContext(UserContext);
@@ -22,7 +23,7 @@ function AccountModals(props) {
 
     useEffect(() => {
         if (user && window.innerWidth > 767) {
-            setGreeting('Hello, ' + user.name);
+            user.name ? setGreeting('Hello, ' + user.name) : setGreeting('Welcome');
         }
     },[user]);
 
@@ -34,34 +35,59 @@ function AccountModals(props) {
         setRegisterModal(true);
     }
 
-    const handleRegister = () => {
-        setLoginModal(false);
-        setRegisterModal(true);
-    }
-
     const closeLogin = () => {
         setLoginModal(false);
     }
 
     const closeRegister = (username) => {
         setRegisterModal(false);
-        tempUser.current.username = username || 'anonymous';
-        sessionStorage.setItem('user', JSON.stringify(tempUser.current));
-        setUser(tempUser.current);
-        setGreeting('Hello, ' + tempUser.current.name);
+        if (username) {
+            addNewUsername(tempUser.current, username)
+                .then(res => {
+                    tempProfile.current.username = username;
+                    localStorage.setItem('user', JSON.stringify(tempProfile.current));
+                    setUser(tempProfile.current);
+                    setGreeting('Hello, ' + tempProfile.current.name);
+                    tempUser.current = null;
+                })
+                .catch(err => {
+                    tempUser.current = null;
+                    console.log(err);
+                })
+        }
+        else {
+            setUser('anon');
+            setGreeting('Welcome!');
+        }
     }
     
     const setLogin = (newUser) => {
-        if (newUser.username === '') {
-            setLoginModal(false);
-            setRegisterModal(true);
-            tempUser.current = newUser;
-        }
-        else {
-            sessionStorage.setItem('user', JSON.stringify(newUser));
-            setUser(newUser);
-            setGreeting('Hello, ' + newUser.name);
-        }
+        getUserProfile(newUser)
+            .then(res => {
+                const newProfile = {
+                    username: res.blogname,
+                    name: res.name,
+                    progresswebpage: res.progresswebpage
+                }
+                if (!res.healthyfoodswebpage.includes('_')) {
+                    const url = res.healthyfoodswebpage.split('/');
+                    newProfile.shoppingId = url[url.length - 1];
+                }
+                if (res.blogname === '') {
+                    tempUser.current = newUser;
+                    tempProfile.current = newProfile;
+                    setLoginModal(false);
+                    setRegisterModal(true);
+                }
+                else {
+                    localStorage.setItem('user', JSON.stringify(newProfile));
+                    setUser(newProfile);
+                    setGreeting('Hello, ' + newProfile.name);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     const showLogout = () => {
@@ -69,14 +95,14 @@ function AccountModals(props) {
     }
 
     const showGreeting = () => {
-        setGreeting('Hello, ' + user.firstName);
+        user.name ? setGreeting('Hello, ' + user.name) : setGreeting('Welcome');
     }
 
     const logout = () => {
-        fire.auth().signOut()
-            .then(function() {
+        logoutUser()
+            .then(res => {
                 setUser(null);
-                sessionStorage.clear();
+                localStorage.clear();
                 history.push('/meet-meg');
             })
             .catch(err => {
@@ -116,9 +142,9 @@ function AccountModals(props) {
                 <LogInModal
                     loginModal={loginModal}
                     showLogin={showLogin}
-                    handleRegister={handleRegister}
                     closeLogin={closeLogin}
                     setLogin={setLogin}
+                    isAppUser={props.isAppUser}
                 />
             </span>
         );

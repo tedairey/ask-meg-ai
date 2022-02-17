@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './HomePage.scss';
+import AppleBadge from '../App_Store_Badge.svg';
 import HowItWorks from '../howItWorks/HowItWorks';
 import Testimonials from './testimonials/Testimonials';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../Helpers';
 import { useMediaQuery } from 'react-responsive';
 import intro from '../homePageImages/intro.gif';
-import BetaTestingModal from '../alertModals/BetaTestingModal';
 import learn from '../homePageImages/learn-share.jpeg';
 
 function HomePage(props) {
@@ -14,14 +14,13 @@ function HomePage(props) {
     const requestedPage = props.match.params.handle,
         isSmall = useMediaQuery({query: '(max-width: 768px)'}),
         isMedium = useMediaQuery({query: '(max-width: 991px)'}),
-        [betaTestingModal, setBetaTestingModal] = useState(false),
         howItWorksRef = useRef(),
         tryItForFreeRef = useRef(),
         testimonialsRef = useRef();
 
     useEffect(() => {
         if (requestedPage) {
-            let headerOffset = isSmall ? 60 : 138;
+            let headerOffset = isSmall ? 60 : 81;
             switch (requestedPage) {
                 case 'how-it-works' :
                     window.scrollTo(0, howItWorksRef.current.offsetTop - headerOffset);
@@ -60,11 +59,10 @@ function HomePage(props) {
                 causes weight gain.
             </div>
             <div className='get-the-app'>
-                <button className='btn get-started' onClick={()=>setBetaTestingModal(true)}>
-                    Get Started With Meg
-                </button>
+                <a href="https://apps.apple.com/us/app/meg-ai/id1575765342">
+                    <img className='apple-badge' src={AppleBadge}/>
+                </a>
             </div>
-            <BetaTestingModal showModal={betaTestingModal} setShowModal={setBetaTestingModal}/>
         </div>
         <hr ref={howItWorksRef}/>
         <HowItWorks/>
@@ -78,9 +76,9 @@ function HomePage(props) {
                 Just cancel your subscription within 14 days. No hassle. And please tell us why so we can improve. 
             </div>
             <div className='get-the-app'>
-                <button className='btn get-started' onClick={()=>setBetaTestingModal(true)}>
-                    Get Started With Meg
-                </button>
+                <a href="https://apps.apple.com/us/app/meg-ai/id1575765342">
+                    <img className='apple-badge' src={AppleBadge}/>
+                </a>
             </div>
         </div>
         <hr/>
@@ -114,9 +112,9 @@ function HomePage(props) {
                 </Link>
             </div>
             <div className='get-the-app'>
-                <button className='btn get-started' onClick={()=>setBetaTestingModal(true)}>
-                    Get Started With Meg
-                </button>
+                <a href="https://apps.apple.com/us/app/meg-ai/id1575765342">
+                    <img className='apple-badge' src={AppleBadge}/>
+                </a>
             </div>
         </div>
     </div>

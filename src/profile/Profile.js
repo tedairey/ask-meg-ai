@@ -4,17 +4,16 @@ import { Modal } from 'react-bootstrap';
 import { UserContext } from '../context/UserContext';
 import PostsByUser from '../blogPosts/postsByUser/PostsByUser';
 import { RiAccountCircleLine } from 'react-icons/ri';
-import firebase from 'firebase';
-import Endpoint from '../config/Endpoint';
+import { scrollTop } from '../Helpers';
+import { changeUserPassword } from '../config/service/UserService';
+import { Link } from 'react-router-dom';
 
 function Profile(props) {
   
-    const user = useContext(UserContext),
-        [authUser, setAuthUser] = useState(null),
+    const { user } = useContext(UserContext),
         [profileUsername, setProfileUsername] = useState(props.match.params.handle),
         [isUserProfile, setIsUserProfile] = useState(false),
         [showChangePassword, setShowChangePassword] = useState(false),
-        [progressUrl, setProgressUrl] = useState(''),
         currentPasswordRef = useRef(),
         newPasswordRef = useRef(),
         confirmPasswordRef = useRef(),
@@ -27,27 +26,19 @@ function Profile(props) {
         [blogPostsHeader, setBlogPostsHeader] = useState('');
 
     useEffect(() => {
-        if (user && user.username === profileUsername) {
-            setIsUserProfile(true);
-            setBlogPostsHeader('Your Blog Posts');
-        }
-        else {
-            setBlogPostsHeader(profileUsername + `'s Blog Posts`);
+        if (props && props.match && props.match.params) {
+            let newProfile = props.match.params.handle;
+            if (user && user.username === newProfile) {
+                setIsUserProfile(true);
+                setBlogPostsHeader('Your Blog Posts');
+            }
+            else {
+                setBlogPostsHeader(newProfile + `'s Blog Posts`);
+            }
+            scrollTop();
+            setProfileUsername(newProfile);
         }
     }, [props.match.params]);
-
-    useEffect(() => {
-        if (isUserProfile) {
-            fetch(Endpoint + 'user/webpage/' + user.username)
-                .then(res => res.text())
-                .then(res => {
-                    setProgressUrl(res);
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-        }
-    }, [isUserProfile])
 
     const changePassword = (event) => {
         event.preventDefault();
@@ -69,23 +60,12 @@ function Profile(props) {
             confirmPasswordRef.current.style.borderColor = 'red';
         }
         else if (currentPassword) {
-            const user = firebase.auth().currentUser;
-            const credential = firebase.auth.EmailAuthProvider.credential(
-                user.email, 
-                currentPassword
-            );
-            user.reauthenticateWithCredential(credential)
-                .then(success => {
-                    user.updatePassword(newPassword)
-                        .then(function() {
-                            setCurrentPassword('');
-                            setNewPassword('');
-                            setConfirmPassword('');
-                            setShowChangePassword(false);
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });
+            changeUserPassword(currentPassword, newPassword)
+                .then(res => {
+                    setCurrentPassword('');
+                    setNewPassword('');
+                    setConfirmPassword('');
+                    setShowChangePassword(false);
                 })
                 .catch(err => {
                     setPasswordErr('Incorrect Password');
@@ -115,14 +95,19 @@ function Profile(props) {
                 <div className='profile-body col-md-8'>
                 <h1>{profileUsername}</h1>
                     <div>
-                    { isUserProfile && <>
+                    { isUserProfile && user && <>
                             <button className='btn submit' onClick={() => setShowChangePassword(true)}>
                                 Change Password
                             </button>
                             <br/>
-                            <a className='progress-page-link' href={progressUrl} target='_blank'>
+                            <a className='progress-page-link' href={user.progresswebpage} target='_blank'
+                                    rel="noopener noreferrer">
                                 View Progress Page
                             </a>
+                            <br/>
+                            <div className='link-container'>
+                                <Link className='shopping-link' to='/shopping-list'>View Shopping List</Link>
+                            </div>
                             <Modal show={showChangePassword} onHide={() => setShowChangePassword(false)}
                                 data-backdrop="true">
                                 <Modal.Header className='new-post-modal-header' closeButton>
@@ -158,9 +143,9 @@ function Profile(props) {
                                 </div>
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <a href='#' onClick={() => setShowChangePassword(false)}>
+                                    <button className='link' onClick={() => setShowChangePassword(false)}>
                                         Cancel
-                                    </a>
+                                    </button>
                                     <button className="btn submit" onClick={changePassword}>
                                         Change Password
                                     </button>

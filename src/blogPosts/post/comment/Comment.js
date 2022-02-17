@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import './Comment.scss';
 import { formatDate } from '../../../Helpers';
 import { Link } from 'react-router-dom';
@@ -11,12 +11,12 @@ import Endpoint from '../../../config/Endpoint';
 
 function Comment (props) {
 
-    const [date, setDate] = useState(formatDate(props.comment.timestamp)),
+    const date = useRef(formatDate(props.comment.timestamp)),
         [editMenu, setEditMenu] = useState('edit-menu d-none'),
         [isUserComment, setIsUserComment] = useState(false),
         [isEditingComment, setIsEditingComment] = useState(false),
         [showDeleteModal, setShowDeleteModal] = useState(false),
-        user = useContext(UserContext);
+        { user } = useContext(UserContext);
 
     useEffect(() => {
         if (user) {
@@ -48,16 +48,8 @@ function Comment (props) {
     }
 
     const deleteComment = () => {
-        fetch(Endpoint + 'comments/delete/' + props.postID + '/' + props.index)
-            .then(res => res.json())
-            .then(res => {
-                if (res) {
-                    setShowDeleteModal(false);
-                    props.deleteComment(res.comments);
-                    //successfully deleted comment
-                    //updatecomment
-                }
-            })
+        setShowDeleteModal(false);
+        props.deleteComment(props.index);
     }
 
     return (
@@ -85,7 +77,7 @@ function Comment (props) {
                         <Link to={`/profile/` + props.comment.username}>{props.comment.username}</Link>
                     </div>
                     <div className='comment-date'>
-                        {date} 
+                        {date.current} 
                         <span className={editMenu}>
                             {isUserComment &&
                                 <BsPencil size='20px' onClick={editComment}/>

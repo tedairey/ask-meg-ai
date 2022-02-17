@@ -41,6 +41,7 @@
         float: right;
     }
     .post-body {
+        white-space: pre-line;
         font-size: 20px;
     }
     .post-footer a {
@@ -69,14 +70,11 @@
     margin-bottom: 20px;
 }
 
-@media screen and (min-width: 768px) {
-    .author {
-        float: right;
-    }
-}
-
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .post-title {
         font-size: 20px;
+    }
+    .post{
+        background: lightgrey;
     }
 }

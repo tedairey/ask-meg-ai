@@ -1,57 +1,55 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './RegisterModal.scss';
-import firebase from '../../../config/Fire';
-import Endpoint from '../../../config/Endpoint';
+import { verifyUsername } from '../../../config/service/UserService';
 
 function RegisterModal (props) {
     const [username, setUsername] = useState(''),
-        [authUser, setAuthUser] = useState(null),
+        [errorMsg, setErrorMsg] = useState(''),
         usernameerrRef = useRef(),
         usernamebox = useRef();
-    
-    useEffect(() =>{
-        const unlisten = firebase.auth().onAuthStateChanged(
-            authUser => {
-                authUser
-                ? setAuthUser(authUser)
-                : setAuthUser(null);
-            },
-        );
-        return (
-            unlisten
-        );
-    }, [setAuthUser]);
+
+    const submitUsername = () => {
+        if (validateUsername()) {
+            verifyUsername(username)
+                .then(res => {
+                    if (res) {
+                        props.closeRegister(username);
+                    }
+                    else {
+                        setErrorMsg('Username must be unique!')
+                        usernameerrRef.current.style.display = 'block';
+                        usernamebox.current.style.borderColor = 'red';
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    setErrorMsg('Username must be unique!')
+                    usernameerrRef.current.style.display = 'block';
+                    usernamebox.current.style.borderColor = 'red';
+                });
+        }
+        else {
+            usernameerrRef.current.style.display = 'block';
+            usernamebox.current.style.borderColor = 'red';
+        }
+    }
 
     const validateUsername = () => {
-        const user = authUser/*firebase.auth().currentUser*/;
-        user.getIdToken(true)
-            .then(idToken => {
-                const requestOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: idToken
-                };
-                const newUsername = username || 'anonymous';
-                fetch(Endpoint + 'user/' + newUsername, requestOptions)
-                    .then(res => res.json())
-                    .then(res => {
-                        if (res) {
-                            props.closeRegister(username);
-                        }
-                        else { 
-                            usernameerrRef.current.style.display = 'block';
-                            usernamebox.current.style.borderColor = 'red';
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        if (!username) {
+            setErrorMsg('Please enter a username');
+        }
+        else if (username.includes(' ')) {
+            setErrorMsg('Username cannot contain spaces');
+        }
+        else if (username.length > 12) {
+            setErrorMsg('Username must be less than 12 characters');
+        }
+        else {
+            return true;
+        }
+        return false;
     }
 
     const onUsernameChange = (event) => {
@@ -66,7 +64,7 @@ function RegisterModal (props) {
     return (
         <span id="register-modal">
             <Modal show={props.registerModal} onHide={props.closeRegister}>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Create a Username</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -76,10 +74,10 @@ function RegisterModal (props) {
                             This username will be displayed on public blog posts and comments
                             you make throughout the website, and on your profile where you
                             can manage your account by changing your password, or viewing
-                            your personal progress page. You can also choose to remain anonymous.
+                            your personal progress page.
                         </div>
                         <span className='error-msg' ref={usernameerrRef}>
-                            Username must be unique!
+                            {errorMsg}
                         </span>
                         <span ref={usernamebox} className='account-input'>
                             <input value={username} placeholder="Username" onChange={onUsernameChange}
@@ -88,10 +86,7 @@ function RegisterModal (props) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={validateUsername}>
-                        Stay Anonymous
-                    </Button>
-                    <Button variant="primary" onClick={validateUsername}>
+                    <Button variant="primary" onClick={submitUsername}>
                         Create Username
                     </Button>
                 </Modal.Footer>

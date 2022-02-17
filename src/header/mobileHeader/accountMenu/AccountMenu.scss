@@ -5,7 +5,10 @@
 
 .profile-icon {
     width: 50%;
-    margin: 10px auto -10px;
+    margin: 10px 0px -10px 19%;
+    @media (max-width: '767px') {
+        margin: 10px auto -10px;
+    }
 }
 
 #profile-name {

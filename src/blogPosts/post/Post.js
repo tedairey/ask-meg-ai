@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Post.scss';
 import NewComment from './newComment/NewComment';
 import Comment from './comment/Comment';
 import commenticon from '../../commenticon.png';
-import { formatDate } from '../../Helpers';
-import { UserContext } from '../../context/UserContext';
-import { useMediaQuery } from 'react-responsive';
+import { formatDate, getTimestamp } from '../../Helpers';
+import { AppUserContext, UserContext } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsPencil } from 'react-icons/bs';
 import { Modal, Button } from 'react-bootstrap';
 import NewPost from '../newPost/NewPost.js';
-import Endpoint from '../../config/Endpoint';
+import { updatePost } from '../../config/service/PostService';
 
 function Post (props){
     
@@ -22,14 +21,12 @@ function Post (props){
         [editMenu, setEditMenu] = useState('edit-menu d-none'),
         [isUserPost, setIsUserPost] = useState(false),
         [showDeleteModal, setShowDeleteModal] = useState(false),
+        [showCommentSection, setShowCommentSection] = useState(false),
         [showEditModal, setShowEditModal] = useState(false),
-        user = useContext(UserContext);
+        { user } = useContext(UserContext),
+        { isAppUser } = useContext(AppUserContext);
 
     let [commentSectionStyle, setCommentSectionStyle] = useState('comment-section d-none');
-    
-    const [showCommentSection, setShowCommentSection] = useState(false);
-
-    const isSmall = useMediaQuery({ query: '(max-width: 768px)'})
 
     useEffect(() => {
         setDate(formatDate(props.post.timestamp));
@@ -95,34 +92,33 @@ function Post (props){
     }
 
     const addComment = (comment, index) => {
-        let newComments;
+        const newPost = props.post;
         if (index !== undefined) {
-            newComments = props.post.comments;
-            newComments[index] = comment; 
+            newPost.comments[index] = comment;
         }
         else {
-            newComments = props.post.comments.concat(comment);
-            index = -1;
+            comment.timestamp = getTimestamp();
+            newPost.comments = props.post.comments.concat(comment);
         }
-        let newPost = props.post;
-        newPost.comments = newComments;
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newPost)
-        };
-        fetch(Endpoint + 'comments/save/' + index, requestOptions)
-            .then(res => res.json())
+        updatePost(props.post.id, newPost)
             .then(res => {
-                fetchComments(res.comments);
+                fetchComments(newPost.comments);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    const deleteComment = (index) => {
+        const newPost = props.post;
+        newPost.comments.splice(index, 1);
+        updatePost(props.post.id, newPost)
+            .then(res => {
+                fetchComments(newPost.comments);
             })
             .catch(err => {
                 console.log(err);
             })
-    }
-
-    const deleteComment = (newComments) => {
-        fetchComments(newComments);
     }
 
     const showEditMenu = () => {
@@ -178,15 +174,16 @@ function Post (props){
                     }
                 </span>
                 <div className='post-header'>
-                    {!isSmall && <>
-                        <Link to={'/profile/' + post.username} className='author'>{post.username}</Link>
-                    </>}
                     <h4 className='post-title'><strong>{post.title}</strong></h4>
-                    {isSmall && <>
-                        <div className='author'>
-                            <Link to={'/profile/' + post.username}>{post.username}</Link>
-                        </div>
-                    </>}
+                    <div className='authors'>
+                        By: {post.authors ? 
+                            post.authors :
+                            (isAppUser ? 
+                                post.username : 
+                                <Link to={'/profile/' + post.username}>{post.username}</Link>)
+                            
+                        }
+                    </div>
                 </div>
                 <hr className='post-divider'/>
                 <p className='post-body'>
@@ -195,14 +192,14 @@ function Post (props){
                 <br/>
                 <div className='post-footer'>
                     <span className='comment-section' onClick={toggleComments}>
-                        <img className='comment-icon' src={commenticon}/>
+                        <img className='comment-icon' src={commenticon} alt='comment icon'/>
                         Comments ({commentCount})
                     </span>
                     <span className='post-date'>{date}</span>
                 </div>
             </div>
             <div className={commentSectionStyle}>
-                {user &&
+                {user && user.username &&
                     <NewComment postID={post.id} addComment={addComment}/>
                 }  
                 {isLoaded ?

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import logo from '../meglogo.png'
 import './Header.scss';
-import Navbar from './navbar/Navbar.js';
 import AccountModals from './accountModals/AccountModals.js';
 import MobileHeader from './mobileHeader/MobileHeader';
 import MediaQuery from 'react-responsive';
 import SideMenu from './mobileHeader/sideMenu/SideMenu';
+import { Link } from 'react-router-dom';
   
 
 class Header extends Component {
@@ -25,12 +25,12 @@ class Header extends Component {
             <MediaQuery minWidth={768}>
                 <div className='banner row'>
                     <div className='col-auto col-md-4'>
-                        <a href="https://askmeg.ai">
+                        <a className='header-logo' href="https://askmeg.ai">
                             <img src={logo} className="logo" alt="logo" />
                         </a>
-                        <strong id="website-title">
+                        <Link id="website-title" to='/meet-meg'>
                             askmeg.ai
-                        </strong>
+                        </Link>
                     </div>
                     <div className='title col-md-4'>
                         <span className="title-text">
@@ -46,7 +46,6 @@ class Header extends Component {
                         </div>
                     </div>
                 </div>
-                <Navbar />
             </MediaQuery>
         </div>
       );

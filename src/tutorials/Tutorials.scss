@@ -1,0 +1,18 @@
+.tutorials {
+    text-align: center;
+    padding-top: 20px;
+    iframe {
+        margin: 10px auto;
+        height: 480px;
+        width: 480px;
+        border: 1px solid black;
+        border-radius: 10px;
+    }
+    @media (max-width: '767px') {
+        iframe {
+            height: 300px;
+            width: 300px;
+            border: none;
+        }
+    }
+}

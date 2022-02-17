@@ -1,19 +1,18 @@
-import React, { useRef, useContext, useEffect, useState } from 'react';
+import React, { useRef, useContext, useEffect } from 'react';
 import './SideMenu.scss';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../../../Helpers';
 import { UserContext } from '../../../context/UserContext';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import { useMediaQuery } from 'react-responsive';
-import BetaTestingModal from '../../../alertModals/BetaTestingModal';
+import UseOfApplication from '../../../useOfApplication/UseOfApplication';
 
 function SideMenu(props) {
     
     const panel = useRef(),
         blogs = useRef(),
         blogLink = useRef(),
-        user = useContext(UserContext).user,
-        [showBetaTesting, setShowBetaTesting] = useState(false),
+        { user } = useContext(UserContext),
         isLarge = useMediaQuery({ query: '(min-width: 768px)' });
 
     useEffect(() => {
@@ -36,42 +35,25 @@ function SideMenu(props) {
     }
 
     const closeMenu = (event) => {
-        if (user) {
-            toggleBlogMenu();
-            blogs.current.style.height = '0px';
-            blogLink.current.style.borderTop = '0';
-        }
         if (event.target.name !== 'no-scroll') {
             scrollTop();
         }
         panel.current.style.width = '0px';
         return false;
     }
-
-    const toggleBlogMenu = () => {
-        let height = blogs.current.style.height;
-        if (height === '' || height === '0px') {
-            blogs.current.style.height = '141px';
-            blogLink.current.style.borderTop = '.3em solid';
-        }
-        else {
-            blogs.current.style.height = '0px';
-            blogLink.current.style.borderTop = '0';
-        }
-    }
     
     return (
         <div className="side-menu">
             <div className='mobile-menu'>
-                <a name='no-scroll' className="menu-toggle" id="menu-toggle" onClick={openMenu} tabIndex="0">
+                <button name='no-scroll' className="menu-toggle" id="menu-toggle" onClick={openMenu} tabIndex="0">
                     <div className="hamburger"></div>
                     <div className="hamburger"></div>
                     <div className="hamburger"></div>
-                </a>
+                </button>
             </div>
             <div id='nav-menu' className='menu' ref={panel}>
-                <a href='#' id='closebtn' className="close-x" onClick={closeMenu}>&times;</a>
-                {user && isLarge ? <>
+                <button id='closebtn' className="close-x" onClick={closeMenu}>&times;</button>
+                {user && user.name && isLarge ? <>
                     <div className='profile-icon' style={{color: '#21a1af'}}>
                         <RiAccountCircleLine size='150px' onClick={openMenu}/>
                     </div>
@@ -85,27 +67,13 @@ function SideMenu(props) {
                 <Link name='no-scroll' to='/meet-meg/try-it-for-free' onClick={closeMenu}>Try It For Free</Link>
                 <Link name='no-scroll' to='/meet-meg/testimonials' onClick={closeMenu}>Testimonials</Link>
                 <Link to='/FAQ/tips-and-hints' onClick={closeMenu}>FAQ</Link>
-                {user ? <>
-                    <a ref={blogLink} name='no-scroll' id='blog-link' href='#' onClick={toggleBlogMenu}>
-                        Blog Posts
-                    </a>
-                    <div className='blog-menu' ref={blogs}>
-                        <Link to='/blog-posts/all' onClick={closeMenu}>Recent Posts</Link>
-                        <Link to={'/blog-posts/user'} onClick={closeMenu}>Your Posts</Link>
-                        <Link to='/blog-posts/new' onClick={closeMenu}>New Post</Link>
-                    </div> </> : <>
-                    <Link name='no-scroll' to='/blog-posts/all' onClick={closeMenu}>
-                        Community
-                    </Link>
-                </>}
-                <a name='no-scroll' href='#' onClick={() => setShowBetaTesting(true)}>
-                    Beta Testing
-                </a>
+                <Link to='/tutorials' onClick={closeMenu}>Tutorials</Link>
+                <Link to='/healthy-options' onClick={closeMenu}>Today's Healthy Foods</Link>
+                <Link to='/terms-of-use' onClick={closeMenu}>Terms of Use</Link>
+                <Link to='/privacy-policy' onClick={closeMenu}>Privacy Policy</Link>
                 <Link to='/about' onClick={closeMenu}>About</Link>
                 <Link name='no-scroll' to='/about/contact-us' onClick={closeMenu}>Contact Us</Link>
-                <Link to='/conduct' onClick={closeMenu}>Conduct</Link>
             </div>
-            <BetaTestingModal showModal={showBetaTesting} setShowModal={setShowBetaTesting}/>
         </div>
     );
 }

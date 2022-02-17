@@ -9,10 +9,6 @@ function MobileHeader(props) {
             <SideMenu/>
             <div className='mobile-title'>
                 askmeg.ai
-                {/* ASKMEG.AI */}
-                {/* <a href="https://askmeg.ai">
-                    <img src={logo} className="logo" alt="logo" />
-                </a> */}
             </div>
             <div className='mobile-login'>
                 <div className='log-in-menu-toggle'>

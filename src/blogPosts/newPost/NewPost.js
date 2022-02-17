@@ -1,47 +1,39 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import './NewPost.scss';
-import { UserContext } from '../../context/UserContext';
-import Endpoint from '../../config/Endpoint';
+import { AppUserContext, UserContext } from '../../context/UserContext';
+import { getTimestamp } from '../../Helpers';
+import { Link } from 'react-router-dom';
+import { updatePost, addPost } from '../../config/service/PostService';
 
 function NewPost(props) {
     const [title, setTitle] = useState(''),
         titleBox = useRef(),
-        [topic, setTopic] = useState(''),
-        topicBox = useRef(),
-        topicError = 'Please Select a Topic',
-        topicErrorRef = useRef(),
+        [authors, setAuthors] = useState(''),
+        authorsBox = useRef(),
         [body, setBody] = useState(''),
         bodyBox = useRef(),
-        [isEditingPost, setIsEditingPost] = useState(false);
+        [isEditingPost, setIsEditingPost] = useState(false),
+        { user } = useContext(UserContext),
+        { isAppUser } = useContext(AppUserContext);
 
     useEffect(() => {
         if (props && props.currentPost) {
             setTitle(props.currentPost.title);
+            setAuthors(props.currentPost.authors);
             setBody(props.currentPost.body);
-            setTopic(props.currentPost.topic);
             setIsEditingPost(true);
         }
-    }, [props.currentPost])
-
-    const user = useContext(UserContext);
+    }, [props.currentPost]);
 
     const submitPost = () => {
-        if (title && body && topic) {
-            if (isEditingPost && body !== props.currentPost.body) {
+        if (title && body) {
+            if (isEditingPost && (body !== props.currentPost.body || title !== props.currentPost.title)) {
                 let newPost = props.currentPost;
                 newPost.title = title;
-                newPost.topic = topic;
+                newPost.authors = authors;
                 newPost.body = body;
-                const requestOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newPost)
-                };
-                fetch(Endpoint + 'posts/updatePost', requestOptions)
-                    .then(res => res.json())
-                    .then(post => {
-                        //success
-                        //props.showSuccessModal(true);
+                updatePost(props.currentPost.id, newPost)
+                    .then(res => {
                         props.close();
                     })
                     .catch(err => {
@@ -49,45 +41,38 @@ function NewPost(props) {
                     })
             }
             else if (!isEditingPost) {
-                const newPost = {
-                    username: user.username,
-                    title: title,
-                    topic: topic,
-                    body: body
-                }
-                const requestOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newPost)
-                };
-                fetch(Endpoint + 'posts/newPost', requestOptions)
-                    .then(res => res.json())
-                    .then(post => {
+                const timestamp = getTimestamp(),
+                    newPost = {
+                        username: user.username,
+                        title: title,
+                        authors: authors,
+                        body: body,
+                        timestamp: timestamp,
+                        topic: '',
+                        comments: []
+                    };
+
+                addPost(newPost)
+                    .then(docRef => {
                         if (props.addPost) {
-                            props.addPost();
+                            props.addPost(docRef.id);
                             setTitle('');
+                            setAuthors('');
                             setBody('');
                             props.showModal(false);
                         }
                         if (props.fullPage) {
                             props.history.push('/blog-posts/user');
                         }
-                        else {
-                            //props.showModal(false);
-                        }
                     })
                     .catch(err => {
-                        console.log(err);
+                        console.error("Error adding document: ", err);
                     });
             }
         }
         else {
             if (!title) {
                 titleBox.current.style.borderColor = 'red';
-            }
-            if (!topic) {
-                topicBox.current.style.borderColor = 'red';
-                topicErrorRef.current.style.display = 'block';
             }
             if (!body) {
                 bodyBox.current.style.borderColor = 'red';
@@ -100,10 +85,9 @@ function NewPost(props) {
         titleBox.current.style.borderColor = 'black';
     }
 
-    const onTopicChange = (event) => {
-        setTopic(event.target.value);
-        topicBox.current.style.borderColor = 'black';
-        topicErrorRef.current.style.display = 'none';
+    const onAuthorsChange = (event) => {
+        setAuthors(event.target.value);
+        authorsBox.current.style.borderColor = 'black';
     }
 
     const onBodyChange = (event) => {
@@ -114,26 +98,23 @@ function NewPost(props) {
     if (user) {
         return (
             <div className='new-post'>
-                <h2 className="blog-posts-header">
+                <h2 className='blog-posts-header'>
                     New Post
                 </h2>
-                <div className='new-post-container'>
+                { isAppUser &&
+                    <div className='blog-links'>
+                        <Link to={'/blog-posts/all/app-user'}>Recent Posts</Link> | <Link to={'/blog-posts/user/app-user'}>Your Posts</Link>
+                    </div>
+                }
+                <div className={props.fullPage ? 'new-post-container page' : 'new-post-container'}>
                     <span className='title-box'>
                         <textarea className='blog-title' value={title} onChange={onTitleChange} 
                             placeholder="Title" ref={titleBox}/>
                     </span>
-                    <div className='topic-error' ref={topicErrorRef}>{topicError}</div>
-                    <span className='topic-box'>
-                        <select className='topic' value={topic} onChange={onTopicChange} ref={topicBox}>
-                            <option value=''>Select a topic...</option>
-                            <option value='Weight Loss'>Weight Loss</option>
-                            <option value='Emotional Eating'>Emotional Eating</option>
-                            <option value='Motivating Stories'>Motivating Stories</option>
-                            <option value='Feedback to Meg'>Feedback to Meg</option>
-                            <option value='Healthy Lifestyle'>Healthy Lifestyle</option>
-                            <option value='Daily Exercise Challenge'>Daily Exercise Challenge</option>
-                            <option value="Dietitian's Corner">Dietitian's Corner</option>
-                        </select>
+                    <span className='authors-box'>
+                        <textarea className='blog-authors' value={authors} onChange={onAuthorsChange}
+                            placeholder='Additional Contributors (Optional)' ref={authorsBox}>
+                        </textarea>
                     </span>
                     <span className='body-box'>
                         <textarea className='blog-body' rows='7' value={body} onChange={onBodyChange} 

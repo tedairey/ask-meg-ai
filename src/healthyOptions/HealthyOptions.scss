@@ -1,0 +1,58 @@
+.healthy-options {
+    background-color: white;
+    margin: 20px auto 50px;
+    max-width: 650px;
+    #just-healthy-image {
+        background-image: url('./Thumb-24.png');
+    }
+    #vegetarian-image {
+        background-image: url('./Circle-24.png');
+    }
+    #vegan-image {
+        background-image: url('./V-24.png');
+    }
+    #gluten-free-image {
+        background-image: url('./GF-24.png');
+    }
+    .options-bubbles {
+        margin: 20px 0px;
+        display: flex;
+        justify-content: center;
+        gap: 0.25em;
+        .bubble {
+            height: 150px;
+            width: 150px;
+            border-radius: 10%;
+            border: none;
+            color:#fff;
+            background-color: transparent;
+            .healthy-image {
+                background-size: 100px;
+                background-position: 0px 15px;
+                background-repeat: no-repeat;
+                height: 100%;
+                width: 100%;
+            }
+            &:hover {
+                font-weight: bold;
+            }
+        }
+        .active {
+            font-weight: bold;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .healthy-options {
+        .options-bubbles>.bubble {
+            height: 125px;
+            width: 125px;
+            font-size: 20px;
+            .healthy-image {
+                background-position: 0px;
+                background-size: 100%;
+            }
+        }
+    }
+}

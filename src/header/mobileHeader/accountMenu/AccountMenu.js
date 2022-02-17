@@ -12,7 +12,6 @@ function AccountMenu(props) {
     const { user } = useContext(UserContext);
 
     useEffect(() => {
-        console.log(user.username);
         function handleClickOutside(event) {
             if (panel.current && !panel.current.contains(event.target)) {
                 if (panel.current.style.width !== '' && panel.current.style.width !=='0px') {
@@ -28,7 +27,9 @@ function AccountMenu(props) {
     })
 
     const openMenu = () => {
-        panel.current.style.width = '250px';
+        if (user !== 'anon') {
+            panel.current.style.width = '250px';
+        }
     }
 
     const closeMenu = (event) => {
@@ -38,11 +39,11 @@ function AccountMenu(props) {
 
     return (
         <div className='account-menu'>
-            <div className='account-icon' style={{color: '#21a1af'}}>
+            <div className='account-icon' style={{color: 'white'}}>
                 <RiAccountCircleLine size='50px' onClick={openMenu}/>
             </div>
             <div id='account-panel' className='menu' ref={panel}>
-                <a href='#' id="closebtn" onClick={closeMenu}>&times;</a>
+                <button className='menu-link' id="closebtn" onClick={closeMenu}>&times;</button>
                 { user.username !== 'anonymous' ? <> 
                     <div className='profile-icon' style={{color: '#21a1af'}}>
                         <RiAccountCircleLine size={'lg'} onClick={openMenu}/>
@@ -50,8 +51,16 @@ function AccountMenu(props) {
                     <Link to={`/profile/` + user.username} id='profile-name' className='title' onClick={closeMenu}>{user.username}</Link>
                     <Link to='/blog-posts/user' onClick={closeMenu}>Your Blog Posts</Link>
                     <Link to='/blog-posts/new' onClick={closeMenu}>New Blog Post</Link>
+                    <Link to='/healthy-options' onClick={closeMenu}>Today's Healthy Foods</Link>
+                    <a href={user.progresswebpage} target='_blank'
+                            rel="noopener noreferrer">
+                        View Progress Page
+                    </a>
+                    {user.shoppingId &&
+                        <Link to='/shopping-list' onClick={closeMenu}>Your Shopping List</Link>
+                    }
                 </> : <>
-                    <a href='#' onClick={props.showRegister}>Choose a Username</a>
+                    <button className='menu-link' onClick={props.showRegister}>Choose a Username</button>
                     <RegisterModal
                         registerModal={props.registerModal}
                         showRegister={props.showRegister}
@@ -59,7 +68,7 @@ function AccountMenu(props) {
                         setLogin={props.setLogin}
                     /> 
                 </>}
-                <a href='#' onClick={props.logout}>Logout</a>
+                <button className='menu-link' onClick={props.logout}>Logout</button>
             </div>
         </div>
     );

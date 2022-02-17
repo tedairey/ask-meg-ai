@@ -12,6 +12,15 @@
         button {
             margin-bottom: 15px;
         }
+        .link-container {
+            margin-top: 20px;
+            .shopping-link {
+                color: green;
+                border: 1px solid green;
+                padding: .375rem .75rem;
+                border-radius: 5px;
+            }
+        }
         @media screen and (max-width: 768px) {
             .profile-photo {
                 max-width: 100px;

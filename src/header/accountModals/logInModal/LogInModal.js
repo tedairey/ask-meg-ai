@@ -2,8 +2,7 @@ import React, { useState, useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './LogInModal.scss';
-import fire from '../../../config/Fire';
-import Endpoint from '../../../config/Endpoint';
+import { loginUser } from '../../../config/service/UserService';
 
 function LogInModal(props) {
     const [email, setEmail] = useState(''),
@@ -21,33 +20,9 @@ function LogInModal(props) {
     }
 
     const validateLogin = () => {
-        fire.auth().signInWithEmailAndPassword(email, password)
+        loginUser(email, password)
             .then(res => {
-                if (!res) {
-                    errormsg.current.style.display = 'block';
-                    emailbox.current.style.borderColor = 'red';
-                    passwordbox.current.style.borderColor = 'red';
-                    return false;
-                }
-                else {
-                    res.user.getIdToken(true)
-                        .then(idToken => {
-                        const requestOptions = {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: idToken
-                        };
-                        fetch(Endpoint + 'user/', requestOptions)
-                            .then(res => res.json())
-                            .then(user => {
-                                user.username = user.blogname;
-                                props.setLogin(user);
-                            })
-                            .catch(err => {
-                                console.log(err);
-                            })
-                        })
-                }
+                props.setLogin(res);
             })
             .catch(err => {
                 errormsg.current.style.display = 'block';
@@ -88,11 +63,15 @@ function LogInModal(props) {
                     </span>
                 </Modal.Body>
                 <Modal.Footer>
-                    Don't Have an Account?
-                    <button className='link' onClick={props.handleRegister}>
-                        Register
-                    </button>
-                    <br/>
+                    {!props.isAppUser && <>
+                        <div className='login-modal-footer'>
+                            Don't Have an Account?
+                            <a className='btn learn-more' href='https://testflight.apple.com/join/bYiSDeWg'>
+                                Get The App
+                            </a>
+                        </div>
+                        <br/>
+                    </>}
                     <Button variant="primary" onClick={validateLogin}>
                         Log In
                     </Button>

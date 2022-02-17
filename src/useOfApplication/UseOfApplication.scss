@@ -1,6 +1,5 @@
 .terms {
     margin-top: 20px;
-    color: white;
     .terms-intro {
         margin: 15px auto;
         .terms-title {
@@ -16,5 +15,11 @@
             margin: 5px auto;
             font-weight: bold;
         }
+    }
+}
+
+@media (min-width: 768px) {
+    .terms {
+        color: white;
     }
 }

@@ -7,6 +7,20 @@
     font-weight: bold;
 }
 
+.login-modal-footer {
+    .learn-more {
+        border: 1px solid #126702;
+        background: transparent;
+        color: #126702;
+        border-radius: 5px;
+        margin-left: 5px;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
 .link {
     border: none;
     background: transparent;
