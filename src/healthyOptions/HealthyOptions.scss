@@ -1,7 +1,7 @@
 .healthy-options {
     background-color: white;
-    margin-top: 20px;
-    margin-bottom: 50px;
+    margin: 20px auto 50px;
+    max-width: 650px;
     #just-healthy-image {
         background-image: url('./Thumb-24.png');
     }
@@ -50,7 +50,7 @@
             width: 125px;
             font-size: 20px;
             .healthy-image {
-                background-position: 0px 5px;
+                background-position: 0px;
                 background-size: 100%;
             }
         }
