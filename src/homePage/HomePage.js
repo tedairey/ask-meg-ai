@@ -38,8 +38,8 @@ function HomePage(props) {
     }, [requestedPage]);
 
   return (
-    <div className="home-page">
-        <div className="row">
+    <main className="home-page">
+        <section className="row">
             <div className="col-lg-6 text">
                 <h2 className='title-text'>
                     Meg: Your Next Gen Weight Loss Assistant
@@ -48,9 +48,9 @@ function HomePage(props) {
             <div className='col-lg-6 home-image'>
                 <img src={intro} alt='intro-gif'/>
             </div>
-        </div>
+        </section>
         <hr/>
-        <div className='section'>
+        <section className='section'>
             <div className='text'>
                 <h2 className='title-text text-center'>Make Your Weight Loss Achievable With Meg</h2>
                 Using proven science, Meg scores every food
@@ -63,11 +63,11 @@ function HomePage(props) {
                     <img className='apple-badge' src={AppleBadge}/>
                 </a>
             </div>
-        </div>
+        </section>
         <hr ref={howItWorksRef}/>
         <HowItWorks/>
         <hr ref={tryItForFreeRef}/>
-        <div className='section'>
+        <section className='section'>
             <h2 className='title-text text-center'>
                 Try Meg For Free
             </h2>
@@ -80,7 +80,7 @@ function HomePage(props) {
                     <img className='apple-badge' src={AppleBadge}/>
                 </a>
             </div>
-        </div>
+        </section>
         <hr/>
         {isMedium && <h2 className='title-text'>
             Learn. Share.
@@ -117,7 +117,7 @@ function HomePage(props) {
                 </a>
             </div>
         </div>
-    </div>
+    </main>
   );
 }
 

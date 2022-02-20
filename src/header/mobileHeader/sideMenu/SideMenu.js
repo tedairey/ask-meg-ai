@@ -40,7 +40,7 @@ function SideMenu(props) {
     }
     
     return (
-        <div className="side-menu">
+        <nav className="side-menu">
             <div className='mobile-menu'>
                 <button name='no-scroll' className="menu-toggle" id="menu-toggle" onClick={openMenu} tabIndex="0">
                     <div className="hamburger"></div>
@@ -71,7 +71,7 @@ function SideMenu(props) {
                 <Link to='/about' onClick={closeMenu}>About</Link>
                 <Link name='no-scroll' to='/about/contact-us' onClick={closeMenu}>Contact Us</Link>
             </div>
-        </div>
+        </nav>
     );
 }
 
