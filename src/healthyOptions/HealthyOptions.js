@@ -4,6 +4,10 @@ import FoodsTable from './foodsTable/FoodsTable';
 import { useMediaQuery } from 'react-responsive';
 import { AppUserContext } from '../context/UserContext';
 import { getTableData, getHeader } from '../config/service/FoodService';
+import HealthyImage from './HealthyImage.png'
+import VegetarianImage from './VegetarianImage.png'
+import VeganImage from './VeganImage.png'
+import GlutenFreeImage from './GlutenFreeImage.png'
 
 function HealthyOptions(props) {
 
@@ -101,17 +105,21 @@ function HealthyOptions(props) {
         <div className='healthy-options' ref={healthyOptionsRef}>
             <div className='options-bubbles'>
                 <button id='just-healthy' ref={currentOption} onClick={switchOptions} className='bubble active' aria-controls='just-healthy'>
-                    <div id='just-healthy-image' className='healthy-image'></div>
+                    <img id='just-healthy-image' className='healthy-image' alt="Healthy bubble" src={HealthyImage}/>
+                    <label className='options-label'>Healthy</label>
                 </button>
                 <button id='just-vegetarian' onClick={switchOptions} className='bubble' aria-controls='just-vegetarian'>
-                    <div id='vegetarian-image' className='healthy-image'></div>
+                    <img id='vegetarian-image' className='healthy-image' alt="Vegetarian bubble" src={VegetarianImage}/>
+                    <label className='options-label'>Vegetarian</label>
                 </button>
                 {isSmall && <br/>}
                 <button id='just-vegan' onClick={switchOptions} className='bubble' aria-controls='just-vegan'>
-                    <div id='vegan-image' className='healthy-image'></div>
+                    <img id='vegan-image' className='healthy-image' alt="Vegan bubble" src={VeganImage}/>
+                    <label className='options-label'>Vegan</label>
                 </button>
                 <button id='gluten-free' onClick={switchOptions} className='bubble' aria-controls='gluten-free'>
-                    <div id='gluten-free-image' className='healthy-image'></div>
+                    <img id='gluten-free-image' className='healthy-image' alt="Gluten Free bubble" src={GlutenFreeImage}/>
+                    <label className='options-label'>Gluten Free</label>
                 </button>
             </div>
             <div>

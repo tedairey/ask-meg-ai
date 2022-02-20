@@ -5,13 +5,10 @@ import { scrollTop } from '../../../Helpers';
 import { UserContext } from '../../../context/UserContext';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import { useMediaQuery } from 'react-responsive';
-import UseOfApplication from '../../../useOfApplication/UseOfApplication';
 
 function SideMenu(props) {
     
     const panel = useRef(),
-        blogs = useRef(),
-        blogLink = useRef(),
         { user } = useContext(UserContext),
         isLarge = useMediaQuery({ query: '(min-width: 768px)' });
 
