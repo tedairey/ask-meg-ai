@@ -15,15 +15,38 @@
         padding: 2px 8px;
         margin: 2px 10px;
         a {
-            color: white;
             font-weight: bold;
             font-size: 20px;
+            &:hover {
+                color: #fff
+            }
+        }
+    }
+    .site-info-text {
+        text-align: center;
+        padding-bottom: 20px;
+        a {
+            color: black;
+            font-weight: bold;
         }
     }
 }
 
-.site-info-text {
-    color: white;
-    text-align: center;
-    margin-bottom: 20px;
+@media (min-width: '768px') {
+    .footer {
+        .site-info-text {
+            color: white;
+            a {
+                color: white;
+            }
+        }
+    }
+    li {
+        a {
+            color: white;
+        }
+    }
+    .media-logo {
+        color: white;
+    }
 }

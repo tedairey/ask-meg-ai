@@ -2,13 +2,26 @@
 
 #website-title {
     color: $megBlue;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .header {
+        position: fixed;
+    }
+}
+
+.header {
+    width: 100%;
+    z-index: 50;
 }
 
 .sticky {
     position: fixed;
     top: 0;
-    width: 100%;
-    z-index: 5;
+    left: 0;
+    right: 0;
+    z-index: 10;
 }
 
 .logo {
@@ -17,12 +30,22 @@
     pointer-events: none;
     margin: 10px;
     cursor: pointer;
+    border-radius: 10px;
+    @media (max-width: '768px') {
+        height: 40px;
+        width: 40px;
+    }
 }
 
 .banner {
     background-color: white;
     color: black;
     border-bottom: 1px solid grey;
+    margin-right: 0px;
+}
+
+.modal-open {
+    //overflow: scroll;
 }
 
 .banner .title {
@@ -41,6 +64,14 @@
     float: right;
     margin-right: 10px;
     cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+@media (min-width: '768px') {
+    #menu-toggle {
+        margin-right: 0px;
+    }
 }
 
 .log-in-menu {
@@ -53,9 +84,16 @@
     font-size: 20px;
 }
 
+@media (min-width: '768px') {
+    .accounts {
+        margin-right: 10px;
+    }
+}
+
 .hamburger {
     width: 40px;
     background-color: $megBlue;
     height: 4px;
     margin: 5px 0px;
+    border-radius: 5px;
 }

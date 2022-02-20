@@ -9,9 +9,19 @@
     #menu-toggle {
         float: left;
         margin-left: 15px;
+        border: none;
+        background: transparent;
     }
 }
-    
+
+button.menu-link {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
 
 .menu {
     height: 100%; 
@@ -19,42 +29,56 @@
     position: fixed;
     z-index: 1;
     top: 0;
-    background-color: #fff; 
+    background: rgba(255, 255, 255, 0.863);
     overflow-x: hidden;
     transition: 0.5s;
-    .title {
+    .panel-title {
         font-weight: bold;
         border-bottom: 3px solid $megBlue;
         padding-top: 12px;
     }
-    a {
+    #profile-link {
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 3px solid $megBlue;
+    }
+    a, .menu-link {
         padding: 8px 8px 8px 12px;
         text-decoration: none;
-        font-size: 25px;
+        font-size: 20px;
         color: $megBlue;
         display: block;
         transition: 0.3s;
         border-bottom: 1px solid grey;
+        white-space: nowrap;
+        background: transparent;
     }
     #closebtn {
         position: absolute;
-        top: -5px;
+        top: -6px;
         right: 5px;
         font-size: 36px;
         margin-left: 50px;
-        border-bottom: none;
+        border: none;
+        background: transparent;
+        color: $megBlue;
+    }
+    @media screen and (max-width: '768px') {
+        .panel-title {
+            padding-top: 16px;
+            height: 62px;
+        }
+        #closebtn {
+            top: -2px;
+        }
     }
     .blog-menu {
-        background-color: #eee; 
+        background-color: rgba(230, 230, 230, 0.863); 
         overflow-y: hidden;
         height: 0;
         transition: 0.5s;
         a {
             padding: 8px 8px 8px 20px;
-            text-decoration: none;
-            font-size: 25px;
-            color: $megBlue;
-            display: block;
             transition: 0.3s;
             border-bottom: 1px solid darkgray;
         }
@@ -73,7 +97,9 @@
 
 @media screen and (max-height: 450px) {
     .menu {
-        a {font-size: 18px;}
+        a {
+            font-size: 18px;
+        }
         padding-top: 15px;
     }
 }
@@ -81,15 +107,14 @@
 @media screen and (min-width: 768px) {
     #nav-menu {
         right: 0;
-        border-left: 1px solid grey;
         a {
             text-align: left;
         }
     }
     .side-menu {
         float: right;
-        margin: auto 0px;
-        padding: 0px 5px;
+        margin: auto 0px auto -5px;
+        padding: 0px;
         width: auto;
     }
 }

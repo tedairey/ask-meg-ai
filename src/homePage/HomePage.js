@@ -1,52 +1,123 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './HomePage.scss';
 import AppleBadge from '../App_Store_Badge.svg';
+import HowItWorks from '../howItWorks/HowItWorks';
+import Testimonials from './testimonials/Testimonials';
 import { Link } from 'react-router-dom';
 import { scrollTop } from '../Helpers';
+import { useMediaQuery } from 'react-responsive';
+import intro from '../homePageImages/intro.gif';
+import learn from '../homePageImages/learn-share.jpeg';
 
-function HomePage() {
+function HomePage(props) {
+
+    const requestedPage = props.match.params.handle,
+        isSmall = useMediaQuery({query: '(max-width: 768px)'}),
+        isMedium = useMediaQuery({query: '(max-width: 991px)'}),
+        howItWorksRef = useRef(),
+        tryItForFreeRef = useRef(),
+        testimonialsRef = useRef();
+
+    useEffect(() => {
+        if (requestedPage) {
+            let headerOffset = isSmall ? 60 : 81;
+            switch (requestedPage) {
+                case 'how-it-works' :
+                    window.scrollTo(0, howItWorksRef.current.offsetTop - headerOffset);
+                    break;
+                case 'testimonials' :
+                    window.scrollTo(0, testimonialsRef.current.offsetTop - headerOffset);
+                    break;
+                case 'try-it-for-free' :
+                    window.scrollTo(0, tryItForFreeRef.current.offsetTop - headerOffset);
+                    break;
+                default :
+                    scrollTop();
+            }
+        }
+    }, [requestedPage]);
+
   return (
-    <div className="home-page container">
-        <div className="row">
-            <div className="col-md-4 text">
-                <h1>
-                    Meg: The Next Generation Weight Loss App Is Here
-                </h1>
-                <a className= "col-2" id="apple" href="https://www.apple.com/ios/app-store/">
-                    <img src={AppleBadge}/>
+    <main className="home-page">
+        <section className="row">
+            <div className="col-lg-6 text">
+                <h2 className='title-text'>
+                    Meg: Your Next Gen Weight Loss Assistant
+                </h2>
+            </div>
+            <div className='col-lg-6 home-image'>
+                <img src={intro} alt='intro-gif'/>
+            </div>
+        </section>
+        <hr/>
+        <section className='section'>
+            <div className='text'>
+                <h2 className='title-text text-center'>Make Your Weight Loss Achievable With Meg</h2>
+                Using proven science, Meg scores every food
+                you eat. Instantly, on your phone. Thumbs
+                up, helps you lose weight. Thumbs down,
+                causes weight gain.
+            </div>
+            <div className='get-the-app'>
+                <a href="https://apps.apple.com/us/app/meg-ai/id1575765342">
+                    <img className='apple-badge' src={AppleBadge}/>
                 </a>
             </div>
-            <div className="col-md-8">
-                <img id="ask" src="https://crowdlly.com/video.gif"/>
+        </section>
+        <hr ref={howItWorksRef}/>
+        <HowItWorks/>
+        <hr ref={tryItForFreeRef}/>
+        <section className='section'>
+            <h2 className='title-text text-center'>
+                Try Meg For Free
+            </h2>
+            <div className='text'>
+                Use Meg for 14-days free. Like Meg? Subscribe and please tell your friends. Don’t Like Meg? 
+                Just cancel your subscription within 14 days. No hassle. And please tell us why so we can improve. 
+            </div>
+            <div className='get-the-app'>
+                <a href="https://apps.apple.com/us/app/meg-ai/id1575765342">
+                    <img className='apple-badge' src={AppleBadge}/>
+                </a>
+            </div>
+        </section>
+        <hr/>
+        {isMedium && <h2 className='title-text'>
+            Learn. Share.
+        </h2>}
+        <div className='row section'>
+            <div className='home-image col-lg-5'>
+                <img src={learn} alt='learn-gif'/>
+            </div>
+            <div className='col-lg-7 m-auto'>
+                {!isMedium && 
+                <h2 className='title-text'>
+                    Learn. Share.
+                </h2>
+                }
+                <div className='text'>  
+                    Join our community. Get advice on emotional eating, motivation, diet choices and daily 
+                    exercise ideas directly from our experts. Read about the experiences of other users.  
+                    Share a story of your own.
+                </div>
             </div>
         </div>
-        <hr></hr>
-        <div className="gif row">
-            <div className="col-md-8">
-                <img src="https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_limit,w_695/v1568420562/emokuhietha0cpmkpsb2.jpg"></img>
-            </div>
-            <div className="col-md-4 text">
-                <p>
-                    <strong>Meg Is A Next Generation Of Dietitian In Your Pocket.</strong><br/>
-                    A first-of-its-kind solution, Meg combines the latest proven science, 
-                    expert coaching and artificial intelligence to your make weight loss success achievable. 
-                    Meg is a next generation of dietitian. An expert in your pocket and fully voice-enabled. 
-                    Just talk to Meg, 24/7.
-                </p>
-            </div>
-        </div>
-        <hr></hr>
-        <div className="buttons">
-            <div id="learn-more">
-                <Link to='/how-it-works'>
-                    <button className="btn back" onClick={scrollTop}>Learn More</button>
+        <hr ref={testimonialsRef}/>
+        <Testimonials/>
+        <br/>
+        <div className='buttons'>
+            <div id='learn-more'>
+                <Link to='/FAQ/tips-and-hints'>
+                    <button className='btn back' onClick={scrollTop}>FAQs</button>
                 </Link>
             </div>
-            <div id="get-the-app">
-                <button className="btn submit" formAction="https://www.apple.com/ios/app-store/">Get The App</button>
+            <div className='get-the-app'>
+                <a href="https://apps.apple.com/us/app/meg-ai/id1575765342">
+                    <img className='apple-badge' src={AppleBadge}/>
+                </a>
             </div>
         </div>
-    </div>
+    </main>
   );
 }
 

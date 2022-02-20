@@ -1,74 +1,24 @@
 .how-it-works {
-    color: white;
-}
-
-#meg-campaign-video {
-    border: none;
-    height: 400px;
-}
-
-.section {
-    margin-top: 20px;
-    span {
-        font-size: 24px;
-    }
-    .person {
-        font-style: italic;
-    }
-    img {
-        border-radius: 10px;
-        border: 1px solid black;
-        padding: 0px;
-    }
-}
-
-.carousel-header {
-    text-align: center;
-    margin: 20px auto;
-    width: 80%;
-}
-
-.carousel {
-    border: 1px solid black;
-    .carousel-item {
-        p {
-            color: black;
+    .section {
+        .section-text {
+            font-size: 20px;
+            margin: 10px auto 20px;
         }
-    }
-    .carousel-control-next, .carousel-control-prev {
-        width: 8%;
-        background-color: grey;
-    }
-    .carousel-indicators {
-        margin-bottom: 0;
-        z-index: 3;
-        li {
-            background-color: black;
+        @media (max-width: '767px') {
+            .section-text {
+                font-size: 18px;
+                line-height: 1.3;
+                margin-top: 20px;
+            }
+        }
+        .person {
+            font-style: italic;
         }
     }
 }
 
-.how-it-works-header {
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-@media screen and (max-width: 767px) {
-    .how-it-works-header {
-        margin-bottom: 20px;
-        text-align: center;
-    }
-    #meg-campaign-video {
-        height: 300px;
-    }
-    .carousel-header {
-        font-size: 20px;
-    }
-}
-
-@media screen and (min-width: 992px) {
-    .carousel {
-        width: 80%;
-        margin: auto;
+@media (min-width: '768px') {
+    .how-it-works {
+        color: white;
     }
 }

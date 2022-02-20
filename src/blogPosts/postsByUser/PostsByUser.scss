@@ -1,0 +1,49 @@
+.new-post-button {
+    position: fixed;
+    cursor: pointer;
+    right: 30px;
+    bottom: 30px;
+    background-color: white;
+    border-radius: 8px;
+    border: 3px solid black;
+    img {
+        float: right;
+        padding: 3px;
+    }
+}
+
+.new-post-hover {
+    color: black;
+    padding: 18px 10px;
+    font-weight: bold;
+    transition: 0.3s;
+    right: 70px;
+    bottom: 30px;
+    width: 0;
+    position: fixed;
+    height: 70px;
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 5px;
+    border-right: none;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.new-post-modal-header {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    .close {
+        padding: 1.75rem 1rem;
+    }
+} 
+
+.show-new-post {
+    height: 70px;
+    width: 70px;
+    border: 3px solid black;
+    margin: -3px;
+    border-radius: 8px;
+}

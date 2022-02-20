@@ -18,6 +18,12 @@
 .env.test.local
 .env.production.local
 
+# teamPhotos
+public/teamPhotos/
+
+#config
+**/config
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

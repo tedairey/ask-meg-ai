@@ -1,10 +1,5 @@
-@import '../../../variables.scss';
-
-#register {
-    display: inline;
-    padding-right: 5px;
-    color: $megBlue;
-    font-weight: bold;
+.register-message {
+    margin-bottom: 10px;
 }
 
 .error-msg {

@@ -1,217 +1,98 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './RegisterModal.scss';
-import RegisterField from './registerField/RegisterField';
-import MediaQuery from 'react-responsive';
+import { verifyUsername } from '../../../config/service/UserService';
 
-class RegisterModal extends Component {
-    constructor(props){
-        super(props) 
-        this.state = {
-            
-        }
-        this.profile = {};
-    }
+function RegisterModal (props) {
+    const [username, setUsername] = useState(''),
+        [errorMsg, setErrorMsg] = useState(''),
+        usernameerrRef = useRef(),
+        usernamebox = useRef();
 
-    validateField = (field, err, box) => {
-        if (!field) {
-            err.style.display = 'block';
-            box.style.borderColor = 'red';
-            return false;
-        }
-        return true;
-    }
-
-    validateFirstName = (name, err, box) => {
-        if (this.validateField(name, err, box)) {
-            this.profile.firstName = name;
-        }
-    }
-
-    validateLastName = (name, err, box) => {
-        if (this.validateField(name, err, box)) {
-            this.profile.lastname = name;
-        }
-    }
-
-    validateEmail = (email, err, box) => {
-        if (!this.validateField(email, err, box)) {
-            this.setState({emailerr: 'Email is a required field'});
+    const submitUsername = () => {
+        if (validateUsername()) {
+            verifyUsername(username)
+                .then(res => {
+                    if (res) {
+                        props.closeRegister(username);
+                    }
+                    else {
+                        setErrorMsg('Username must be unique!')
+                        usernameerrRef.current.style.display = 'block';
+                        usernamebox.current.style.borderColor = 'red';
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    setErrorMsg('Username must be unique!')
+                    usernameerrRef.current.style.display = 'block';
+                    usernamebox.current.style.borderColor = 'red';
+                });
         }
         else {
-            fetch("http://localhost:8088/email/" + email)
-            .then(res => res.json())
-            .then(user => {
-                if (user) {
-                    this.setState({emailerr: 'Email must be unique'})
-                    err.style.display = 'block';
-                    box.style.borderColor = 'red';
-                    return false;
-                }
-                else {
-                    this.profile.email = email;
-                }
-            })
-            .catch(err => {
-                err.style.display = 'block';
-                box.style.borderColor = 'purple';
-                return false;
-            });
-        }
-        return true;
-    }
-
-    validateUsername = (username, err, box) => {
-        if (!this.validateField(username, err, box)) {
-            this.setState({usernameerr: 'Username is a required field'});
-        }
-        else {
-            fetch("http://localhost:8088/user/" + username)
-            .then(res => res.json())
-            .then(user => {
-                if (user) {
-                    this.setState({usernameerr: 'Username must be unique'});
-                    err.style.display = 'block';
-                    box.style.borderColor = 'red';
-                    return false;
-                }
-                else {
-                    this.profile.username = username;
-                }
-            })
-            .catch(err => {
-                err.style.display = 'block';
-                box.style.borderColor = 'green';
-                return false;
-            });
-        }
-        return true;
-    }
-
-    validatePassword = (password, err, box) => {
-        if (!this.validateField(password, err, box)) {
-            this.setState({passworderr: 'Password is a required field'});
-        }
-        else {
-            this.setState({passwordref: err, passwordbox: box});
-            this.profile.password = password;
+            usernameerrRef.current.style.display = 'block';
+            usernamebox.current.style.borderColor = 'red';
         }
     }
 
-    validateConfirm = (confirm, err, box) => {
-        this.setState({confirmbox: box});
-        this.profile.confirm = confirm;
-    }
-
-    confirmPasswords = () => {
-        const password=this.profile.password,
-            confirm=this.profile.confirm,
-            passwordref=this.state.passwordref,
-            passwordbox=this.state.passwordbox,
-            confirmbox=this.state.confirmbox;
-
-        if (!password) {
-            this.setState({passworderr: 'Password is a required field'})
-            passwordref.style.display = 'block';
-            passwordbox.style.borderColor = 'red';
+    const validateUsername = () => {
+        if (!username) {
+            setErrorMsg('Please enter a username');
         }
-        if (!password || password !== confirm) {
-            this.setState({passworderr: 'Passwords do not match'})
-            passwordref.style.display = 'block';
-            passwordbox.style.borderColor = 'red';
-            confirmbox.style.borderColor = 'red';
+        else if (username.includes(' ')) {
+            setErrorMsg('Username cannot contain spaces');
+        }
+        else if (username.length > 12) {
+            setErrorMsg('Username must be less than 12 characters');
         }
         else {
             return true;
         }
+        return false;
     }
 
-    isEnabled = () => {
-        return Object.keys(this.profile).length === 6 ? true : false
+    const onUsernameChange = (event) => {
+        setUsername(event.target.value);
     }
 
-    handleCreate = () => {
-        if (this.isEnabled() && this.confirmPasswords()) {
-            const newUser = {
-                email: this.profile.email,
-                username: this.profile.username,
-                firstName: this.profile.firstName,
-                lastName: this.profile.lastname,
-                password: this.profile.password,
-                isAdmin: false
-            }
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newUser)
-            };
-            fetch('http://localhost:8088/newUser', requestOptions)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(this.profile);
-                    this.props.closeRegister();
-                    this.props.setLogin(newUser);
-                })
-                .catch(console.log('error'));
-        }
+    const clearError = (event) => {
+        usernameerrRef.current.style.display = 'none';
+        usernamebox.current.style.borderColor = 'grey';
     }
 
-    render() {
-        return (
-            <span id="register-modal">
-                <MediaQuery minWidth={768}>
-                    <a id="register" href="#" onClick={this.props.showRegister}>
-                        Register
-                    </a>
-                </MediaQuery>
-
-                <Modal show={this.props.registerModal} onHide={this.props.closeRegister}>
-                    <Modal.Header closeButton>
-                    <Modal.Title>Create an Account</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <RegisterField
-                            placeholder="Email" errormsg={this.state.emailerr}
-                            validateField={this.validateEmail}
-                        />
-                        <RegisterField
-                            placeholder="First Name" errormsg="First Name is required"
-                            validateField={this.validateFirstName}
-                        />
-                        <RegisterField
-                            placeholder="Last Name" errormsg="Last Name is required"
-                            validateField={this.validateLastName}
-                        />
-                        <RegisterField
-                            placeholder="Username" errormsg={this.state.usernameerr}
-                            validateField={this.validateUsername}
-                        />
-                        <RegisterField
-                            placeholder="Password" errormsg={this.state.passworderr}
-                            validateField={this.validatePassword} isPassword='password'
-                        />
-                        <RegisterField
-                            placeholder="Confirm Password" errormsg=""
-                            validateField={this.validateConfirm} isPassword='password'
-                        />
-                    </Modal.Body>
-                    <Modal.Footer>
-                    <Button variant="secondary" onClick={this.props.closeRegister}>
-                        Close
+    return (
+        <span id="register-modal">
+            <Modal show={props.registerModal} onHide={props.closeRegister}>
+                <Modal.Header>
+                    <Modal.Title>Create a Username</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className='register-username'>
+                        <div className='register-message'>
+                            Welcome to <strong>askmeg.ai!</strong> First step, create a username.
+                            This username will be displayed on public blog posts and comments
+                            you make throughout the website, and on your profile where you
+                            can manage your account by changing your password, or viewing
+                            your personal progress page.
+                        </div>
+                        <span className='error-msg' ref={usernameerrRef}>
+                            {errorMsg}
+                        </span>
+                        <span ref={usernamebox} className='account-input'>
+                            <input value={username} placeholder="Username" onChange={onUsernameChange}
+                                onFocus={clearError}/>
+                        </span>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={submitUsername}>
+                        Create Username
                     </Button>
-                    <Button variant="primary" onClick={this.handleCreate}>
-                        Create an Account
-                    </Button>
-                    </Modal.Footer>
-                </Modal>
-            </span>
-        );
-    }
+                </Modal.Footer>
+            </Modal>
+        </span>
+    );
 }
-
-RegisterModal.propTypes = {
-
-};
 
 export default RegisterModal

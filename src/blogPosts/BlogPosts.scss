@@ -1,14 +1,39 @@
 .blog-posts {
     color: white;
-}
-
-.blog-posts-header {
-    text-align: center;
-    margin: 20px 0px;
+    .blog-posts-header {
+        text-align: center;
+        margin: 20px 0px;
+    }
+    .blog-links {
+        text-align: center;
+        a {
+            color: black;
+            border: 1px solid grey;
+            padding: 3px 5px;
+            border-radius: 5px;
+        }
+    }
+    .spinner-grow {
+        height: 5rem;
+        width: 5rem;
+    }
 }
 
 .posts-list {
     list-style: none;
-    margin: 20px;
+    margin: 20px auto;
     padding-inline-start: 0px;
+}
+
+@media (min-width: 992px) {
+    .blog-posts {
+        max-width: 80%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-posts {
+        color: black;
+    }
 }

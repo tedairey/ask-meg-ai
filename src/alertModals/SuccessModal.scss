@@ -1,0 +1,15 @@
+.modal-message {
+    .success-icon {
+        svg {
+            height: 75px;
+            width: 75px;
+        }
+    }
+    .success-message {
+        position: relative;
+        top: 5px;
+        padding-left: 10px;
+        font-weight: 400;
+        font-size: 30px;
+    }
+}

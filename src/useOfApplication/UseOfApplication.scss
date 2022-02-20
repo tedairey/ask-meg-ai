@@ -1,0 +1,25 @@
+.terms {
+    margin-top: 20px;
+    .terms-intro {
+        margin: 15px auto;
+        .terms-title {
+            margin-bottom: 10px;
+        }
+    }
+    .terms-list {
+        padding-left: 15px;
+        li {
+            margin-bottom: 5px;
+        }
+        .terms-italics {
+            margin: 5px auto;
+            font-weight: bold;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .terms {
+        color: white;
+    }
+}

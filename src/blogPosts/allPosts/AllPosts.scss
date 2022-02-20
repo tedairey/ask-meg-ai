@@ -1,0 +1,42 @@
+.all-posts {
+    .topic-container {
+        text-align: center;
+        font-size: 20px;
+        .topic-select {
+            margin-left: 5px;
+            border: 1px solid black;
+            border-radius: 5px;
+            &:focus {
+                box-shadow: none;
+                outline: none;
+            }
+        }
+    }
+    @media (max-width: '767px') {
+        .topic-container {
+            font-size: 16px;
+        }
+    }
+}
+
+.page-control {
+    display: flex;
+    justify-content: center;
+    .page-button {
+        padding: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        border: 1px solid black;     
+        &.prev {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        &.next {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        &.active {
+            background-color: #aaa;
+        }
+    }
+}

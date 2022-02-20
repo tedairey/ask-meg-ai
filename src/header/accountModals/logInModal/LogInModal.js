@@ -2,14 +2,14 @@ import React, { useState, useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './LogInModal.scss';
+import { loginUser } from '../../../config/service/UserService';
 
 function LogInModal(props) {
     const [email, setEmail] = useState(''),
-        [password, setPassword] = useState('')
-
-    const errormsg = useRef();
-    const emailbox = useRef();
-    const passwordbox = useRef();
+        [password, setPassword] = useState(''),
+        errormsg = useRef(),
+        emailbox = useRef(),
+        passwordbox = useRef();
 
     const onEmailChange = (event) => {
         setEmail(event.target.value)
@@ -20,21 +20,14 @@ function LogInModal(props) {
     }
 
     const validateLogin = () => {
-        fetch("http://localhost:8088/" + email)
-            .then(res => res.json())
-            .then(user => {
-                if (!user || !email || user.password != password) {
-                    errormsg.current.style.display = 'block';
-                    emailbox.current.style.borderColor = 'red';
-                    passwordbox.current.style.borderColor = 'red';
-                    return false;
-                }
-                else {
-                    props.closeLogin();
-                    props.setLogin(user);
-                }
+        loginUser(email, password)
+            .then(res => {
+                props.setLogin(res);
             })
             .catch(err => {
+                errormsg.current.style.display = 'block';
+                emailbox.current.style.borderColor = 'red';
+                passwordbox.current.style.borderColor = 'red';
                 return false;
             });
     }
@@ -47,9 +40,9 @@ function LogInModal(props) {
 
     return (
         <span id="log-in-modal">
-            <a id="log-in" href="#" onClick={props.showLogin}>
-                Log In
-            </a>
+            <button id="log-in" className='link' onClick={props.showLogin}>
+                Login
+            </button>
 
             <Modal show={props.loginModal} onHide={props.closeLogin}>
                 <Modal.Header closeButton>
@@ -70,11 +63,15 @@ function LogInModal(props) {
                     </span>
                 </Modal.Body>
                 <Modal.Footer>
-                    Don't Have an Account?
-                    <a href="#" onClick={props.handleRegister}>
-                        Register
-                    </a>
-                    <br/>
+                    {!props.isAppUser && <>
+                        <div className='login-modal-footer'>
+                            Don't Have an Account?
+                            <a className='btn learn-more' href='https://testflight.apple.com/join/bYiSDeWg'>
+                                Get The App
+                            </a>
+                        </div>
+                        <br/>
+                    </>}
                     <Button variant="primary" onClick={validateLogin}>
                         Log In
                     </Button>

@@ -3,17 +3,59 @@
 .new-post-container {
     border: 1px solid black;
     border-radius: 7px;
-    background: rgba(13, 167, 175, 0.3);
+    background: white;
     margin-top: 20px;
     padding: 30px 30px;
+    .topic {
+        border: 1px solid black;
+        border-radius: 5px;
+        color: grey;
+        margin-bottom: 20px;
+        padding: 3px 5px;
+    }
+    .topic-error {
+        margin-bottom: 3px;
+        color: red;
+        display: none;
+    }
+    .blog-title {
+        padding: 3px 5px;
+        font-size: 20px;
+        width: 80%;
+        resize: none;
+        height: 38px;
+        margin-bottom: 15px;
+    }
+    
+    .blog-authors {
+        width: 80%;
+        height: 38px;
+        margin-bottom: 15px;
+    }
+    
+    .blog-body {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    @media (max-width: 767px) {
+        &.page {
+            background: $megBlue;
+        }
+    }
 }
 
 .modal-body { 
     .blog-posts-header {
         display: none;
     }
-    .new-post-container {
-        background: $megBlue;
+    .new-post {
+        text-align: left;
+        .new-post-container {
+            border: none;
+            margin-top: 0px;
+            padding-left: 5px;
+        }
     }
 }
 
@@ -23,23 +65,9 @@
     }
     textarea {
         padding: 3px 5px;
-        border: 1px solid grey;
+        border: 1px solid black;
         border-radius: 5px;
     }
-}
-
-.blog-title {
-    padding: 3px 5px;
-    font-size: 20px;
-    width: 80%;
-    resize: none;
-    height: 38px;
-    margin-bottom: 20px;
-}
-
-.blog-body {
-    width: 100%;
-    margin-bottom: 20px;
 }
 
 .submit-post {

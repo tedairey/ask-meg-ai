@@ -1,0 +1,120 @@
+.landing-page {
+    color: #333;
+    .title {
+        background: url('//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/megai/bxmnei-premia-header-bg_1000000000000000000028.png');
+        padding: 35px 45px 0px;
+        width: calc(100vw - 2px);
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        color: #fff;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 531px;
+        .left-column {
+            margin-top: 75px; 
+            padding-right: 75px;
+            padding-left: 75px;
+            @media (max-width: 767px) {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                padding-right: 15px;
+                padding-left: 15px;
+            }
+        }
+        @media (max-width: 767px) {
+            width: calc(100vw + 17px);
+            text-align: center;
+        }
+        .iphone-container {
+            background: url('../homePageImages/iphone-image.png');
+            background-size: 1140px 800px;
+            height: 496px;
+            width: 100%;
+            background-position: -385px -23px;
+            background-repeat: no-repeat;
+            @media (max-width: 767px) {
+                height: 375px;
+                background-size: 826px 800px;
+                width: 100%;
+                background-position: -272px -23px;
+            }
+        }
+        .iphone-image {
+            position: absolute;
+            left: 44px;
+            top: 75px;
+            height: 421px;
+            border-radius: 28px 28px 0px 0px;
+            @media (max-width: 767px) {
+                height: 300px;
+            }
+        }
+        .get-the-app {
+            text-align: left;
+            @media (max-width: 767px) {
+                text-align: center;
+            }
+        }
+    }
+    .landing-page-text {
+        margin-top: 531px;
+        text-align: center;
+        color: #333;
+        .landing-page-header {
+            color: #f90;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        hr {
+            border-width: 5px;
+            width: 50px;
+        }
+        .iphone-message {
+            border: 1px solid #333;
+            padding-bottom: 25px;
+            max-width: 600px;
+            margin: auto auto 30px;
+            .iphone-header {
+                font-size: 18px;
+                font-weight: bold;
+                border-bottom: 1px solid #333;
+                padding: 10px 25px;
+                color: #fff;
+                background-color: #7c5295;
+                position: relative;
+                top: -1px;
+                margin-right: -1px;
+            }
+            .steps {
+                text-align: left;
+                margin-left: 45px;
+                hr {
+                    margin: 10px 0px 10px 20px;
+                    border-width: 3px
+                }
+                margin-bottom: 30px
+            }
+        }
+    }
+    .footnote {
+        margin-top: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+    @media (max-width: 767px) {
+        .title {
+            height: inherit;
+        }
+        .right-column {
+            display: flex;
+            justify-content: center;
+            .iphone-image {
+                //left: inherit
+            }
+        }
+        .landing-page-text {
+            margin-top: 785px;
+        }
+    }
+}

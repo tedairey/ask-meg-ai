@@ -1,0 +1,33 @@
+.healthy-options {
+    background-color: white;
+    margin: 20px auto 50px;
+    max-width: 650px;
+    .options-bubbles {
+        display: flex;
+        justify-content: center;
+        gap: 0.5em;
+        margin-bottom: 15px;
+        .bubble {
+            border-radius: 10%;
+            border: none;
+            background-color: transparent;
+            flex: 25% 1 0;
+            padding: 0px;
+            .healthy-image {
+                width: 100%;
+            }
+            .options-label {
+                margin-bottom: 0px;
+                white-space: nowrap;
+                font-size: 14px;
+                cursor: inherit;
+            }
+            &:hover {
+                font-weight: bold;
+            }
+        }
+        .active {
+            font-weight: bold;
+        }
+    }
+}
