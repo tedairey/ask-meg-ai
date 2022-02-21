@@ -21,7 +21,7 @@
 # teamPhotos
 public/teamPhotos/
 
-#config
+# config
 **/config
 
 npm-debug.log*

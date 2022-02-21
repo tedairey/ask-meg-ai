@@ -3,7 +3,6 @@ import './ShoppingList.scss';
 import { getShoppingList, removeFromShoppingList, addToShoppingList } from '../../config/service/FoodService';
 import { useMediaQuery } from 'react-responsive';
 import { AppUserContext, UserContext } from '../../context/UserContext';
-import { Link } from 'react-router-dom';
 
 function ShoppingList(props) {
 
@@ -96,15 +95,11 @@ function ShoppingList(props) {
 
     return (
         <div className='shopping-list' ref={shoppingListRef}>
-            <h3 className='shopping-list-title'>Your Shopping List</h3>
             {isLoaded ?
                 <ul className='list-container'>
                     {currentList}
                     <input placeholder='Add an item...' className='add-item' value={newItem} onChange={onItemChange}/>
                     <button className='btn add-item-button' onClick={addItem}>{isSmall ? 'Add' : 'Add Item'}</button>
-                    <Link to={'/healthy-options' + (userToken ? ('/' + userToken) : '')} className='healthy-link'>
-                        Go to healthy foods
-                    </Link>
                 </ul> :
                 <div className='text-center'>
                     <div className='spinner-grow' role='status'>

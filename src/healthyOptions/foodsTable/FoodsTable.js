@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import './FoodsTable.scss';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { addToShoppingList, removeFromShoppingList, getShoppingList } from '../../config/service/FoodService';
-import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
@@ -140,18 +139,6 @@ function FoodsTable (props) {
                     <tbody>
                         {tableData}
                     </tbody>
-                    
-                    {((user && user.shoppingId) || props.userToken) &&
-                        <tfoot>
-                            <tr>
-                                <td colSpan='2'>
-                                    <Link to={'/shopping-list' + (props.userToken ? ('/' + props.userToken) : '')}>
-                                        Go to shopping list
-                                    </Link>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    }
                 </table> :
                 <div className='text-center'>
                     <div className='spinner-grow' role='status'>
