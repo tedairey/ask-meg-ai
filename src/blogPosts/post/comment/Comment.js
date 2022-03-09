@@ -7,7 +7,6 @@ import { BsPencil } from 'react-icons/bs';
 import { UserContext } from '../../../context/UserContext';
 import { Modal, Button } from 'react-bootstrap';
 import NewComment from '../newComment/NewComment';
-import Endpoint from '../../../config/Endpoint';
 
 function Comment (props) {
 

@@ -8,111 +8,45 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 function FoodsTable (props) {
 
-    const [tableData, setTableData] = useState(null),
+    const [list, setList] = useState([]),
+        { data, userToken } = props,
         { user } = useContext(UserContext);
     
     useEffect(() => {
-        if (props.data) {
+        if (data) {
             props.setIsLoaded(false);
-            if ((user && user.shoppingId) || props.userToken) {
-                getShoppingList((user && user.shoppingId) || props.userToken)
-                    .then(list => {
-                        formatTable(list);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    }) 
-            } 
-            else {
-                formatTable();
+            if ((user && user.shoppingId) || userToken) {
+                fetchShoppingList()
             }
         }   
     }, [props.data, user])
 
-    const formatTable = (list) => {
-        const tempTableData = [];
-        let index = 0;
-        for (const meal in props.data) {
-            tempTableData.push(
-                <tr key={index} grouplength={props.data[meal].length}>
-                    <td colSpan='2'>
-                        <strong>{meal}</strong>
-                        {list &&
-                            <span className='shopping-list-link'>
-                                Add to shopping list?
-                            </span>
-                        }
-                    </td>
-                </tr>
-            );
-            index++;
-            props.data[meal].forEach(food => {
-                if (food.description) {
-                    tempTableData.push(
-                        <tr key={index}>
-                            <td>
-                                <span>
-                                    <OverlayTrigger
-                                        key={'tooltip-' + food.nutrients}
-                                        placement={'top'}
-                                        overlay={
-                                            <Tooltip>
-                                                {food.nutrients}
-                                            </Tooltip>
-                                        }
-                                    >
-                                        <span>{food.description}</span>
-                                    </OverlayTrigger>
-                                </span>
-                            </td>
-                            {list &&
-                                <td className='add-remove'>
-                                    <button className={'add' + (list.includes(food.description) ? ' d-none' : '')} 
-                                        onClick={(e) => addItem(e, food.description)}>
-                                        <FaPlus/>
-                                    </button>
-                                    <button className={'remove' + (list.includes(food.description) ? '' : ' d-none')} 
-                                        onClick={(e) => removeItem(e, food.description)}>
-                                        <FaMinus/>
-                                    </button>
-                                </td>
-                            }
-                        </tr>
-                    );
-                    index++;
-                }
-            });
-        }
-        setTableData(tempTableData);
-        props.setIsLoaded(true);
+    const fetchShoppingList = () => {
+        getShoppingList((user && user.shoppingId) || userToken)
+            .then(list => {
+                setList(list);
+                props.setIsLoaded(true);
+            })
+            .catch(err => {
+                console.log(err);
+                props.setIsLoaded(true);
+            }) 
     }
 
-    const addItem = (event, description) => {
-        let tab = event.target.parentElement;
-        while (tab.nodeName !== 'TD') {
-            tab = tab.parentElement;
-        }
-        tab.children[1].classList.remove('d-none');
-        tab.children[0].classList.add('d-none');
+    const addItem = (description) => {
         addToShoppingList(description, (user && user.shoppingId) || props.userToken)
             .then(res => {
-                //success
+                fetchShoppingList()
             })
             .catch(err => {
                 console.log(err);
             });
     }
 
-    const removeItem = (event, description) => {
-        let tab = event.target.parentElement;
-        while (tab.nodeName !== 'TD') {
-            tab = tab.parentElement;
-        }
-        tab.children[1].classList.add('d-none');
-        tab.children[0].classList.remove('d-none');
+    const removeItem = (description) => {
         removeFromShoppingList(description, (user && user.shoppingId) || props.userToken)
             .then(res => {
-                //success
+                fetchShoppingList()
             })
             .catch(err => {
                 console.log(err);
@@ -138,20 +72,52 @@ function FoodsTable (props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {tableData}
+                        {Object.entries(data).map(([meal, foods], index) => 
+                            <>
+                                <tr key={index} grouplength={data[meal].length}>
+                                    <td colSpan='2'>
+                                        <strong>{meal}</strong>
+                                        {list &&
+                                            <span className='shopping-list-link'>
+                                                Add to shopping list?
+                                            </span>
+                                        }
+                                    </td>
+                                </tr>
+                                {foods.map((food, index) =>
+                                    <tr key={index}>
+                                        <td>
+                                            <span>
+                                                <OverlayTrigger
+                                                    key={'tooltip-' + index}
+                                                    placement={'top'}
+                                                    overlay={
+                                                        <Tooltip>
+                                                            {food.nutrients}
+                                                        </Tooltip>
+                                                    }
+                                                >
+                                                    <span key={index}>{food.description}</span>
+                                                </OverlayTrigger>
+                                            </span>
+                                        </td>
+                                        {list &&
+                                            <td className='add-remove'>
+                                                <button className={'add' + (list.includes(food.description) ? ' d-none' : '')} 
+                                                    onClick={(e) => addItem(food.description)}>
+                                                    <FaPlus/>
+                                                </button>
+                                                <button className={'remove' + (list.includes(food.description) ? '' : ' d-none')} 
+                                                    onClick={(e) => removeItem(food.description)}>
+                                                    <FaMinus/>
+                                                </button>
+                                            </td>
+                                        }
+                                    </tr>
+                                )}
+                            </>
+                        )}
                     </tbody>
-                    
-                    {((user && user.shoppingId) || props.userToken) &&
-                        <tfoot>
-                            <tr>
-                                <td colSpan='2'>
-                                    <Link to={'/shopping-list' + (props.userToken ? ('/' + props.userToken) : '')}>
-                                        Go to shopping list
-                                    </Link>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    }
                 </table> :
                 <div className='text-center'>
                     <div className='spinner-grow' role='status'>
