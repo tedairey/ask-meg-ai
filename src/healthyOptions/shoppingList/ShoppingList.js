@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 function ShoppingList(props) {
 
-    const [currentList, setCurrentList] = useState(),
+    const [currentList, setCurrentList] = useState([]),
         [newItem, setNewItem] = useState(''),
         [isLoaded, setIsLoaded] = useState(false),
         isSmall = useMediaQuery({query: '(max-width: 767px)'}),
@@ -38,35 +38,16 @@ function ShoppingList(props) {
         setIsLoaded(false);
         getShoppingList((user && user.shoppingId) || userToken)
             .then(res => {
-                formatList(res);
+                setCurrentList(res);
+                setIsLoaded(true);
             })
             .catch(err => {
                 console.log(err);
+                setIsLoaded(true);
             })
     }
 
-    const formatList = (listObj) => {
-        if (!listObj) {
-            setCurrentList(<div className='text-center'>Your Shopping List is Empty</div>)
-        }
-        else {
-            const tempList = [];
-            for (const [index, item] of listObj.entries()) {
-                if (item) {
-                    tempList.push(<div className='list-item text' key={index}>
-                        {item}
-                        <span className='float-right'>
-                            <input type='checkbox' className='list-checkbox' onChange={removeItem}/>
-                        </span>
-                    </div>)
-                }
-            }
-            setCurrentList(tempList);
-            setIsLoaded(true);
-        }
-    }
-
-    const addItem = (event) => {
+    const addItem = () => {
         addToShoppingList(newItem, (user && user.shoppingId) || userToken)
             .then(res => {
                 setNewItem('');
@@ -77,13 +58,10 @@ function ShoppingList(props) {
             })
     }
 
-    const removeItem = (event) => {
-        const listItem = event.target.parentElement.parentElement;
-        removeFromShoppingList(listItem.innerText, (user && user.shoppingId) || userToken)
+    const removeItem = (item) => {
+        removeFromShoppingList(item, (user && user.shoppingId) || userToken)
             .then(res => {
-                setTimeout(() => {
-                    listItem.style.display = 'none';
-                }, 1000);
+                fetchShoppingList()
             })
             .catch(err => {
                 console.log('err');
@@ -99,7 +77,15 @@ function ShoppingList(props) {
             <h3 className='shopping-list-title'>Your Shopping List</h3>
             {isLoaded ?
                 <ul className='list-container'>
-                    {currentList}
+                    {currentList.length ? currentList.map((item, index) => 
+                        <div className='list-item text' key={index}>
+                            {item}
+                            <span className='float-right'>
+                                <input type='checkbox' className='list-checkbox' onChange={() => removeItem(item)}/>
+                            </span>
+                        </div>
+                        ) : <div className='text-center'>Your Shopping List is Empty</div>
+                    }
                     <input placeholder='Add an item...' className='add-item' value={newItem} onChange={onItemChange}/>
                     <button className='btn add-item-button' onClick={addItem}>{isSmall ? 'Add' : 'Add Item'}</button>
                     <Link to={'/healthy-options' + (userToken ? ('/' + userToken) : '')} className='healthy-link'>
