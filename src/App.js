@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect} from 'react';
+import React, { useState, useMemo } from 'react';
 import Header from './header/Header.js';
 import HomePage from './homePage/HomePage.js';
 import FAQ from './FAQ/FAQ.js';
@@ -15,6 +15,7 @@ import LandingPageA from './landingPages/LandingPageA.js';
 import LandingPageB from './landingPages/LandingPageB.js';
 import Tutorials from './tutorials/Tutorials.js';
 import HealthyOptions from './healthyOptions/HealthyOptions.js';
+import MealPlan from './mealPlan/MealPlan.js';
 import ShoppingList from './healthyOptions/shoppingList/ShoppingList.js';
 import ReactGA from 'react-ga';
 import { createBrowserHistory } from 'history';
@@ -62,6 +63,8 @@ function App() {
               <UserContext.Provider value={value}>   
                 <Route path='/healthy-options' exact component={HealthyOptions}/>
                 <Route path='/healthy-options/:handle' component={HealthyOptions}/>
+                <Route path='/meal-plan' exact component={MealPlan}/>
+                <Route path='/meal-plan/:handle' component={MealPlan}/>
                 <Route path='/shopping-list' exact component={ShoppingList}/>
                 <Route path='/shopping-list/:handle' component={ShoppingList}/>
                 <Route path='/blog-posts' component={BlogPosts}/>
