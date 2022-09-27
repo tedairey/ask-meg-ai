@@ -1,0 +1,50 @@
+.coach-reports {
+    font-size: 1.2rem;
+    max-width: 650px;
+    margin: auto;
+}
+
+.coach-reports-header {
+    margin-bottom: 20px;
+    text-align: center;
+    color: green;
+}
+
+.coach-report-greeting {
+    color: darkblue;
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1rem;
+    font-style: oblique;
+}
+
+.challenge-block {
+    background-color: darkblue;
+    color: #fff;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    .challenge-header {
+        color: yellow;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+    label {
+        font-style: oblique;
+        text-align: right;
+        display: block;
+        font-size: 1.2rem;
+        color: yellow;
+        font-weight: bold;
+    }
+}
+
+
+.dietitian-paragraph {
+    border-radius: 8px;
+    font-size: 1.2rem;
+}

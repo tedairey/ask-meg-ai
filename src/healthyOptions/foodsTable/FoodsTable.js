@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import './FoodsTable.scss';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { addToShoppingList, removeFromShoppingList, getShoppingList } from '../../config/service/FoodService';
-import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
@@ -121,7 +120,7 @@ function FoodsTable (props) {
                 </table> :
                 <div className='text-center'>
                     <div className='spinner-grow' role='status'>
-                        <span className='sr-only'>Loading...</span>
+                        <span className='sr-only'></span>
                     </div>
                 </div>
             }

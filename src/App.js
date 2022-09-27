@@ -16,6 +16,7 @@ import LandingPageB from './landingPages/LandingPageB.js';
 import Tutorials from './tutorials/Tutorials.js';
 import HealthyOptions from './healthyOptions/HealthyOptions.js';
 import MealPlan from './mealPlan/MealPlan.js';
+import CoachReports from './coachReports/CoachReports.js';
 import ShoppingList from './healthyOptions/shoppingList/ShoppingList.js';
 import ReactGA from 'react-ga';
 import { createBrowserHistory } from 'history';
@@ -65,6 +66,8 @@ function App() {
                 <Route path='/healthy-options/:handle' component={HealthyOptions}/>
                 <Route path='/meal-plan' exact component={MealPlan}/>
                 <Route path='/meal-plan/:handle' component={MealPlan}/>
+                <Route path='/coach-reports' exact component={CoachReports}/>
+                <Route path='/coach-reports/:handle' component={CoachReports}/>
                 <Route path='/shopping-list' exact component={ShoppingList}/>
                 <Route path='/shopping-list/:handle' component={ShoppingList}/>
                 <Route path='/blog-posts' component={BlogPosts}/>

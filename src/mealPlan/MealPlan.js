@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import './MealPlan.scss';
 import MealPlanTable from './MealPlanTable';
-import { useMediaQuery } from 'react-responsive';
 import { AppUserContext } from '../context/UserContext';
 import { getMealPlan } from '../config/service/FoodService';
 import { Tab, Tabs } from 'react-bootstrap';
@@ -45,6 +44,8 @@ function MealPlan(props) {
                 break;
             case '3' :
                 meal = "Dinner"
+                break;
+            default :
                 break;
         }
 

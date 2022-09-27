@@ -206,7 +206,7 @@ function Post (props){
                     comments :
                     <div className='text-center'>
                         <div className='spinner-grow' role='status'>
-                            <span className='sr-only'>Loading...</span>
+                            <span className='sr-only'></span>
                         </div>
                     </div>
                 }

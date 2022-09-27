@@ -79,16 +79,16 @@ function MealPlanTable (props) {
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='meal-plan-table-body'>
                         {data && data.food && data.food.map((food, index) => 
                             <tr key={index}>
-                                <td>
+                                <td className='day-row'>
                                     <strong>{data.day[index]}</strong>
                                 </td>
-                                <td>
+                                <td className='source-row'>
                                     {data.source[index]}
                                 </td>
-                                <td>
+                                <td className='food-row'>
                                     <span>
                                         <OverlayTrigger
                                             key={'tooltip-' + index}
@@ -104,7 +104,7 @@ function MealPlanTable (props) {
                                     </span>
                                 </td>
                                 {list &&
-                                    <td className='add-remove'>
+                                    <td className='shop-list-row add-remove'>
                                         {!list.includes(food) ?
                                             <button 
                                                 className='add' 
@@ -127,7 +127,7 @@ function MealPlanTable (props) {
                 </table> :
                 <div className='text-center'>
                     <div className='spinner-grow' role='status'>
-                        <span className='sr-only'>Loading...</span>
+                        <span className='sr-only'></span>
                     </div>
                 </div>
             }
