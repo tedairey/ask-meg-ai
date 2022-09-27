@@ -1,0 +1,21 @@
+.options-tabs {
+    margin-bottom: 10px;
+    gap: 0.25em;
+    flex-wrap: nowrap;
+    border-bottom: none;
+    & > * {
+        flex-basis: 25%;
+    }
+    .options-tab {
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        color: #337ab7;
+        &.active {
+            color: #fff;
+            background-color: #337ab7;
+        }
+    }
+}

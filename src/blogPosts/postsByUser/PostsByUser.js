@@ -188,7 +188,7 @@ function PostsByUser(props) {
             </div> :
             <div className='text-center'>
               <div ref={spinner} className='spinner-grow' role='status'>
-                <span className='sr-only'>Loading...</span>
+                <span className='sr-only'></span>
               </div>
             </div>
           }
