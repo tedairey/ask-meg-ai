@@ -1,17 +1,16 @@
 @import '../../../variables.scss';
 
-.side-menu {
-    margin: auto 10px auto 25px;
-    width: 80px;
-}
-
 @media screen and (max-width: 767px) {
     #menu-toggle {
-        float: left;
-        margin-left: 15px;
         border: none;
         background: transparent;
+        vertical-align: middle;
     }
+}
+
+.side-menu {
+    vertical-align: middle;
+    display: inline-block;
 }
 
 button.menu-link {
@@ -112,10 +111,7 @@ button.menu-link {
         }
     }
     .side-menu {
-        float: right;
-        margin: auto 0px auto -5px;
         padding: 0px;
-        width: auto;
     }
 }
 

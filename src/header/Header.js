@@ -18,13 +18,13 @@ class Header extends Component {
 
     render(){
       return (
-        <div className="header sticky">
+        <header className="header sticky">
             <MediaQuery maxWidth={767}>
                 <MobileHeader/>
             </MediaQuery>
             <MediaQuery minWidth={768}>
-                <div className='banner row'>
-                    <div className='col-auto col-md-4'>
+                <div className='banner'>
+                    <div className='logo-wrapper'>
                         <a className='header-logo' href="https://askmeg.ai">
                             <img src={logo} className="logo" alt="logo" />
                         </a>
@@ -32,12 +32,12 @@ class Header extends Component {
                             askmeg.ai
                         </Link>
                     </div>
-                    <div className='title col-md-4'>
+                    <div className='title'>
                         <span className="title-text">
                             Meet Meg
                         </span>
                     </div>
-                    <div className='log-in-menu col-auto col-md-4'>
+                    <div className='log-in-menu'>
                         <div className='log-in-menu-toggle'>
                             <span className='accounts'>
                                 <AccountModals/>
@@ -47,7 +47,7 @@ class Header extends Component {
                     </div>
                 </div>
             </MediaQuery>
-        </div>
+        </header>
       );
     }
 }

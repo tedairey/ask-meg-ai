@@ -12,17 +12,31 @@
     }
 }
 
-.header {
-    width: 100%;
-    z-index: 50;
-}
-
 .sticky {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 10;
+}
+
+.banner {
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid grey;
+    margin-right: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-wrapper, .log-in-menu {
+    flex-basis: 20%;
+}
+
+.log-in-menu {
+    text-align: right;
+    padding-right: 10px;
 }
 
 .logo {
@@ -38,16 +52,6 @@
     }
 }
 
-.banner {
-    background-color: white;
-    color: black;
-    border-bottom: 1px solid grey;
-    margin-right: 0px;
-}
-
-.modal-open {
-    //overflow: scroll;
-}
 
 .banner .title {
     font-size: 32px;
@@ -62,11 +66,11 @@
 }
 
 #menu-toggle {
-    float: right;
     margin-right: 10px;
     cursor: pointer;
     border: none;
     background: transparent;
+    vertical-align: middle;
 }
 
 @media (min-width: '768px') {
@@ -75,20 +79,9 @@
     }
 }
 
-.log-in-menu {
-    margin: auto;
-    text-align: right;
-}
-
 .accounts {
-    margin-right: 15px;
     font-size: 20px;
-}
-
-@media (min-width: '768px') {
-    .accounts {
-        margin-right: 10px;
-    }
+    vertical-align: middle;
 }
 
 .hamburger {
