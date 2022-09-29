@@ -71,9 +71,6 @@ function CoachReports(props) {
 
     return (
         <div className='coach-reports' ref={coachReportsRef}>
-            <h2 className='coach-reports-header'>
-                My Weekly Report
-            </h2>
             <h5>Created: {formatDate(reportData.created)}</h5>
             {headerParagraph && 
                 <>
